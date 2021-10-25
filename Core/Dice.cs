@@ -19,6 +19,6 @@ namespace Core
         public void Roll()
         {
             Face = _random.Next(1, _nbFaces + 1);
-        }   
+        }
     }
 }

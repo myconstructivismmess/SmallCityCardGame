@@ -41,6 +41,7 @@
     <ItemGroup>
         <Compile Include="Card.cs" />
         <Compile Include="CardColor.cs" />
+        <Compile Include="CardStack.cs" />
         <Compile Include="CardType.cs" />
         <Compile Include="Dice.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
