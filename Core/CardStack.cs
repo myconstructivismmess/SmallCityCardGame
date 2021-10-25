@@ -12,25 +12,14 @@ namespace Core {
 			_cards = new List<Card>();
 			
 			for (int i = 0; i < 6; i++) {
-				// switching trough all card colors to associate it with the correspondent cards type
-				foreach (var value in Enum.GetValues(typeof(CardColor)).Cast<CardColor>()) {
-					switch (value) {
-						case CardColor.Blue:
-							_cards.Add(new (CardType.WheatField, value));
-							_cards.Add(new (CardType.Farm, value));
-							_cards.Add(new (CardType.Forest, value));
-							_cards.Add(new (CardType.Stadium, value));
-							break;
-						case CardColor.Green:
-							_cards.Add(new (CardType.Bakery, value));
-							_cards.Add(new (CardType.GroceryStore, value));
-							break;
-						case CardColor.Red:
-							_cards.Add(new (CardType.CoffeeShop, value));
-							_cards.Add(new (CardType.Restaurant, value));
-							break;
-					}
-				}
+				_cards.Add(new WheatField());
+				_cards.Add(new Farm());
+				_cards.Add(new Forest());
+				_cards.Add(new Stadium());
+				_cards.Add(new Bakery());
+				_cards.Add(new GroceryStore());
+				_cards.Add(new Coffee());
+				_cards.Add(new Restaurant());
 			}
 		}
 
