@@ -5,7 +5,7 @@ namespace Core {
 		public string Name { get; }
 
 		private List<Card> _deck;
-		private int Wallet { get; set; }
+		public int Wallet { get; private set; }
 
 		public Player(string name) {
 			Name = name;
