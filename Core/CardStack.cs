@@ -12,18 +12,22 @@ namespace Core {
 			_cards = new List<Card>();
 			
 			for (int i = 0; i < 6; i++) {
-				_cards.Add(new WheatField());
+				if (i < 4) {
+					// Only 4 of these because of the start deck of each players
+					_cards.Add(new WheatField());
+					_cards.Add(new Bakery());
+				}
 				_cards.Add(new Farm());
 				_cards.Add(new Forest());
 				_cards.Add(new Stadium());
-				_cards.Add(new Bakery());
 				_cards.Add(new GroceryStore());
 				_cards.Add(new Coffee());
 				_cards.Add(new Restaurant());
 			}
+			Shuffle();
 		}
 
-		public void Shuffle() {
+		private void Shuffle() {
 			// This function use a random generator to order the list to shuffle it randomly
 			_cards = _cards.OrderBy(x => _random.Next()).ToList();
 		}
@@ -32,6 +36,11 @@ namespace Core {
 			Card card = _cards.Last();
 			_cards.RemoveAt(_cards.Count - 1);
 			return card;
+		}
+
+		public void ReturnCard(Card card) {
+			_cards.Add(card);
+			Shuffle();
 		}
 	}
 }

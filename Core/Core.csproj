@@ -42,8 +42,8 @@
         <Compile Include="Card.cs" />
         <Compile Include="CardColor.cs" />
         <Compile Include="CardStack.cs" />
-        <Compile Include="CardType.cs" />
         <Compile Include="Dice.cs" />
+        <Compile Include="Player.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
