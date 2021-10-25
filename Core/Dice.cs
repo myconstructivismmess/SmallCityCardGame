@@ -16,7 +16,7 @@ namespace Core
             Face = _random.Next(1, _nbFaces+1);
         }
 
-        public void Lancer()
+        public void Roll()
         {
             Face = _random.Next(1, _nbFaces + 1);
         }   
