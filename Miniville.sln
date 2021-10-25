@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{A0A81B12-AFD4-49C8-A2C4-208C12066B02}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinivilleConsole", "MinivilleConsole\MinivilleConsole.csproj", "{0376BA9C-B625-41E9-9B74-1DA2634C324F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{A0A81B12-AFD4-49C8-A2C4-208C12066B02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0A81B12-AFD4-49C8-A2C4-208C12066B02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0A81B12-AFD4-49C8-A2C4-208C12066B02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0376BA9C-B625-41E9-9B74-1DA2634C324F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0376BA9C-B625-41E9-9B74-1DA2634C324F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0376BA9C-B625-41E9-9B74-1DA2634C324F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0376BA9C-B625-41E9-9B74-1DA2634C324F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
