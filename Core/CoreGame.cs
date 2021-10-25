@@ -15,6 +15,8 @@
 			GameDice = new Dice();
 		}
 
+		public abstract void Run();
+
 		public abstract void HumanTurn();
 		
 		public abstract void ComputerTurn();
