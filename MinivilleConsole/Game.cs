@@ -16,16 +16,39 @@ namespace MinivilleConsole
         {
             while (true)
             {
+                //Human Turn
                 HumanTurn();
-                if (IsPlayerWin())
+                if (IsComputerWin() && IsPlayerWin())
                 {
-                    // Phrase de victoire du Joueur
+                    Display.EqualityDisplay(HumanPlayer,ComputerPlayer);
                 }
-
-                ComputerTurn();
-                if (IsComputerWin())
+                else if (IsPlayerWin())
                 {
-                    // Phrase de victoire du de l'IA
+                    Display.PlayerVictoryDisplay(HumanPlayer);
+                    break;
+                }
+                else if (IsComputerWin())
+                {
+                    Display.ComputerVictoryDisplay(ComputerPlayer);
+                    break;
+                }
+                
+                //Computer Turn
+                ComputerTurn();
+                
+                if (IsComputerWin() && IsPlayerWin())
+                {
+                    Display.EqualityDisplay(HumanPlayer,ComputerPlayer);
+                }
+                else if (IsPlayerWin())
+                {
+                    Display.PlayerVictoryDisplay(HumanPlayer);
+                    break;
+                }
+                else if (IsComputerWin())
+                {
+                    Display.ComputerVictoryDisplay(ComputerPlayer);
+                    break;
                 }
             }
         }
