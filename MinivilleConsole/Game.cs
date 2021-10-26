@@ -60,13 +60,16 @@ namespace MinivilleConsole
             // Display ask want to buy or saving money
             Display.AskDisplay();
             humanChoice = Console.ReadLine();
-            // If card card buy show it
+            
+            // If card player want to buy a card
             if (humanChoice == "Buy")
             {
                 while (true)
                 {
-                    // Ask what card
                     // Display card remaining
+                    
+                    // Display what card do you want to buy
+                    Display.AskCardDisplay();
                     humanChoice = Console.ReadLine();
                     try
                     {
@@ -78,7 +81,7 @@ namespace MinivilleConsole
                         Console.WriteLine("Veuillez choisir un nombre valide");
                     }
                 }
-                // Display what card do you want to buy
+                
                 
                 //Add Card
                 switch (humanChoice)

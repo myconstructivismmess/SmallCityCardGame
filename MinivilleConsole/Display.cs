@@ -22,12 +22,17 @@ namespace MinivilleConsole
 
         public static void AskDisplay()
         {
-            Console.WriteLine("Voulez-vous acheter un batiment (Buy) ou faire des economies ()");
+            Console.WriteLine("Voulez-vous acheter un batiment (Buy) ou faire des economies () ");
         }
 
         public static void EconomyDisplay()
         {
-            Console.WriteLine("Vous faites des economies ");
+            Console.WriteLine("Vous faites des economies \n");
+        }
+
+        public static void AskCardDisplay()
+        {
+            Console.WriteLine("Quel carte voulez-vous achetez (un nombre est attendue)");
         }
     }
 }
