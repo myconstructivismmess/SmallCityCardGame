@@ -5,6 +5,7 @@
 		public abstract int ActivationValue { get; }
 		public abstract int Profit { get; }
 		public abstract int Cost { get; }
+		public abstract CardType CardType { get; }
 		public abstract CardColor CardColor { get; }
 	}
 
@@ -14,6 +15,7 @@
 		public override int ActivationValue => 1;
 		public override int Profit => 1;
 		public override int Cost => 1;
+		public override CardType CardType => CardType.WheatField;
 		public override CardColor CardColor => CardColor.Blue;
 	}
 	
@@ -23,6 +25,7 @@
 		public override int ActivationValue => 1;
 		public override int Profit => 1;
 		public override int Cost => 2;
+		public override CardType CardType => CardType.Farm;
 		public override CardColor CardColor => CardColor.Blue;
 	}
 	
@@ -32,15 +35,17 @@
 		public override int ActivationValue => 2;
 		public override int Profit => 2;
 		public override int Cost => 1;
+		public override CardType CardType => CardType.Bakery;
 		public override CardColor CardColor => CardColor.Green;
 	}
 	
-	public class Coffee : Card
+	public class CoffeeShop : Card
 	{
 		public override string Name => "Coffee";
 		public override int ActivationValue => 3;
 		public override int Profit => 1;
 		public override int Cost => 2;
+		public override CardType CardType => CardType.CoffeeShop;
 		public override CardColor CardColor => CardColor.Red;
 	}
 	
@@ -50,6 +55,7 @@
 		public override int ActivationValue => 4;
 		public override int Profit => 3;
 		public override int Cost => 2;
+		public override CardType CardType => CardType.GroceryStore;
 		public override CardColor CardColor => CardColor.Green;
 	}
 	
@@ -59,6 +65,7 @@
 		public override int ActivationValue => 5;
 		public override int Profit => 1;
 		public override int Cost => 2;
+		public override CardType CardType => CardType.Forest;
 		public override CardColor CardColor => CardColor.Blue;
 	}
 	
@@ -68,6 +75,7 @@
 		public override int ActivationValue => 5;
 		public override int Profit => 2;
 		public override int Cost => 4;
+		public override CardType CardType => CardType.Restaurant;
 		public override CardColor CardColor => CardColor.Red;
 	}
 
@@ -77,6 +85,7 @@
 		public override int ActivationValue => 6;
 		public override int Profit => 4;
 		public override int Cost => 6;
+		public override CardType CardType => CardType.Stadium;
 		public override CardColor CardColor => CardColor.Blue;
 	}
 }

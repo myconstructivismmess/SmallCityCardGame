@@ -21,7 +21,7 @@ namespace Core {
 				_cards.Add(new Forest());
 				_cards.Add(new Stadium());
 				_cards.Add(new GroceryStore());
-				_cards.Add(new Coffee());
+				_cards.Add(new CoffeeShop());
 				_cards.Add(new Restaurant());
 			}
 			Shuffle();
