@@ -6,19 +6,26 @@ namespace Core
     {
         private readonly int  _nbFaces;
         private readonly Random _random;
-        public int Face;
+        public int Value;
 
 
         public Dice(int nbFaces=6)
         {
             _nbFaces = nbFaces;
             _random = new Random();
-            Face = _random.Next(1, _nbFaces+1);
+            Value = _random.Next(1, _nbFaces+1);
         }
 
         public void Roll()
         {
-            Face = _random.Next(1, _nbFaces + 1);
+            Value = _random.Next(1, _nbFaces + 1);
+        }
+        
+        public override string ToString()
+        {
+            string toString = String.Format("+---+\n| " +Value+" |\n+---+\n");
+            return toString;
+
         }
     }
 }

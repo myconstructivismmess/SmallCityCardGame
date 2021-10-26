@@ -21,11 +21,11 @@
 		
 		public abstract void ComputerTurn();
 
-		private bool IsPlayerWin() {
+		protected bool IsPlayerWin() {
 			return HumanPlayer.Wallet >= 20;
 		}
 
-		private bool IsComputerWin() {
+		protected bool IsComputerWin() {
 			return ComputerPlayer.Wallet >= 20;
 		}
 
