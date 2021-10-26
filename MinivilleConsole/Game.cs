@@ -57,6 +57,8 @@ namespace MinivilleConsole
             // Display win and loosing money
             Display.AllTransactionDisplay(gain,loss,opponentGain);
             
+            // Display Wallet
+            Display.WalletDisplay(HumanPlayer);
             // Display ask want to buy or saving money
             Display.AskDisplay();
             humanChoice = Console.ReadLine();
@@ -113,12 +115,18 @@ namespace MinivilleConsole
                         break;
                 }
                 HumanPlayer.BuyCard(Stack.PickCard(cardChoice));
+                
                 // Display card buy
                 Display.CardBuyDisplay(cardChoice);
+                // Display Wallet
+                Display.WalletDisplay(HumanPlayer);
             }
             else
             {
+                //Display economy
                 Display.EconomyDisplay();
+                // Display Wallet
+                Display.WalletDisplay(HumanPlayer);
             }
         }
 
