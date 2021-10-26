@@ -39,29 +39,28 @@ namespace MinivilleConsole
         {
             string toString = "";
             int wheatField = stack.GetCardCount(CardType.WheatField);
-            toString += $"(1) Il reste {wheatField} champs de blé \n";
+            toString += $"(1) Il reste {wheatField} champs de blé, cela coute 1\n";
             
             int farm = stack.GetCardCount(CardType.Farm);
-            toString += $"(2) Il reste {farm} ferme \n";
+            toString += $"(2) Il reste {farm} ferme, cela coute 2 \n";
             
             int bakery = stack.GetCardCount(CardType.Bakery);
-            toString += $"(3) Il reste {bakery} boulangerie \n";
+            toString += $"(3) Il reste {bakery} boulangerie, cela coute 1 \n";
             
             int coffeeShop = stack.GetCardCount(CardType.CoffeeShop);
-            toString += $"(4) Il reste {coffeeShop} café \n";
+            toString += $"(4) Il reste {coffeeShop} café, cela coute 2\n";
             
             int groceryStore = stack.GetCardCount(CardType.GroceryStore);
-            toString += $"(5) Il reste {groceryStore} superette \n";
+            toString += $"(5) Il reste {groceryStore} superette, cela coute 2\n";
             
             int forest = stack.GetCardCount(CardType.Forest);
-            toString += $"(6) Il reste {forest} foret \n";
+            toString += $"(6) Il reste {forest} foret, cela coute 2\n";
             
             int restaurant = stack.GetCardCount(CardType.Restaurant);
-            toString += $"(7) Il reste {restaurant} restaurant \n";
+            toString += $"(7) Il reste {restaurant} restaurant, cela coute 4\n";
             
             int stadium = stack.GetCardCount(CardType.Stadium);
-            toString += $"(8) Il reste {stadium} stade \n";
-            
+            toString += $"(8) Il reste {stadium} stade, cela coute 6 \n";
             Console.WriteLine(toString);
         }
 
