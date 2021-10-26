@@ -2,7 +2,7 @@
 {
     public abstract class CoreGame
     {
-        private CardStack _stack;
+        protected readonly CardStack Stack;
 		protected Player HumanPlayer { get; }
 		protected Player ComputerPlayer { get; }
 		protected Dice GameDice { get; }
@@ -11,7 +11,7 @@
         {
             HumanPlayer = new Player(playerName);
             ComputerPlayer = new Player("IA");
-            _stack = new CardStack();
+            Stack = new CardStack();
 			GameDice = new Dice();
 		}
 
