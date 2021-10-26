@@ -11,6 +11,11 @@ namespace MinivilleConsole
         {
         }
 
+        public static void TurnDisplay(Player player)
+        {
+            Console.WriteLine($"C'est à {player.Name} de jouer \n");
+        }
+        
         public static void DiceDisplay(Dice gameDice)
         {
             Console.WriteLine(gameDice.ToString());
@@ -33,7 +38,7 @@ namespace MinivilleConsole
 
         public static void AskCardDisplay()
         {
-            Console.WriteLine("Quel carte voulez-vous achetez (un nombre est attendue)");
+            Console.WriteLine("Quel carte voulez-vous achetez (un nombre est attendue) ");
         }
 
         public static void CardStackDisplay(CardStack stack)
@@ -67,12 +72,12 @@ namespace MinivilleConsole
 
         public static void CardBuyDisplay(Player player,CardType card)
         {
-            Console.WriteLine($"{player.Name} achete un(e) {card}");
+            Console.WriteLine($"{player.Name} achete un(e) {card}\n");
         }
 
         public static void WalletDisplay(Player player)
         {
-            Console.WriteLine($"{player.Name} à {player.Wallet} piece dans votre porte monnaie");
+            Console.WriteLine($"{player.Name} à {player.Wallet} piece dans votre porte monnaie\n");
         }
 
         public static void PlayerVictoryDisplay(Player player)

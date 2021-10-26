@@ -18,6 +18,7 @@ namespace MinivilleConsole
             while (true)
             {
                 //Human Turn
+                Display.TurnDisplay(HumanPlayer);
                 HumanTurn();
                 if (IsComputerWin() && IsPlayerWin())
                 {
@@ -35,6 +36,7 @@ namespace MinivilleConsole
                 }
                 
                 //Computer Turn
+                Display.TurnDisplay(ComputerPlayer);
                 ComputerTurn();
                 
                 if (IsComputerWin() && IsPlayerWin())
@@ -80,10 +82,7 @@ namespace MinivilleConsole
             
             // Display win and loosing money
             Display.AllTransactionDisplay(gain,loss,opponentGain,HumanPlayer,ComputerPlayer);
-            gain = 0;
-            loss = 0;
-            opponentGain = 0;
-            
+
             // Display Wallet
             Display.WalletDisplay(HumanPlayer);
             // Display ask want to buy or saving money
@@ -164,7 +163,8 @@ namespace MinivilleConsole
             var loss = 0;
             var opponentGain = 0;
             var tuple = new Tuple<int, int>(0, 0);
-            int choose = 0;
+            int choice = 0;
+            CardType cardChoice;
             //Roll the Dice
             GameDice.Roll();
             // Display
@@ -178,20 +178,57 @@ namespace MinivilleConsole
             loss += tuple.Item2;
             
             // Display Transaction
-            Display.AllTransactionDisplay(gain,loss,opponentGain,ComputerPlayer,HumanPlayer);
-            gain = 0;
-            loss = 0;
-            opponentGain = 0;
-            
-            //Choose randomly between buy and saving money
-            choose =_random.Next(0, 2);
+            Display.AllTransactionDisplay(gain, loss, opponentGain, ComputerPlayer, HumanPlayer);
 
-            switch (choose)
+            //Choose randomly between buy and saving money
+            choice =_random.Next(0, 2);
+
+            if (choice == 0)
             {
-                case 0:
-                    break;
-                case 1:
-                    break;
+                Display.EconomyDisplay(ComputerPlayer);
+                // Display Wallet
+                Display.WalletDisplay(ComputerPlayer);
+            }
+
+            else
+            {
+                choice =_random.Next(0, 9);
+                switch (choice)
+                {
+                    case 1:
+                        cardChoice = CardType.WheatField;
+                        break;
+                    case 2:
+                        cardChoice = CardType.Farm;
+                        break;
+                    case 3:
+                        cardChoice = CardType.Bakery;
+                        break;
+                    case 4:
+                        cardChoice = CardType.CoffeeShop;
+                        break;
+                    case 5:
+                        cardChoice = CardType.GroceryStore;
+                        break;
+                    case 6:
+                        cardChoice = CardType.Forest;
+                        break;
+                    case 7:
+                        cardChoice = CardType.Restaurant;
+                        break;
+                    case 8:
+                        cardChoice = CardType.Stadium;
+                        break;
+                    default:
+                        cardChoice = CardType.Bakery;
+                        break;
+                }
+                ComputerPlayer.BuyCard(Stack.PickCard(cardChoice));
+                
+                // Display card buy
+                Display.CardBuyDisplay(ComputerPlayer,cardChoice);
+                // Display Wallet
+                Display.WalletDisplay(ComputerPlayer);
             }
         }
     }
