@@ -67,7 +67,7 @@ namespace MinivilleConsole
                 while (true)
                 {
                     // Display card remaining
-                    
+                    Display.CardStackDisplay(Stack);
                     // Display what card do you want to buy
                     Display.AskCardDisplay();
                     humanChoice = Console.ReadLine();
@@ -81,8 +81,6 @@ namespace MinivilleConsole
                         Console.WriteLine("Veuillez choisir un nombre valide");
                     }
                 }
-                
-                
                 //Add Card
                 switch (humanChoice)
                 {
@@ -116,6 +114,7 @@ namespace MinivilleConsole
                 }
                 HumanPlayer.BuyCard(Stack.PickCard(cardChoice));
                 // Display card buy
+                Display.CardBuyDisplay(cardChoice);
             }
             else
             {
