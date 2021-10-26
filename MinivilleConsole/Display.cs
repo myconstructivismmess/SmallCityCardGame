@@ -16,9 +16,9 @@ namespace MinivilleConsole
             Console.WriteLine(gameDice.ToString());
         }
 
-        public static void AllTransactionDisplay(int gain, int loss, int opponentGain)
+        public static void AllTransactionDisplay(int gain, int loss, int opponentGain, Player player, Player opponent)
         {
-            Console.WriteLine($"Vous avez gagné [gain], vous avez perdu [loss], votre adversaire a gagné [opponentGain]\n");
+            Console.WriteLine($"{player.Name} gagne {gain}, {player.Name} perd {loss}, {opponent.Name} gagne {opponentGain}\n");
         }
 
         public static void AskDisplay()
@@ -26,9 +26,9 @@ namespace MinivilleConsole
             Console.WriteLine("Voulez-vous acheter un batiment (Buy) ou faire des economies () ");
         }
 
-        public static void EconomyDisplay()
+        public static void EconomyDisplay(Player player)
         {
-            Console.WriteLine("Vous faites des economies \n");
+            Console.WriteLine($"{player.Name} fait des economies \n");
         }
 
         public static void AskCardDisplay()
@@ -65,14 +65,14 @@ namespace MinivilleConsole
             Console.WriteLine(toString);
         }
 
-        public static void CardBuyDisplay(CardType card)
+        public static void CardBuyDisplay(Player player,CardType card)
         {
-            Console.WriteLine($"Vous acheter un(e) {card}");
+            Console.WriteLine($"{player.Name} achete un(e) {card}");
         }
 
         public static void WalletDisplay(Player player)
         {
-            Console.WriteLine($"Vous avez {player.Wallet} piece dans votre porte monnaie");
+            Console.WriteLine($"{player.Name} à {player.Wallet} piece dans votre porte monnaie");
         }
 
         public static void PlayerVictoryDisplay(Player player)
@@ -82,7 +82,7 @@ namespace MinivilleConsole
         
         public static void ComputerVictoryDisplay(Player player)
         {
-            Console.WriteLine($"L'ordinateur à gagner il a réussit à amasser {player.Wallet} pieces");
+            Console.WriteLine($"{player.Name}rà gagner il a réussit à amasser {player.Wallet} pieces");
         }
         
         public static void EqualityDisplay(Player player, Player computer)

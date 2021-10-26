@@ -7,6 +7,7 @@ namespace MinivilleConsole
 {
     public class Game : CoreGame
     {
+        private static Random _random = new Random();
         public Game(string playerName) : base(playerName)
         {
             
@@ -78,7 +79,10 @@ namespace MinivilleConsole
             loss += tuple.Item2;
             
             // Display win and loosing money
-            Display.AllTransactionDisplay(gain,loss,opponentGain);
+            Display.AllTransactionDisplay(gain,loss,opponentGain,HumanPlayer,ComputerPlayer);
+            gain = 0;
+            loss = 0;
+            opponentGain = 0;
             
             // Display Wallet
             Display.WalletDisplay(HumanPlayer);
@@ -140,14 +144,14 @@ namespace MinivilleConsole
                 HumanPlayer.BuyCard(Stack.PickCard(cardChoice));
                 
                 // Display card buy
-                Display.CardBuyDisplay(cardChoice);
+                Display.CardBuyDisplay(HumanPlayer,cardChoice);
                 // Display Wallet
                 Display.WalletDisplay(HumanPlayer);
             }
             else
             {
                 //Display economy
-                Display.EconomyDisplay();
+                Display.EconomyDisplay(HumanPlayer);
                 // Display Wallet
                 Display.WalletDisplay(HumanPlayer);
             }
@@ -156,12 +160,39 @@ namespace MinivilleConsole
         public override void ComputerTurn()
         {
             // Phrase de début de tour de l'ia
+            var gain = 0;
+            var loss = 0;
+            var opponentGain = 0;
+            var tuple = new Tuple<int, int>(0, 0);
+            int choose = 0;
             //Roll the Dice
             GameDice.Roll();
+            // Display
+            Display.DiceDisplay(GameDice);
+            
             // Card Activate Blue and Green
-            ComputerPlayer.PlayerTurn(GameDice.Value);
+            gain += ComputerPlayer.PlayerTurn(GameDice.Value);
             // Card Activate Red
-            ComputerPlayer.OpponentTurn(HumanPlayer,GameDice.Value);
+            tuple = ComputerPlayer.OpponentTurn(HumanPlayer,GameDice.Value);
+            opponentGain += tuple.Item1;
+            loss += tuple.Item2;
+            
+            // Display Transaction
+            Display.AllTransactionDisplay(gain,loss,opponentGain,ComputerPlayer,HumanPlayer);
+            gain = 0;
+            loss = 0;
+            opponentGain = 0;
+            
+            //Choose randomly between buy and saving money
+            choose =_random.Next(0, 2);
+
+            switch (choose)
+            {
+                case 0:
+                    break;
+                case 1:
+                    break;
+            }
         }
     }
 }
