@@ -45,34 +45,53 @@ namespace MinivilleConsole
         {
             string toString = "";
             int wheatField = stack.GetCardCount(CardType.WheatField);
-            toString += $"(1) Il reste {wheatField} champs de blé, cela coute 1 piece\n";
+            if (wheatField <= 0)
+                toString += $"(1) Il reste {wheatField} champs de blé, cela coute 1 piece.\n";
             
             int farm = stack.GetCardCount(CardType.Farm);
-            toString += $"(2) Il reste {farm} ferme, cela coute 2 pieces\n";
+            if (farm <= 0)
+                toString += $"(2) Il reste {farm} ferme, cela coute 2 pieces.\n";
             
             int bakery = stack.GetCardCount(CardType.Bakery);
-            toString += $"(3) Il reste {bakery} boulangerie, cela coute 1 piece\n";
+            if (bakery <= 0)
+                toString += $"(3) Il reste {bakery} boulangerie, cela coute 1 piece.\n";
             
             int coffeeShop = stack.GetCardCount(CardType.CoffeeShop);
-            toString += $"(4) Il reste {coffeeShop} café, cela coute 2 pieces\n";
+            if (coffeeShop <= 0)
+                toString += $"(4) Il reste {coffeeShop} café, cela coute 2 pieces.\n";
             
             int groceryStore = stack.GetCardCount(CardType.GroceryStore);
-            toString += $"(5) Il reste {groceryStore} superette, cela coute 2 pieces\n";
+            if (groceryStore <= 0)
+                toString += $"(5) Il reste {groceryStore} superette, cela coute 2 pieces.\n";
             
             int forest = stack.GetCardCount(CardType.Forest);
-            toString += $"(6) Il reste {forest} foret, cela coute 2 pieces\n";
+            if (forest <= 0)
+                toString += $"(6) Il reste {forest} foret, cela coute 2 pieces.\n";
             
             int restaurant = stack.GetCardCount(CardType.Restaurant);
-            toString += $"(7) Il reste {restaurant} restaurant, cela coute 4 pieces\n";
+            if (restaurant <= 0)
+                toString += $"(7) Il reste {restaurant} restaurant, cela coute 4 pieces.\n";
             
             int stadium = stack.GetCardCount(CardType.Stadium);
-            toString += $"(8) Il reste {stadium} stade, cela coute 6 pieces\n";
+            if (stadium <= 0)
+                toString += $"(8) Il reste {stadium} stade, cela coute 6 pieces.\n";
+            
             Console.WriteLine(toString);
         }
 
         public static void CardBuyDisplay(Player player,CardType card)
         {
-            Console.WriteLine($"{player.Name} achete un(e) {card}\n");
+            Console.WriteLine($"{player.Name} achete un(e) {card}.");
+        }
+
+        public static void CardMissingDisplay(CardType card)
+        {
+            Console.WriteLine($"{card} n'est plus dans le paquet.");
+        }
+
+        public static void PlayerIsPoor()
+        {
+            Console.WriteLine($"Vous n'avez pas l'argent requis.");
         }
 
         public static void WalletDisplay(Player player)
