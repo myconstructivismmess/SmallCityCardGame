@@ -11,7 +11,19 @@ namespace Core
 		CoffeeShop,
 		GroceryStore,
 		Forest,
+		BusinessCenter,
+		Stadium,
+		TelevisionChannel,
+		CheeseShop,
+		FurnitureShop,
+		Mine,
 		Restaurant,
-		Stadium
+		Orchard,
+		Market,
+		
+		Station,
+		ShoppingCenter,
+		RadioTower,
+		ThemePark,
 	}
 }
