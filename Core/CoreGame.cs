@@ -5,14 +5,16 @@
         protected readonly CardStack Stack;
 		protected Player HumanPlayer { get; }
 		protected Player ComputerPlayer { get; }
-		protected Dice GameDice { get; }
+		protected Dice GameDiceOne { get; }
+		protected Dice GameDiceTwo { get; }
 
         protected CoreGame(string playerName)
         {
             HumanPlayer = new Player(playerName);
             ComputerPlayer = new Player("IA");
             Stack = new CardStack();
-			GameDice = new Dice();
+			GameDiceOne = new Dice();
+			GameDiceTwo = new Dice();
 		}
 
 		public abstract void Run();
