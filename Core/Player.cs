@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Core {
 	public class Player {
@@ -20,7 +21,7 @@ namespace Core {
 			// To call when it's the actual object turn
 			int gain = 0;
 			foreach (var card in Deck) {
-				if (card.ActivationValue == diceValue) {
+				if (card.ActivationValue.Contains(diceValue)) {
 					switch (card.CardColor) {
 						case CardColor.Blue:
 						case CardColor.Green:
@@ -39,7 +40,7 @@ namespace Core {
 			int gain = 0;
 			int loss = 0;
 			foreach (var card in opponent.Deck) {
-				if (card.ActivationValue == diceValue) {
+				if (card.ActivationValue.Contains(diceValue)) {
 					switch (card.CardColor) {
 						case CardColor.Blue:
 							opponent.Wallet += card.Profit;
