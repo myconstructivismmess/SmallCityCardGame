@@ -24,6 +24,6 @@ namespace Core
 		Station,
 		ShoppingCenter,
 		RadioTower,
-		ThemePark,
+		ThemePark
 	}
 }
