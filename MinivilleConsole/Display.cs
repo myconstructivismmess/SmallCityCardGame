@@ -43,7 +43,8 @@ namespace MinivilleConsole
 
         public static void CardStackDisplay(CardStack stack)
         {
-            string toString = "";
+            string toString = "(0) Économiser.\n";
+
             int wheatField = stack.GetCardCount(CardType.WheatField);
             if (wheatField > 0)
                 toString += $"(1) Il reste {wheatField} champs de blé, cela coute 1 piece.\n";
