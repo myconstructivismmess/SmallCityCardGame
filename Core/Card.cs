@@ -1,4 +1,7 @@
-﻿namespace Core {
+﻿using System;
+using System.Net.Configuration;
+
+namespace Core {
 	public abstract class Card
 	{
 		public abstract string Name { get; }
@@ -95,6 +98,52 @@
 		public override int Cost => 6;
 		public override CardType CardType => CardType.Stadium;
 		public override CardColor CardColor => CardColor.Blue;
+		public override CardCategory CardCategory => CardCategory.Building;
+	}
+	
+	// Monument
+	public abstract class Monument
+	{
+		public abstract string Name { get; }
+		public abstract int Cost { get; }
+		public abstract bool Build { get; }
+		public abstract CardType CardType { get; }
+		public abstract CardCategory CardCategory { get; }
+	}
+
+	public class Station : Monument
+	{
+		public override string Name => "Station";
+		public override int Cost => 4;
+		public override bool Build => false;
+		public override CardType CardType => CardType.Station;
+		public override CardCategory CardCategory => CardCategory.Building;
+	}
+	
+	public class ShoppingCenter: Monument
+	{
+		public override string Name => "ShoppingCenter";
+		public override int Cost => 10;
+		public override bool Build => false;
+		public override CardType CardType => CardType.ShoppingCenter;
+		public override CardCategory CardCategory => CardCategory.Building;
+	}
+	
+	public class RadioTower: Monument
+	{
+		public override string Name => "RadioTower";
+		public override int Cost => 22;
+		public override bool Build => false;
+		public override CardType CardType => CardType.RadioTower;
+		public override CardCategory CardCategory => CardCategory.Building;
+	}
+	
+	public class ThemePark: Monument
+	{
+		public override string Name => "ThemePark";
+		public override int Cost => 16;
+		public override bool Build => false;
+		public override CardType CardType => CardType.ThemePark;
 		public override CardCategory CardCategory => CardCategory.Building;
 	}
 }

@@ -70,18 +70,18 @@ namespace MinivilleConsole
             CardType cardChoice = CardType.Bakery;
 
             //Roll the Dice
-            GameDice.Roll();
+            GameDiceOne.Roll();
 
             // Display of the Dice
-            Display.DiceDisplay(GameDice);
+            Display.DiceDisplay(GameDiceOne);
 
             // Card Activate Red
-            tuple = HumanPlayer.OpponentTurn(ComputerPlayer, GameDice.Value);
+            tuple = HumanPlayer.OpponentTurn(ComputerPlayer,GameDiceOne.Value);
             opponentGain += tuple.Item1;
             loss += tuple.Item2;
 
             // Card Activate Blue and Green
-            gain += HumanPlayer.PlayerTurn(GameDice.Value);
+            gain += HumanPlayer.PlayerTurn(GameDiceOne.Value);
 
             // Display win and loosing money
             Display.AllTransactionDisplay(gain, loss, opponentGain, HumanPlayer, ComputerPlayer);
@@ -249,17 +249,17 @@ namespace MinivilleConsole
             int choice = 0;
             CardType cardChoice = CardType.Bakery;
             //Roll the Dice
-            GameDice.Roll();
+            GameDiceOne.Roll();
             // Display
-            Display.DiceDisplay(GameDice);
+            Display.DiceDisplay(GameDiceOne);
 
             // Card Activate Red
-            tuple = ComputerPlayer.OpponentTurn(HumanPlayer, GameDice.Value);
+            tuple = ComputerPlayer.OpponentTurn(HumanPlayer, GameDiceOne.Value);
             opponentGain += tuple.Item1;
             loss += tuple.Item2;
 
             // Card Activate Blue and Green
-            gain += ComputerPlayer.PlayerTurn(GameDice.Value);
+            gain += ComputerPlayer.PlayerTurn(GameDiceOne.Value);
 
             // Display Transaction
             Display.AllTransactionDisplay(gain, loss, opponentGain, ComputerPlayer, HumanPlayer);
