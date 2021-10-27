@@ -5,28 +5,32 @@ namespace Core {
 	public class Player {
 		public string Name { get; }
 
-		private List<Card> _deck;
+		protected List<Card> Deck;
 		public int Wallet { get; private set; }
 
 		public Player(string name) {
 			Name = name;
-			_deck = new List<Card>();
+			Deck = new List<Card>();
+			Deck.Add(new WheatField());
+			Deck.Add(new Bakery());
 			Wallet = 3;
 		}
 
 		public int PlayerTurn(int diceValue) {
 			// To call when it's the actual object turn
 			int gain = 0;
-			foreach (var card in _deck) {
+			foreach (var card in Deck) {
 				if (card.ActivationValue == diceValue) {
 					switch (card.CardColor) {
-						case CardColor.Blue | CardColor.Green:
-							Wallet += card.Profit;
+						case CardColor.Blue:
+						case CardColor.Green:
 							gain += card.Profit;
 							break;
 					}
 				}
 			}
+
+			Wallet += gain;
 			return gain;
 		}
 
@@ -34,18 +38,25 @@ namespace Core {
 			// To call when it's the opponent player
 			int gain = 0;
 			int loss = 0;
-			foreach (var card in _deck) {
+			foreach (var card in opponent.Deck) {
 				if (card.ActivationValue == diceValue) {
 					switch (card.CardColor) {
 						case CardColor.Blue:
-							Wallet += card.Profit;
+							opponent.Wallet += card.Profit;
 							gain += card.Profit;
 							break;
 						case CardColor.Red:
-							opponent.Wallet -= card.Profit;
-							Wallet += card.Profit;
+							Wallet -= card.Profit;
+							opponent.Wallet += card.Profit;
 							loss += card.Profit;
 							gain += card.Profit;
+							if (Wallet < 0)
+							{
+								opponent.Wallet += Wallet;
+								loss += Wallet;
+								gain += Wallet;
+								Wallet = 0;
+							}
 							break;
 					}
 				}
@@ -56,7 +67,14 @@ namespace Core {
 
 		public void BuyCard(Card card) {
 			Wallet -= card.Cost;
-			_deck.Add(card);
+			Deck.Add(card);
+		}
+
+		public void ListDeck()
+		{
+			foreach (var card in Deck)
+				Console.Write("| " + card.Name + " ");
+			Console.Write("|\n");
 		}
 	}
 }

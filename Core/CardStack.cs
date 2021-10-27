@@ -43,5 +43,10 @@ namespace Core {
 
 			return result;
 		}
+
+		public int GetStackSize()
+		{
+			return _cards.Count();
+		}
 	}
 }

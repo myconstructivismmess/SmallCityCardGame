@@ -73,152 +73,178 @@ namespace MinivilleConsole
             // Display of the Dice
             Display.DiceDisplay(GameDice);
             
-            // Card Activate Blue and Green
-            gain += HumanPlayer.PlayerTurn(GameDice.Value);
-            
             // Card Activate Red
             tuple = HumanPlayer.OpponentTurn(ComputerPlayer,GameDice.Value);
             opponentGain += tuple.Item1;
             loss += tuple.Item2;
             
+            // Card Activate Blue and Green
+            gain += HumanPlayer.PlayerTurn(GameDice.Value);
+
+            //HumanPlayer.Wallet += gain;
+            //HumanPlayer.Wallet -= loss;
+            //ComputerPlayer.Wallet += opponentGain;
+            
             // Display win and loosing money
             Display.AllTransactionDisplay(gain,loss,opponentGain,HumanPlayer,ComputerPlayer);
 
-            // Display Wallet
-            Display.WalletDisplay(HumanPlayer);
-            // Display ask want to buy or saving money
-            Display.AskDisplay();
-            humanChoice = Console.ReadLine();
-            
-            // If card player want to buy a card
-            if (humanChoice == "Buy")
+            // If the stack isn't empty
+            if (Stack.GetStackSize() > 0)
             {
-                while (!proceed)
-                {
-                    // Display card remaining
-                    Display.CardStackDisplay(Stack);
-                    // Display what card do you want to buy
-                    Display.AskCardDisplay();
-                    humanChoice = Console.ReadLine();
-                    try
-                    {
-                        if (int.Parse(humanChoice) >= 1 && int.Parse(humanChoice) <= 8)
-                        {
-                            switch (humanChoice)
-                            {
-                                case "1":
-                                    if (HumanPlayer.Wallet >= 1)
-                                    {
-                                        cardChoice = CardType.WheatField;
-                                        if (Stack.GetCardCount(CardType.WheatField) > 0)
-                                            proceed = true;
-                                        else
-                                            Display.CardMissingDisplay(cardChoice);
-                                    }
-                                    else
-                                        Display.PlayerIsPoor();
-                                    break;
-                                case "2":
-                                    if (HumanPlayer.Wallet >= 2)
-                                    {
-                                        cardChoice = CardType.Farm;
-                                        if (Stack.GetCardCount(CardType.Farm) > 0)
-                                            proceed = true;
-                                        else
-                                            Display.CardMissingDisplay(cardChoice);
-                                    }
-                                    else
-                                        Display.PlayerIsPoor();
-                                    break;
-                                case "3":
-                                    if (HumanPlayer.Wallet >= 1)
-                                    {
-                                        cardChoice = CardType.Bakery;
-                                        if (Stack.GetCardCount(CardType.Bakery) > 0)
-                                            proceed = true;
-                                        else
-                                            Display.CardMissingDisplay(cardChoice);
-                                    }
-                                    else
-                                        Display.PlayerIsPoor();
-                                    break;
-                                case "4":
-                                    if (HumanPlayer.Wallet >= 2)
-                                    {
-                                        cardChoice = CardType.CoffeeShop;
-                                        if (Stack.GetCardCount(CardType.CoffeeShop) > 0)
-                                            proceed = true;
-                                        else
-                                            Display.CardMissingDisplay(cardChoice);
-                                    }
-                                    else
-                                        Display.PlayerIsPoor();
-                                    break;
-                                case "5":
-                                    if (HumanPlayer.Wallet >= 2)
-                                    {
-                                        cardChoice = CardType.GroceryStore;
-                                        if (Stack.GetCardCount(CardType.GroceryStore) > 0)
-                                            proceed = true;
-                                        else
-                                            Display.CardMissingDisplay(cardChoice);
-                                    }
-                                    else
-                                        Display.PlayerIsPoor();
-                                    break;
-                                case "6":
-                                    if (HumanPlayer.Wallet >= 2)
-                                    {
-                                        cardChoice = CardType.Forest;
-                                        if (Stack.GetCardCount(CardType.Forest) > 0)
-                                            proceed = true;
-                                        else
-                                            Display.CardMissingDisplay(cardChoice);
-                                    }
-                                    else
-                                        Display.PlayerIsPoor();
-                                    break;
-                                case "7":
-                                    if (HumanPlayer.Wallet >= 4)
-                                    {
-                                        cardChoice = CardType.Restaurant;
-                                        if (Stack.GetCardCount(CardType.Restaurant) > 0)
-                                            proceed = true;
-                                        else
-                                            Display.CardMissingDisplay(cardChoice);
-                                    }
-                                    else
-                                        Display.PlayerIsPoor();
-                                    break;
-                                case "8":
-                                    if (HumanPlayer.Wallet >= 6)
-                                    {
-                                        cardChoice = CardType.Stadium;
-                                        if (Stack.GetCardCount(CardType.Stadium) > 0)
-                                            proceed = true;
-                                        else
-                                            Display.CardMissingDisplay(cardChoice);
-                                    }
-                                    else
-                                        Display.PlayerIsPoor();
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("Veuillez choisir un nombre valide");
-                    }
-                }
-                //Add Card
-                HumanPlayer.BuyCard(Stack.PickCard(cardChoice));
-                
-                // Display card buy
-                Display.CardBuyDisplay(HumanPlayer,cardChoice);
                 // Display Wallet
                 Display.WalletDisplay(HumanPlayer);
+                // Display ask want to buy or saving money
+                HumanPlayer.ListDeck();
+                Display.AskDisplay();
+                humanChoice = Console.ReadLine();
+
+                // If card player want to buy a card
+                if (humanChoice == "Buy")
+                {
+                    while (!proceed)
+                    {
+                        // Display card remaining
+                        Display.CardStackDisplay(Stack);
+                        
+                        // Display what card do you want to buy
+                        Display.AskCardDisplay();
+                        humanChoice = Console.ReadLine();
+                        try
+                        {
+                            if (int.Parse(humanChoice) >= 1 && int.Parse(humanChoice) <= 8)
+                            {
+                                switch (humanChoice)
+                                {
+                                    case "1":
+                                        if (HumanPlayer.Wallet >= 1)
+                                        {
+                                            cardChoice = CardType.WheatField;
+                                            if (Stack.GetCardCount(CardType.WheatField) > 0)
+                                                proceed = true;
+                                            else
+                                                Display.CardMissingDisplay(cardChoice);
+                                        }
+                                        else
+                                            Display.PlayerIsPoor();
+
+                                        break;
+                                    case "2":
+                                        if (HumanPlayer.Wallet >= 2)
+                                        {
+                                            cardChoice = CardType.Farm;
+                                            if (Stack.GetCardCount(CardType.Farm) > 0)
+                                                proceed = true;
+                                            else
+                                                Display.CardMissingDisplay(cardChoice);
+                                        }
+                                        else
+                                            Display.PlayerIsPoor();
+
+                                        break;
+                                    case "3":
+                                        if (HumanPlayer.Wallet >= 1)
+                                        {
+                                            cardChoice = CardType.Bakery;
+                                            if (Stack.GetCardCount(CardType.Bakery) > 0)
+                                                proceed = true;
+                                            else
+                                                Display.CardMissingDisplay(cardChoice);
+                                        }
+                                        else
+                                            Display.PlayerIsPoor();
+
+                                        break;
+                                    case "4":
+                                        if (HumanPlayer.Wallet >= 2)
+                                        {
+                                            cardChoice = CardType.CoffeeShop;
+                                            if (Stack.GetCardCount(CardType.CoffeeShop) > 0)
+                                                proceed = true;
+                                            else
+                                                Display.CardMissingDisplay(cardChoice);
+                                        }
+                                        else
+                                            Display.PlayerIsPoor();
+
+                                        break;
+                                    case "5":
+                                        if (HumanPlayer.Wallet >= 2)
+                                        {
+                                            cardChoice = CardType.GroceryStore;
+                                            if (Stack.GetCardCount(CardType.GroceryStore) > 0)
+                                                proceed = true;
+                                            else
+                                                Display.CardMissingDisplay(cardChoice);
+                                        }
+                                        else
+                                            Display.PlayerIsPoor();
+
+                                        break;
+                                    case "6":
+                                        if (HumanPlayer.Wallet >= 2)
+                                        {
+                                            cardChoice = CardType.Forest;
+                                            if (Stack.GetCardCount(CardType.Forest) > 0)
+                                                proceed = true;
+                                            else
+                                                Display.CardMissingDisplay(cardChoice);
+                                        }
+                                        else
+                                            Display.PlayerIsPoor();
+
+                                        break;
+                                    case "7":
+                                        if (HumanPlayer.Wallet >= 4)
+                                        {
+                                            cardChoice = CardType.Restaurant;
+                                            if (Stack.GetCardCount(CardType.Restaurant) > 0)
+                                                proceed = true;
+                                            else
+                                                Display.CardMissingDisplay(cardChoice);
+                                        }
+                                        else
+                                            Display.PlayerIsPoor();
+
+                                        break;
+                                    case "8":
+                                        if (HumanPlayer.Wallet >= 6)
+                                        {
+                                            cardChoice = CardType.Stadium;
+                                            if (Stack.GetCardCount(CardType.Stadium) > 0)
+                                                proceed = true;
+                                            else
+                                                Display.CardMissingDisplay(cardChoice);
+                                        }
+                                        else
+                                            Display.PlayerIsPoor();
+
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("Veuillez choisir un nombre valide");
+                        }
+                    }
+
+                    //Add Card
+                    HumanPlayer.BuyCard(Stack.PickCard(cardChoice));
+
+                    // Display card buy
+                    Display.CardBuyDisplay(HumanPlayer, cardChoice);
+                    // Display Wallet
+                    Display.WalletDisplay(HumanPlayer);
+                }
+                else
+                {
+                    //Display economy
+                    Display.EconomyDisplay(HumanPlayer);
+                    // Display Wallet
+                    Display.WalletDisplay(HumanPlayer);
+                }
             }
             else
             {
@@ -236,6 +262,7 @@ namespace MinivilleConsole
             var loss = 0;
             var opponentGain = 0;
             var tuple = new Tuple<int, int>(0, 0);
+
             int choice = 0;
             CardType cardChoice;
             //Roll the Dice
@@ -243,15 +270,21 @@ namespace MinivilleConsole
             // Display
             Display.DiceDisplay(GameDice);
             
-            // Card Activate Blue and Green
-            gain += ComputerPlayer.PlayerTurn(GameDice.Value);
             // Card Activate Red
             tuple = ComputerPlayer.OpponentTurn(HumanPlayer,GameDice.Value);
             opponentGain += tuple.Item1;
             loss += tuple.Item2;
             
+            // Card Activate Blue and Green
+            gain += ComputerPlayer.PlayerTurn(GameDice.Value);
+
+            //ComputerPlayer.Wallet += gain;
+            //ComputerPlayer.Wallet -= loss;
+            //HumanPlayer.Wallet += opponentGain;
+            
             // Display Transaction
             Display.AllTransactionDisplay(gain, loss, opponentGain, ComputerPlayer, HumanPlayer);
+            ComputerPlayer.ListDeck();
 
             //Choose randomly between buy and saving money
             choice =_random.Next(0, 2);
@@ -303,6 +336,7 @@ namespace MinivilleConsole
                 // Display Wallet
                 Display.WalletDisplay(ComputerPlayer);
             }
+            Console.ReadLine();
         }
     }
 }

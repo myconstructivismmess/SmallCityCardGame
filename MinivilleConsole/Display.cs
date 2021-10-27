@@ -87,11 +87,13 @@ namespace MinivilleConsole
         public static void CardMissingDisplay(CardType card)
         {
             Console.WriteLine($"{card} n'est plus dans le paquet.");
+            Console.ReadLine();
         }
 
         public static void PlayerIsPoor()
         {
             Console.WriteLine($"Vous n'avez pas l'argent requis.");
+            Console.ReadLine();
         }
 
         public static void WalletDisplay(Player player)
