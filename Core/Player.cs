@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Pipes;
 using System.Linq;
 
 namespace Core {
@@ -7,14 +8,22 @@ namespace Core {
 		public string Name { get; }
 
 		protected List<Card> Deck;
+		
+		private List<Monument> _monuments;
+		
 		public int Wallet { get; private set; }
 
 		public Player(string name) {
 			Name = name;
 			Deck = new List<Card>();
+			_monuments = new List<Monument>();
 			Deck.Add(new WheatField());
 			Deck.Add(new Bakery());
 			Wallet = 3;
+			_monuments.Add(new Station());
+			_monuments.Add(new ShoppingCenter());
+			_monuments.Add(new RadioTower());
+			_monuments.Add(new ThemePark());
 		}
 
 		public int PlayerTurn(int diceValue) {
@@ -30,7 +39,6 @@ namespace Core {
 					}
 				}
 			}
-
 			Wallet += gain;
 			return gain;
 		}
@@ -76,6 +84,11 @@ namespace Core {
 			foreach (var card in Deck)
 				Console.Write("| " + card.Name + " ");
 			Console.Write("|\n");
+		}
+		
+		public void BuyMonument(Monument monument) {
+			Wallet -= monument.Cost;
+			monument.Build = true;
 		}
 	}
 }
