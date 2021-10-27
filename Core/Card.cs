@@ -11,6 +11,7 @@ namespace Core {
 		public abstract CardType CardType { get; }
 		public abstract CardColor CardColor { get; }
 		public abstract CardCategory CardCategory { get; }
+		public abstract CardCategory CardProfitCat { get; }
 	}
 
 	public class WheatField : Card
@@ -22,28 +23,31 @@ namespace Core {
 		public override CardType CardType => CardType.WheatField;
 		public override CardColor CardColor => CardColor.Blue;
 		public override CardCategory CardCategory => CardCategory.Field;
+		public override CardCategory CardProfitCat => CardCategory.None;
 	}
 	
 	public class Farm : Card
 	{
 		public override string Name => "Farm";
-		public override int[] ActivationValue => new int[]{1};
+		public override int[] ActivationValue => new int[]{2};
 		public override int Profit => 1;
-		public override int Cost => 2;
+		public override int Cost => 1;
 		public override CardType CardType => CardType.Farm;
 		public override CardColor CardColor => CardColor.Blue;
 		public override CardCategory CardCategory => CardCategory.Farm;
+		public override CardCategory CardProfitCat => CardCategory.None;
 	}
 	
 	public class Bakery : Card
 	{
 		public override string Name => "Bakery";
 		public override int[] ActivationValue => new int[]{2, 3};
-		public override int Profit => 2;
+		public override int Profit => 1;
 		public override int Cost => 1;
 		public override CardType CardType => CardType.Bakery;
 		public override CardColor CardColor => CardColor.Green;
 		public override CardCategory CardCategory => CardCategory.Shop;
+		public override CardCategory CardProfitCat => CardCategory.None;
 	}
 	
 	public class CoffeeShop : Card
@@ -55,6 +59,7 @@ namespace Core {
 		public override CardType CardType => CardType.CoffeeShop;
 		public override CardColor CardColor => CardColor.Red;
 		public override CardCategory CardCategory => CardCategory.Food;
+		public override CardCategory CardProfitCat => CardCategory.None;
 	}
 	
 	public class GroceryStore : Card
@@ -66,6 +71,7 @@ namespace Core {
 		public override CardType CardType => CardType.GroceryStore;
 		public override CardColor CardColor => CardColor.Green;
 		public override CardCategory CardCategory => CardCategory.Shop;
+		public override CardCategory CardProfitCat => CardCategory.None;
 	}
 	
 	public class Forest : Card
@@ -73,10 +79,83 @@ namespace Core {
 		public override string Name => "Forest";
 		public override int[] ActivationValue => new int[]{5};
 		public override int Profit => 1;
-		public override int Cost => 2;
+		public override int Cost => 3;
 		public override CardType CardType => CardType.Forest;
 		public override CardColor CardColor => CardColor.Blue;
 		public override CardCategory CardCategory => CardCategory.Natural;
+		public override CardCategory CardProfitCat => CardCategory.None;
+	}
+	
+	public class BusinessCenter : Card
+	{
+		public override string Name => "Business Center";
+		public override int[] ActivationValue => new int[]{6};
+		public override int Profit => 4;
+		public override int Cost => 8;
+		public override CardType CardType => CardType.BusinessCenter;
+		public override CardColor CardColor => CardColor.Blue;
+		public override CardCategory CardCategory => CardCategory.Building;
+		public override CardCategory CardProfitCat => CardCategory.None;
+	}
+
+	public class Stadium : Card
+	{
+		public override string Name => "Stadium";
+		public override int[] ActivationValue => new int[]{6};
+		public override int Profit => 3;
+		public override int Cost => 6;
+		public override CardType CardType => CardType.Stadium;
+		public override CardColor CardColor => CardColor.Purple;
+		public override CardCategory CardCategory => CardCategory.Building;
+		public override CardCategory CardProfitCat => CardCategory.None;
+	}
+	
+	public class TelevisionChannel : Card
+	{
+		public override string Name => "Television Channel";
+		public override int[] ActivationValue => new int[]{6};
+		public override int Profit => 5;
+		public override int Cost => 7;
+		public override CardType CardType => CardType.TelevisionChannel;
+		public override CardColor CardColor => CardColor.Purple;
+		public override CardCategory CardCategory => CardCategory.Building;
+		public override CardCategory CardProfitCat => CardCategory.None;
+	}
+	
+	public class CheeseShop : Card
+	{
+		public override string Name => "Cheese Shop";
+		public override int[] ActivationValue => new int[]{7};
+		public override int Profit => 3;
+		public override int Cost => 5;
+		public override CardType CardType => CardType.CheeseShop;
+		public override CardColor CardColor => CardColor.Green;
+		public override CardCategory CardCategory => CardCategory.Factory;
+		public override CardCategory CardProfitCat => CardCategory.Farm;
+	}
+	
+	public class FurnitureShop : Card
+	{
+		public override string Name => "Furniture Shop";
+		public override int[] ActivationValue => new int[]{8};
+		public override int Profit => 3;
+		public override int Cost => 3;
+		public override CardType CardType => CardType.FurnitureShop;
+		public override CardColor CardColor => CardColor.Green;
+		public override CardCategory CardCategory => CardCategory.Factory;
+		public override CardCategory CardProfitCat => CardCategory.Natural;
+	}
+	
+	public class Mine : Card
+	{
+		public override string Name => "Mine";
+		public override int[] ActivationValue => new int[]{9};
+		public override int Profit => 5;
+		public override int Cost => 6;
+		public override CardType CardType => CardType.Mine;
+		public override CardColor CardColor => CardColor.Blue;
+		public override CardCategory CardCategory => CardCategory.Natural;
+		public override CardCategory CardProfitCat => CardCategory.None;
 	}
 	
 	public class Restaurant : Card
@@ -84,21 +163,35 @@ namespace Core {
 		public override string Name => "Restaurant";
 		public override int[] ActivationValue => new int[]{9, 10};
 		public override int Profit => 2;
-		public override int Cost => 4;
+		public override int Cost => 3;
 		public override CardType CardType => CardType.Restaurant;
 		public override CardColor CardColor => CardColor.Red;
 		public override CardCategory CardCategory => CardCategory.Food;
+		public override CardCategory CardProfitCat => CardCategory.None;
 	}
-
-	public class Stadium : Card
+	
+	public class Orchard : Card
 	{
-		public override string Name => "Stadium";
-		public override int[] ActivationValue => new int[]{6};
-		public override int Profit => 4;
-		public override int Cost => 6;
-		public override CardType CardType => CardType.Stadium;
+		public override string Name => "Orchard";
+		public override int[] ActivationValue => new int[]{10};
+		public override int Profit => 3;
+		public override int Cost => 3;
+		public override CardType CardType => CardType.Orchard;
 		public override CardColor CardColor => CardColor.Blue;
-		public override CardCategory CardCategory => CardCategory.Building;
+		public override CardCategory CardCategory => CardCategory.Field;
+		public override CardCategory CardProfitCat => CardCategory.None;
+	}
+	
+	public class Market : Card
+	{
+		public override string Name => "Market";
+		public override int[] ActivationValue => new int[]{11, 12};
+		public override int Profit => 2;
+		public override int Cost => 2;
+		public override CardType CardType => CardType.Market;
+		public override CardColor CardColor => CardColor.Green;
+		public override CardCategory CardCategory => CardCategory.Fruit;
+		public override CardCategory CardProfitCat => CardCategory.Farm;
 	}
 	
 	// Monument
