@@ -7,6 +7,7 @@
 		public abstract int Cost { get; }
 		public abstract CardType CardType { get; }
 		public abstract CardColor CardColor { get; }
+		public abstract CardCategory CardCategory { get; }
 	}
 
 	public class WheatField : Card
@@ -17,6 +18,7 @@
 		public override int Cost => 1;
 		public override CardType CardType => CardType.WheatField;
 		public override CardColor CardColor => CardColor.Blue;
+		public override CardCategory CardCategory => CardCategory.Field;
 	}
 	
 	public class Farm : Card
@@ -27,6 +29,7 @@
 		public override int Cost => 2;
 		public override CardType CardType => CardType.Farm;
 		public override CardColor CardColor => CardColor.Blue;
+		public override CardCategory CardCategory => CardCategory.Farm;
 	}
 	
 	public class Bakery : Card
@@ -37,6 +40,7 @@
 		public override int Cost => 1;
 		public override CardType CardType => CardType.Bakery;
 		public override CardColor CardColor => CardColor.Green;
+		public override CardCategory CardCategory => CardCategory.Shop;
 	}
 	
 	public class CoffeeShop : Card
@@ -47,6 +51,7 @@
 		public override int Cost => 2;
 		public override CardType CardType => CardType.CoffeeShop;
 		public override CardColor CardColor => CardColor.Red;
+		public override CardCategory CardCategory => CardCategory.Food;
 	}
 	
 	public class GroceryStore : Card
@@ -57,6 +62,7 @@
 		public override int Cost => 2;
 		public override CardType CardType => CardType.GroceryStore;
 		public override CardColor CardColor => CardColor.Green;
+		public override CardCategory CardCategory => CardCategory.Shop;
 	}
 	
 	public class Forest : Card
@@ -67,6 +73,7 @@
 		public override int Cost => 2;
 		public override CardType CardType => CardType.Forest;
 		public override CardColor CardColor => CardColor.Blue;
+		public override CardCategory CardCategory => CardCategory.Natural;
 	}
 	
 	public class Restaurant : Card
@@ -77,6 +84,7 @@
 		public override int Cost => 4;
 		public override CardType CardType => CardType.Restaurant;
 		public override CardColor CardColor => CardColor.Red;
+		public override CardCategory CardCategory => CardCategory.Food;
 	}
 
 	public class Stadium : Card
@@ -87,5 +95,6 @@
 		public override int Cost => 6;
 		public override CardType CardType => CardType.Stadium;
 		public override CardColor CardColor => CardColor.Blue;
+		public override CardCategory CardCategory => CardCategory.Building;
 	}
 }

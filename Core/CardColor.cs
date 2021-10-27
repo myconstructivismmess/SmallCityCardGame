@@ -7,6 +7,7 @@ namespace Core
     {
         Red,
         Green,
-        Blue
+        Blue,
+        Purple
     }
 }
