@@ -5,6 +5,7 @@ namespace Core
     [Flags]
     public enum CardCategory
     {
+        None,
         Field,
         Farm,
         Shop,
