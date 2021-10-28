@@ -17,13 +17,22 @@ namespace Core {
 					// Only 4 of these because of the start deck of each players
 					_cards.Add(new WheatField());
 					_cards.Add(new Bakery());
+					
+					// Only 4 of these because the rules say so
+					_cards.Add(new BusinessCenter());
+					_cards.Add(new Stadium());
+					_cards.Add(new TelevisionChannel());
 				}
 				_cards.Add(new Farm());
-				_cards.Add(new Forest());
-				_cards.Add(new Stadium());
-				_cards.Add(new GroceryStore());
 				_cards.Add(new CoffeeShop());
+				_cards.Add(new GroceryStore());
+				_cards.Add(new Forest());
+				_cards.Add(new CheeseShop());
+				_cards.Add(new FurnitureShop());
+				_cards.Add(new Mine());
 				_cards.Add(new Restaurant());
+				_cards.Add(new Orchard());
+				_cards.Add(new Market());
 			}
 		}
 

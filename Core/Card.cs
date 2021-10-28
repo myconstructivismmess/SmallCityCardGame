@@ -2,6 +2,8 @@
 using System.Net.Configuration;
 
 namespace Core {
+	
+	// Card
 	public abstract class Card
 	{
 		public abstract string Name { get; }
@@ -13,7 +15,8 @@ namespace Core {
 		public abstract CardCategory CardCategory { get; }
 		public abstract CardCategory CardProfitCat { get; }
 	}
-
+	
+	// 1
 	public class WheatField : Card
 	{
 		public override string Name => "Wheat Field";
@@ -25,7 +28,7 @@ namespace Core {
 		public override CardCategory CardCategory => CardCategory.Field;
 		public override CardCategory CardProfitCat => CardCategory.None;
 	}
-	
+	// 2
 	public class Farm : Card
 	{
 		public override string Name => "Farm";
@@ -37,7 +40,7 @@ namespace Core {
 		public override CardCategory CardCategory => CardCategory.Farm;
 		public override CardCategory CardProfitCat => CardCategory.None;
 	}
-	
+	// 3
 	public class Bakery : Card
 	{
 		public override string Name => "Bakery";
@@ -49,7 +52,7 @@ namespace Core {
 		public override CardCategory CardCategory => CardCategory.Shop;
 		public override CardCategory CardProfitCat => CardCategory.None;
 	}
-	
+	// 4
 	public class CoffeeShop : Card
 	{
 		public override string Name => "Coffee";
@@ -61,7 +64,7 @@ namespace Core {
 		public override CardCategory CardCategory => CardCategory.Food;
 		public override CardCategory CardProfitCat => CardCategory.None;
 	}
-	
+	// 5
 	public class GroceryStore : Card
 	{
 		public override string Name => "Grocery Store";
@@ -73,7 +76,7 @@ namespace Core {
 		public override CardCategory CardCategory => CardCategory.Shop;
 		public override CardCategory CardProfitCat => CardCategory.None;
 	}
-	
+	// 6
 	public class Forest : Card
 	{
 		public override string Name => "Forest";
@@ -85,7 +88,7 @@ namespace Core {
 		public override CardCategory CardCategory => CardCategory.Natural;
 		public override CardCategory CardProfitCat => CardCategory.None;
 	}
-	
+	// 7
 	public class BusinessCenter : Card
 	{
 		public override string Name => "Business Center";
@@ -93,11 +96,11 @@ namespace Core {
 		public override int Profit => 4;
 		public override int Cost => 8;
 		public override CardType CardType => CardType.BusinessCenter;
-		public override CardColor CardColor => CardColor.Blue;
+		public override CardColor CardColor => CardColor.Purple;
 		public override CardCategory CardCategory => CardCategory.Building;
 		public override CardCategory CardProfitCat => CardCategory.None;
 	}
-
+	// 8
 	public class Stadium : Card
 	{
 		public override string Name => "Stadium";
@@ -109,7 +112,7 @@ namespace Core {
 		public override CardCategory CardCategory => CardCategory.Building;
 		public override CardCategory CardProfitCat => CardCategory.None;
 	}
-	
+	// 9
 	public class TelevisionChannel : Card
 	{
 		public override string Name => "Television Channel";
@@ -121,7 +124,7 @@ namespace Core {
 		public override CardCategory CardCategory => CardCategory.Building;
 		public override CardCategory CardProfitCat => CardCategory.None;
 	}
-	
+	// 10
 	public class CheeseShop : Card
 	{
 		public override string Name => "Cheese Shop";
@@ -133,7 +136,7 @@ namespace Core {
 		public override CardCategory CardCategory => CardCategory.Factory;
 		public override CardCategory CardProfitCat => CardCategory.Farm;
 	}
-	
+	// 11
 	public class FurnitureShop : Card
 	{
 		public override string Name => "Furniture Shop";
@@ -145,7 +148,7 @@ namespace Core {
 		public override CardCategory CardCategory => CardCategory.Factory;
 		public override CardCategory CardProfitCat => CardCategory.Natural;
 	}
-	
+	// 12
 	public class Mine : Card
 	{
 		public override string Name => "Mine";
@@ -157,7 +160,7 @@ namespace Core {
 		public override CardCategory CardCategory => CardCategory.Natural;
 		public override CardCategory CardProfitCat => CardCategory.None;
 	}
-	
+	// 13
 	public class Restaurant : Card
 	{
 		public override string Name => "Restaurant";
@@ -169,7 +172,7 @@ namespace Core {
 		public override CardCategory CardCategory => CardCategory.Food;
 		public override CardCategory CardProfitCat => CardCategory.None;
 	}
-	
+	// 14
 	public class Orchard : Card
 	{
 		public override string Name => "Orchard";
@@ -181,7 +184,7 @@ namespace Core {
 		public override CardCategory CardCategory => CardCategory.Field;
 		public override CardCategory CardProfitCat => CardCategory.None;
 	}
-	
+	// 15
 	public class Market : Card
 	{
 		public override string Name => "Market";
@@ -194,6 +197,7 @@ namespace Core {
 		public override CardCategory CardProfitCat => CardCategory.Farm;
 	}
 	
+	
 	// Monument
 	public abstract class Monument
 	{
@@ -203,7 +207,8 @@ namespace Core {
 		public abstract CardType CardType { get; }
 		public abstract CardCategory CardCategory { get; }
 	}
-
+	
+	// 16
 	public class Station : Monument
 	{
 		public override string Name => "Station";
@@ -218,7 +223,7 @@ namespace Core {
 		public override CardType CardType => CardType.Station;
 		public override CardCategory CardCategory => CardCategory.Building;
 	}
-	
+	// 17
 	public class ShoppingCenter: Monument
 	{
 		public override string Name => "ShoppingCenter";
@@ -232,7 +237,7 @@ namespace Core {
 		public override CardType CardType => CardType.ShoppingCenter;
 		public override CardCategory CardCategory => CardCategory.Building;
 	}
-	
+	// 18
 	public class RadioTower: Monument
 	{
 		public override string Name => "RadioTower";
@@ -246,7 +251,7 @@ namespace Core {
 		public override CardType CardType => CardType.RadioTower;
 		public override CardCategory CardCategory => CardCategory.Building;
 	}
-	
+	// 19
 	public class ThemePark: Monument
 	{
 		public override string Name => "ThemePark";

@@ -26,21 +26,38 @@ namespace Core {
 			Monuments.Add(new ThemePark());
 		}
 
-		public int PlayerTurn(int diceValue) {
+		public Tuple<int,int> PlayerTurn(Player opponent, int diceValue) {
 			// To call when it's the actual object turn
 			int gain = 0;
+			int loss = 0;
 			foreach (var card in Deck) {
 				if (card.ActivationValue.Contains(diceValue)) {
 					switch (card.CardColor) {
 						case CardColor.Blue:
 						case CardColor.Green:
 							gain += card.Profit;
+							Wallet += gain;
+							break;
+						
+						case CardColor.Purple:
+							Wallet += card.Profit;
+							opponent.Wallet -= card.Profit;
+							loss += card.Profit;
+							gain += card.Profit;
+							if (opponent.Wallet < 0)
+							{
+								Wallet += opponent.Wallet;
+								loss += opponent.Wallet;
+								gain += opponent.Wallet;
+								opponent.Wallet = 0;
+							}
 							break;
 					}
 				}
 			}
-			Wallet += gain;
-			return gain;
+
+			var num = new Tuple<int,int>(gain,loss);
+			return num;
 		}
 
 		public Tuple<int,int> OpponentTurn(Player opponent, int diceValue) {
