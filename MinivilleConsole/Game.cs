@@ -392,7 +392,6 @@ namespace MinivilleConsole
                 }
                 Display.DiceDisplay(GameDiceOne);
             }
-            Console.ReadLine();
 
             // Card Activate Opponent Red and Blue
             tuple = ComputerPlayer.OpponentTurn(HumanPlayer, GameDiceOne.Value + GameDiceTwo.Value);
@@ -404,8 +403,6 @@ namespace MinivilleConsole
             gain += tuple.Item1;
             opponentLoss += tuple.Item2;
 
-            Display.CardStackDisplay(Stack, ComputerPlayer);
-            
             // Display win and loosing money
             Display.AllTransactionDisplay(gain, loss, opponentGain, opponentLoss, ComputerPlayer, HumanPlayer);
             ComputerPlayer.ListDeck();
@@ -519,8 +516,6 @@ namespace MinivilleConsole
 
                 if (choice == 0 || choice > 15)
                     Display.EconomyDisplay(ComputerPlayer);
-                else if (choice == -1)
-                    Console.WriteLine("L'IA a acheté un batiment");
                 else
                 {
                     ComputerPlayer.BuyCard(Stack.PickCard(cardChoice));
