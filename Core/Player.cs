@@ -36,11 +36,26 @@ namespace Core {
 				if (card.ActivationValue.Contains(diceValue)) {
 					switch (card.CardColor) {
 						case CardColor.Blue:
-						case CardColor.Green:
 							gain += card.Profit;
 							Wallet += gain;
 							break;
 						
+						case CardColor.Green:
+							if (card.CardProfitCat != CardCategory.None)
+							{
+								gain += card.Profit;
+								Wallet += gain;
+								break;
+							}
+							else
+							{
+								foreach (var cardTheSecond in _deck)
+									if (card.CardProfitCat == cardTheSecond.CardCategory)
+										gain += card.Profit;
+								Wallet += gain;
+								break;
+							}
+
 						case CardColor.Purple:
 							Wallet += card.Profit;
 							opponent.Wallet -= card.Profit;
@@ -53,6 +68,9 @@ namespace Core {
 								gain += opponent.Wallet;
 								opponent.Wallet = 0;
 							}
+							break;
+						
+						default:
 							break;
 					}
 				}
