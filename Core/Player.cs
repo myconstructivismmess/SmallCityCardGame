@@ -23,7 +23,7 @@ namespace Core {
 			Monuments.Add(new Station());
 			Monuments.Add(new ShoppingCenter());
 			Monuments.Add(new RadioTower());
-			 Monuments.Add(new ThemePark());
+			Monuments.Add(new ThemePark());
 		}
 
 		public int PlayerTurn(int diceValue) {

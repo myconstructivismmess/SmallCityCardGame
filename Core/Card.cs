@@ -259,6 +259,5 @@ namespace Core {
 		}
 		public override CardType CardType => CardType.ThemePark;
 		public override CardCategory CardCategory => CardCategory.Building;
-		
 	}
 }

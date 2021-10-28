@@ -68,20 +68,40 @@ namespace MinivilleConsole
             var tuple = new Tuple<int, int>(0, 0);
             var proceed = false;
             CardType cardChoice = CardType.Bakery;
-
+            
+            if (HumanPlayer.Monuments[0].Build)
+            {
+                Display.DiceAskDisplay();
+                humanChoice = Console.ReadLine();
+                if (humanChoice == "2")
+                {
+                    //Roll the Dice
+                    GameDiceTwo.Roll();
+                    // Display of the Dice
+                    Display.DiceDisplay(GameDiceTwo);
+                }
+                else
+                {
+                    GameDiceTwo.Value = 0;
+                }
+            }
+            else
+            {
+                GameDiceTwo.Value = 0;
+            }
+            
             //Roll the Dice
             GameDiceOne.Roll();
-
             // Display of the Dice
             Display.DiceDisplay(GameDiceOne);
-
+            
             // Card Activate Red
-            tuple = HumanPlayer.OpponentTurn(ComputerPlayer,GameDiceOne.Value);
+            tuple = HumanPlayer.OpponentTurn(ComputerPlayer,(GameDiceOne.Value+GameDiceTwo.Value));
             opponentGain += tuple.Item1;
             loss += tuple.Item2;
 
             // Card Activate Blue and Green
-            gain += HumanPlayer.PlayerTurn(GameDiceOne.Value);
+            gain += HumanPlayer.PlayerTurn((GameDiceOne.Value+GameDiceTwo.Value));
 
             // Display win and loosing money
             Display.AllTransactionDisplay(gain, loss, opponentGain, HumanPlayer, ComputerPlayer);
@@ -248,18 +268,39 @@ namespace MinivilleConsole
             var proceed = false;
             int choice = 0;
             CardType cardChoice = CardType.Bakery;
+            
+            if (ComputerPlayer.Monuments[0].Build)
+            {
+                choice = _random.Next(0, 2);
+                if (choice == 1)
+                {
+                    //Roll the Dice
+                    GameDiceTwo.Roll();
+                    // Display of the Dice
+                    Display.DiceDisplay(GameDiceTwo);
+                }
+                else
+                {
+                    GameDiceTwo.Value = 0;
+                }
+            }
+            else
+            {
+                GameDiceTwo.Value = 0;
+            }
+            
             //Roll the Dice
             GameDiceOne.Roll();
             // Display
             Display.DiceDisplay(GameDiceOne);
 
             // Card Activate Red
-            tuple = ComputerPlayer.OpponentTurn(HumanPlayer, GameDiceOne.Value);
+            tuple = ComputerPlayer.OpponentTurn(HumanPlayer, (GameDiceOne.Value+GameDiceTwo.Value));
             opponentGain += tuple.Item1;
             loss += tuple.Item2;
 
             // Card Activate Blue and Green
-            gain += ComputerPlayer.PlayerTurn(GameDiceOne.Value);
+            gain += ComputerPlayer.PlayerTurn((GameDiceOne.Value+GameDiceTwo.Value));
 
             // Display Transaction
             Display.AllTransactionDisplay(gain, loss, opponentGain, ComputerPlayer, HumanPlayer);
