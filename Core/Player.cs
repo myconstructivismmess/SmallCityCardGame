@@ -9,21 +9,21 @@ namespace Core {
 
 		protected List<Card> Deck;
 		
-		private List<Monument> _monuments;
+		public List<Monument> Monuments;
 		
 		public int Wallet { get; private set; }
 
 		public Player(string name) {
 			Name = name;
 			Deck = new List<Card>();
-			_monuments = new List<Monument>();
+			Monuments = new List<Monument>();
 			Deck.Add(new WheatField());
 			Deck.Add(new Bakery());
 			Wallet = 3;
-			_monuments.Add(new Station());
-			_monuments.Add(new ShoppingCenter());
-			_monuments.Add(new RadioTower());
-			_monuments.Add(new ThemePark());
+			Monuments.Add(new Station());
+			Monuments.Add(new ShoppingCenter());
+			Monuments.Add(new RadioTower());
+			Monuments.Add(new ThemePark());
 		}
 
 		public int PlayerTurn(int diceValue) {

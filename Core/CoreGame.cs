@@ -23,14 +23,16 @@
 		
 		public abstract void ComputerTurn();
 
-		protected bool IsPlayerWin() {
+		protected bool IsPlayerWin()
+		{
+			//return HumanPlayer.Monuments[0].Build == true && HumanPlayer.Monuments[1].Build == true && HumanPlayer.Monuments[2].Build == true && HumanPlayer.Monuments[3].Build == true;
 			return HumanPlayer.Wallet >= 20;
 		}
 
-		protected bool IsComputerWin() {
+		protected bool IsComputerWin()
+		{
+			//return ComputerPlayer.Monuments[0].Build == true && ComputerPlayer.Monuments[1].Build == true && ComputerPlayer.Monuments[2].Build == true && ComputerPlayer.Monuments[3].Build == true;
 			return ComputerPlayer.Wallet >= 20;
 		}
-
-
-	}
+    }
 }
