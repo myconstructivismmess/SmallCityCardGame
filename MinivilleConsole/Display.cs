@@ -107,13 +107,13 @@ namespace MinivilleConsole
                 toString += $"(15) Il reste {count} market, cela coute 2 pieces.\n\n";
             
             if (!player.Monuments[0].Build)
-                toString += $"(16) Achetez la Gare !\n";
+                toString += $"(16) Achetez la Gare ! Cela coute 4 pieces\n";
             if (!player.Monuments[1].Build)
-                toString += $"(17) Achetez le Centre Commercial !\n";
+                toString += $"(17) Achetez le Centre Commercial ! Cela coute 10 pieces\n";
             if (!player.Monuments[2].Build)
-                toString += $"(18) Achetez la Tour Radio !\n";
+                toString += $"(18) Achetez la Tour Radio ! Cela coute 22 pieces\n";
             if (!player.Monuments[3].Build)
-                toString += $"(19) Achetez le Parc d'Attraction !\n";
+                toString += $"(19) Achetez le Parc d'Attraction ! Cela coute 16 pieces\n";
                 
 
             Console.WriteLine(toString);
