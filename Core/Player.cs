@@ -7,30 +7,32 @@ namespace Core {
 	public class Player {
 		public string Name { get; }
 
-		protected List<Card> Deck;
+		private List<Card> _deck;
 		
-		public List<Monument> Monuments;
+		public readonly List<Monument> Monuments;
 		
 		public int Wallet { get; private set; }
 
 		public Player(string name) {
 			Name = name;
-			Deck = new List<Card>();
+			_deck = new List<Card>();
 			Monuments = new List<Monument>();
-			Deck.Add(new WheatField());
-			Deck.Add(new Bakery());
-			Wallet = 3;
+			_deck.Add(new WheatField());
+			_deck.Add(new Bakery());
+			
 			Monuments.Add(new Station());
 			Monuments.Add(new ShoppingCenter());
 			Monuments.Add(new RadioTower());
 			Monuments.Add(new ThemePark());
+			
+			Wallet = 3;
 		}
 
 		public Tuple<int,int> PlayerTurn(Player opponent, int diceValue) {
 			// To call when it's the actual object turn
 			int gain = 0;
 			int loss = 0;
-			foreach (var card in Deck) {
+			foreach (var card in _deck) {
 				if (card.ActivationValue.Contains(diceValue)) {
 					switch (card.CardColor) {
 						case CardColor.Blue:
@@ -64,7 +66,7 @@ namespace Core {
 			// To call when it's the opponent player
 			int gain = 0;
 			int loss = 0;
-			foreach (var card in opponent.Deck) {
+			foreach (var card in opponent._deck) {
 				if (card.ActivationValue.Contains(diceValue)) {
 					switch (card.CardColor) {
 						case CardColor.Blue:
@@ -93,19 +95,31 @@ namespace Core {
 
 		public void BuyCard(Card card) {
 			Wallet -= card.Cost;
-			Deck.Add(card);
-		}
-
-		public void ListDeck()
-		{
-			foreach (var card in Deck)
-				Console.Write("| " + card.Name + " ");
-			Console.Write("|\n");
+			_deck.Add(card);
 		}
 		
 		public void BuyMonument(Monument monument) {
 			Wallet -= monument.Cost;
 			monument.Build = true;
+		}
+
+		public void ListDeck()
+		{
+			foreach (var card in _deck)
+				Console.Write("| " + card.Name + " ");
+			Console.Write("|\n");
+		}
+
+		public bool HasCard(CardType type)
+		{
+			foreach (var card in _deck)
+				if (card.CardType == type)
+					return true;
+			return false;
+		}
+
+		public int GetCardCount(CardType type) {
+			return _deck.Sum(x => x.CardType == type ? 1 : 0);
 		}
 	}
 }
