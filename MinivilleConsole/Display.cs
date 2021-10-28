@@ -154,7 +154,7 @@ namespace MinivilleConsole
 
         public static void RollAskDisplay()
         {
-            Console.WriteLine("Voulez-vous relancer votre/vos dé(s) ??");
+            Console.WriteLine("Voulez-vous relancer votre/vos dé(s) (1) Oui (2) Non??");
         }
     }
 }
