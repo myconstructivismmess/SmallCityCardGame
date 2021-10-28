@@ -18,56 +18,44 @@ namespace MinivilleConsole
 
         public override void Run()
         {
-            while (true)
+            bool isRunning = true;
+            while (isRunning)
             {
                 //Human Turn
                 Display.TurnDisplay(HumanPlayer);
                 HumanTurn();
-                
-                if (IsEndGame())
-                    break;
+
+                isRunning = !IsEndGame();
+                if (!isRunning) break;
                 
                 if (HumanPlayer.Monuments[3].Build)
-                {
-                    while (true)
+                    while (GameDiceOne.Value == GameDiceTwo.Value)
                     {
-                        if (GameDiceOne.Value == GameDiceTwo.Value)
-                        {
-                            HumanTurn();
-                        }
-                        else
-                        {
-                            break;
-                        }
+                        HumanTurn();
+                        isRunning = !IsEndGame();
+                        if (!isRunning) break;
                     }
-                }
-
-                if (IsEndGame())
-                    break;
+                
+                isRunning = !IsEndGame();
+                if (!isRunning) break;
                 
                 //Computer Turn
                 Display.TurnDisplay(ComputerPlayer);
                 ComputerTurn();
                 
-                if (IsEndGame())
-                    break;
+                isRunning = !IsEndGame();
+                if (!isRunning) break;
 
                 if (ComputerPlayer.Monuments[3].Build)
-                {
-                    while (true)
+                    while (GameDiceOne.Value == GameDiceTwo.Value)
                     {
-                        if (GameDiceOne.Value == GameDiceTwo.Value)
-                        {
-                            ComputerTurn();
-                        }
-                        else
-                        {
-                            break;
-                        }
+                        ComputerTurn();
+                        isRunning = !IsEndGame();
+                        if (!isRunning) break;
                     }
-                }
-                if (IsEndGame())
-                    break;
+                
+                isRunning = !IsEndGame();
+                if (!isRunning) break;
             }
         }
 
@@ -119,7 +107,11 @@ namespace MinivilleConsole
                 {
                     GameDiceOne.Roll();
                     if (GameDiceTwo.Value != 0)
+                    {
                         GameDiceTwo.Roll();
+                        Display.DiceDisplay(GameDiceTwo);
+                    }
+                    Display.DiceDisplay(GameDiceOne);
                 }
             }
 
@@ -254,6 +246,7 @@ namespace MinivilleConsole
                                 if (HumanPlayer.Wallet >= new Station().Cost)
                                 {
                                     HumanPlayer.BuyMonument(HumanPlayer.Monuments[0]);
+                                    Display.CardBuyDisplay(HumanPlayer, CardType.Station);
                                     proceed = true;
                                 }
                                 else
@@ -268,6 +261,7 @@ namespace MinivilleConsole
                                 if (HumanPlayer.Wallet >= new ShoppingCenter().Cost)
                                 {
                                     HumanPlayer.BuyMonument(HumanPlayer.Monuments[1]);
+                                    Display.CardBuyDisplay(HumanPlayer, CardType.ShoppingCenter);
                                     proceed = true;
                                 }
                                 else
@@ -282,6 +276,7 @@ namespace MinivilleConsole
                                 if (HumanPlayer.Wallet >= new RadioTower().Cost)
                                 {
                                     HumanPlayer.BuyMonument(HumanPlayer.Monuments[2]);
+                                    Display.CardBuyDisplay(HumanPlayer, CardType.RadioTower);
                                     proceed = true;
                                 }
                                 else
@@ -296,6 +291,7 @@ namespace MinivilleConsole
                                 if (HumanPlayer.Wallet >= new ThemePark().Cost)
                                 {
                                     HumanPlayer.BuyMonument(HumanPlayer.Monuments[3]);
+                                    Display.CardBuyDisplay(HumanPlayer, CardType.ThemePark);
                                     proceed = true;
                                 }
                                 else
@@ -330,9 +326,6 @@ namespace MinivilleConsole
                         // Display card buy
                         Display.CardBuyDisplay(HumanPlayer, cardChoice);
                     }
-                    else
-                        //Display economy
-                        Display.EconomyDisplay(HumanPlayer);
                 }
                 catch (Exception)
                 {
@@ -359,7 +352,7 @@ namespace MinivilleConsole
             var opponentLoss = 0;
             var tuple = new Tuple<int, int>(0, 0);
             var proceed = false;
-            int choice = 0;
+            int choice = -1;
             CardType cardChoice = CardType.Bakery;
 
             if (ComputerPlayer.Monuments[0].Build)
@@ -386,6 +379,19 @@ namespace MinivilleConsole
             GameDiceOne.Roll();
             // Display
             Display.DiceDisplay(GameDiceOne);
+            
+            if (_random.Next(0, 2) == 1)
+            {
+                Console.WriteLine("L'IA decide de relancer son/ses des.");
+                Console.ReadLine();
+                GameDiceOne.Roll();
+                if (GameDiceTwo.Value != 0)
+                {
+                    GameDiceTwo.Roll();
+                    Display.DiceDisplay(GameDiceTwo);
+                }
+                Display.DiceDisplay(GameDiceOne);
+            }
             Console.ReadLine();
 
             // Card Activate Opponent Red and Blue
@@ -403,7 +409,7 @@ namespace MinivilleConsole
             // Display win and loosing money
             Display.AllTransactionDisplay(gain, loss, opponentGain, opponentLoss, ComputerPlayer, HumanPlayer);
             ComputerPlayer.ListDeck();
-
+            
             //Choose randomly between buy and saving money
             if (Stack.GetStackSize() > 0)
             {
@@ -412,21 +418,25 @@ namespace MinivilleConsole
                     if (!ComputerPlayer.Monuments[0].Build && ComputerPlayer.Wallet >= new Station().Cost)
                     {
                         ComputerPlayer.BuyMonument(ComputerPlayer.Monuments[0]);
+                        Display.CardBuyDisplay(ComputerPlayer, CardType.Station);
                         proceed = true;
                     }
                     else if (!ComputerPlayer.Monuments[2].Build && ComputerPlayer.Wallet >= new RadioTower().Cost)
                     {
                         ComputerPlayer.BuyMonument(ComputerPlayer.Monuments[2]);
+                        Display.CardBuyDisplay(ComputerPlayer, CardType.RadioTower);
                         proceed = true;
                     }
                     else if (!ComputerPlayer.Monuments[3].Build && ComputerPlayer.Wallet >= new ThemePark().Cost)
                     {
                         ComputerPlayer.BuyMonument(ComputerPlayer.Monuments[3]);
+                        Display.CardBuyDisplay(ComputerPlayer, CardType.ThemePark);
                         proceed = true;
                     }
                     else if (!ComputerPlayer.Monuments[1].Build && ComputerPlayer.Wallet >= new ShoppingCenter().Cost)
                     {
                         ComputerPlayer.BuyMonument(ComputerPlayer.Monuments[1]);
+                        Display.CardBuyDisplay(ComputerPlayer, CardType.ShoppingCenter);
                         proceed = true;
                     }
                     else
@@ -437,86 +447,58 @@ namespace MinivilleConsole
                             case 1:
                                 if (ComputerPlayer.Wallet >= new WheatField().Cost)
                                     cardChoice = CardType.WheatField;
-                                else
-                                    Display.PlayerIsPoor();
                                 break;
                             case 2:
                                 if (ComputerPlayer.Wallet >= new Farm().Cost)
                                     cardChoice = CardType.Farm;
-                                else
-                                    Display.PlayerIsPoor();
                                 break;
                             case 3:
                                 if (ComputerPlayer.Wallet >= new Bakery().Cost)
                                     cardChoice = CardType.Bakery;
-                                else
-                                    Display.PlayerIsPoor();
                                 break;
                             case 4:
                                 if (ComputerPlayer.Wallet >= new CoffeeShop().Cost)
                                     cardChoice = CardType.CoffeeShop;
-                                else
-                                    Display.PlayerIsPoor();
                                 break;
                             case 5:
                                 if (ComputerPlayer.Wallet >= new GroceryStore().Cost)
                                     cardChoice = CardType.GroceryStore;
-                                else
-                                    Display.PlayerIsPoor();
                                 break;
                             case 6:
                                 if (ComputerPlayer.Wallet >= new Forest().Cost)
                                     cardChoice = CardType.Forest;
-                                else
-                                    Display.PlayerIsPoor();
                                 break;
                             case 7:
                                 if (ComputerPlayer.Wallet >= new BusinessCenter().Cost)
                                     cardChoice = CardType.BusinessCenter;
-                                else
-                                    Display.PlayerIsPoor();
                                 break;
                             case 8:
                                 if (ComputerPlayer.Wallet >= new Stadium().Cost)
                                     cardChoice = CardType.Stadium;
-                                else
-                                    Display.PlayerIsPoor();
                                 break;
                             case 9:
                                 if (ComputerPlayer.Wallet >= new TelevisionChannel().Cost)
                                     cardChoice = CardType.TelevisionChannel;
-                                else
-                                    Display.PlayerIsPoor();
                                 break;
                             case 10:
                                 if (ComputerPlayer.Wallet >= new CheeseShop().Cost)
                                     cardChoice = CardType.CheeseShop;
-                                else
-                                    Display.PlayerIsPoor();
                                 break;
                             case 11:
                                 if (ComputerPlayer.Wallet >= new FurnitureShop().Cost)
                                     cardChoice = CardType.FurnitureShop;
-                                else
-                                    Display.PlayerIsPoor();
                                 break;
                             case 12:
                                 if (ComputerPlayer.Wallet >= new Mine().Cost)
                                     cardChoice = CardType.Mine;
-                                else
-                                    Display.PlayerIsPoor();
                                 break;
                             case 13:
                                 if (ComputerPlayer.Wallet >= new Restaurant().Cost)
                                     cardChoice = CardType.Restaurant;
-                                else
-                                    Display.PlayerIsPoor();
                                 break;
                             case 14:
                                 if (ComputerPlayer.Wallet >= new Orchard().Cost)
                                     cardChoice = CardType.Orchard;
-                                else
-                                    Display.PlayerIsPoor();
                                 break;
                             case 15:
                                 if (ComputerPlayer.Wallet >= new Market().Cost)
@@ -535,8 +517,10 @@ namespace MinivilleConsole
                     }
                 }
 
-                if (choice < 1 || choice > 15)
+                if (choice == 0 || choice > 15)
                     Display.EconomyDisplay(ComputerPlayer);
+                else if (choice == -1)
+                    Console.WriteLine("L'IA a acheté un batiment");
                 else
                 {
                     ComputerPlayer.BuyCard(Stack.PickCard(cardChoice));
