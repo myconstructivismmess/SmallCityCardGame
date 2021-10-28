@@ -125,6 +125,12 @@ namespace MinivilleConsole
             Console.WriteLine($"Vous n'avez pas l'argent requis.");
             Console.ReadLine();
         }
+        
+        public static void PlayerIsRich()
+        {
+            Console.WriteLine($"Vous avez déjà cette carte.");
+            Console.ReadLine();
+        }
 
         public static void WalletDisplay(Player player)
         {

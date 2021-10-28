@@ -249,6 +249,64 @@ namespace MinivilleConsole
                             else
                                 Display.PlayerIsPoor();
                             break;
+                        
+                        case "16":
+                            if (!HumanPlayer.Monuments[0].Build)
+                            {
+                                if (HumanPlayer.Wallet >= new Station().Cost)
+                                {
+                                    HumanPlayer.BuyMonument(HumanPlayer.Monuments[0]);
+                                    proceed = true;
+                                }
+                                else
+                                    Display.PlayerIsPoor();
+                            }
+                            else
+                                Display.PlayerIsRich();
+                            break;
+                        case "17":
+                            if (!HumanPlayer.Monuments[1].Build)
+                            {
+                                if (HumanPlayer.Wallet >= new ShoppingCenter().Cost)
+                                {
+                                    HumanPlayer.BuyMonument(HumanPlayer.Monuments[1]);
+                                    proceed = true;
+                                }
+                                else
+                                    Display.PlayerIsPoor();
+                            }
+                            else
+                                Display.PlayerIsRich();
+                            break;
+                        case "18":
+                            if (!HumanPlayer.Monuments[2].Build)
+                            {
+                                if (HumanPlayer.Wallet >= new RadioTower().Cost)
+                                {
+                                    HumanPlayer.BuyMonument(HumanPlayer.Monuments[2]);
+                                    proceed = true;
+                                }
+                                else
+                                    Display.PlayerIsPoor();
+                            }
+                            else
+                                Display.PlayerIsRich();
+                            break;
+                        case "19":
+                            if (!HumanPlayer.Monuments[3].Build)
+                            {
+                                if (HumanPlayer.Wallet >= new ThemePark().Cost)
+                                {
+                                    HumanPlayer.BuyMonument(HumanPlayer.Monuments[3]);
+                                    proceed = true;
+                                }
+                                else
+                                    Display.PlayerIsPoor();
+                            }
+                            else
+                                Display.PlayerIsRich();
+                            break;
+                        
                         default:
                             proceed = true;
                             break;
@@ -351,106 +409,129 @@ namespace MinivilleConsole
             {
                 while (!proceed)
                 {
-                    choice = _random.Next(0, 2 * Enum.GetNames(typeof(CardType)).Length - 4);
-                    switch (choice)
+                    if (!ComputerPlayer.Monuments[0].Build && ComputerPlayer.Wallet >= new Station().Cost)
                     {
-                        case 1:
-                            if (ComputerPlayer.Wallet >= new WheatField().Cost)
-                                cardChoice = CardType.WheatField;
-                            else
-                                Display.PlayerIsPoor();
-                            break;
-                        case 2:
-                            if (ComputerPlayer.Wallet >= new Farm().Cost)
-                                cardChoice = CardType.Farm;
-                            else
-                                Display.PlayerIsPoor();
-                            break;
-                        case 3:
-                            if (ComputerPlayer.Wallet >= new Bakery().Cost)
-                                cardChoice = CardType.Bakery;
-                            else
-                                Display.PlayerIsPoor();
-                            break;
-                        case 4:
-                            if (ComputerPlayer.Wallet >= new CoffeeShop().Cost)
-                                cardChoice = CardType.CoffeeShop;
-                            else
-                                Display.PlayerIsPoor();
-                            break;
-                        case 5:
-                            if (ComputerPlayer.Wallet >= new GroceryStore().Cost)
-                                cardChoice = CardType.GroceryStore;
-                            else
-                                Display.PlayerIsPoor();
-                            break;
-                        case 6:
-                            if (ComputerPlayer.Wallet >= new Forest().Cost)
-                                cardChoice = CardType.Forest;
-                            else
-                                Display.PlayerIsPoor();
-                            break;
-                        case 7:
-                            if (ComputerPlayer.Wallet >= new BusinessCenter().Cost)
-                                cardChoice = CardType.BusinessCenter;
-                            else
-                                Display.PlayerIsPoor();
-                            break;
-                        case 8:
-                            if (ComputerPlayer.Wallet >= new Stadium().Cost)
-                                cardChoice = CardType.Stadium;
-                            else
-                                Display.PlayerIsPoor();
-                            break;
-                        case 9:
-                            if (ComputerPlayer.Wallet >= new TelevisionChannel().Cost)
-                                cardChoice = CardType.TelevisionChannel;
-                            else
-                                Display.PlayerIsPoor();
-                            break;
-                        case 10:
-                            if (ComputerPlayer.Wallet >= new CheeseShop().Cost)
-                                cardChoice = CardType.CheeseShop;
-                            else
-                                Display.PlayerIsPoor();
-                            break;
-                        case 11:
-                            if (ComputerPlayer.Wallet >= new FurnitureShop().Cost)
-                                cardChoice = CardType.FurnitureShop;
-                            else
-                                Display.PlayerIsPoor();
-                            break;
-                        case 12:
-                            if (ComputerPlayer.Wallet >= new Mine().Cost)
-                                cardChoice = CardType.Mine;
-                            else
-                                Display.PlayerIsPoor();
-                            break;
-                        case 13:
-                            if (ComputerPlayer.Wallet >= new Restaurant().Cost)
-                                cardChoice = CardType.Restaurant;
-                            else
-                                Display.PlayerIsPoor();
-                            break;
-                        case 14:
-                            if (ComputerPlayer.Wallet >= new Orchard().Cost)
-                                cardChoice = CardType.Orchard;
-                            else
-                                Display.PlayerIsPoor();
-                            break;
-                        case 15:
-                            if (ComputerPlayer.Wallet >= new Market().Cost)
-                                cardChoice = CardType.Market;
-                            break;
-                        default:
-                            proceed = true;
-                            break;
+                        ComputerPlayer.BuyMonument(ComputerPlayer.Monuments[0]);
+                        proceed = true;
                     }
-
-                    if (!proceed)
+                    else if (!ComputerPlayer.Monuments[2].Build && ComputerPlayer.Wallet >= new RadioTower().Cost)
                     {
-                        if (Stack.GetCardCount(cardChoice) > 0)
-                            proceed = true;
+                        ComputerPlayer.BuyMonument(ComputerPlayer.Monuments[2]);
+                        proceed = true;
+                    }
+                    else if (!ComputerPlayer.Monuments[3].Build && ComputerPlayer.Wallet >= new ThemePark().Cost)
+                    {
+                        ComputerPlayer.BuyMonument(ComputerPlayer.Monuments[3]);
+                        proceed = true;
+                    }
+                    else if (!ComputerPlayer.Monuments[1].Build && ComputerPlayer.Wallet >= new ShoppingCenter().Cost)
+                    {
+                        ComputerPlayer.BuyMonument(ComputerPlayer.Monuments[1]);
+                        proceed = true;
+                    }
+                    else
+                    {
+                        choice = _random.Next(0, 2 * Enum.GetNames(typeof(CardType)).Length - 4);
+                        switch (choice)
+                        {
+                            case 1:
+                                if (ComputerPlayer.Wallet >= new WheatField().Cost)
+                                    cardChoice = CardType.WheatField;
+                                else
+                                    Display.PlayerIsPoor();
+                                break;
+                            case 2:
+                                if (ComputerPlayer.Wallet >= new Farm().Cost)
+                                    cardChoice = CardType.Farm;
+                                else
+                                    Display.PlayerIsPoor();
+                                break;
+                            case 3:
+                                if (ComputerPlayer.Wallet >= new Bakery().Cost)
+                                    cardChoice = CardType.Bakery;
+                                else
+                                    Display.PlayerIsPoor();
+                                break;
+                            case 4:
+                                if (ComputerPlayer.Wallet >= new CoffeeShop().Cost)
+                                    cardChoice = CardType.CoffeeShop;
+                                else
+                                    Display.PlayerIsPoor();
+                                break;
+                            case 5:
+                                if (ComputerPlayer.Wallet >= new GroceryStore().Cost)
+                                    cardChoice = CardType.GroceryStore;
+                                else
+                                    Display.PlayerIsPoor();
+                                break;
+                            case 6:
+                                if (ComputerPlayer.Wallet >= new Forest().Cost)
+                                    cardChoice = CardType.Forest;
+                                else
+                                    Display.PlayerIsPoor();
+                                break;
+                            case 7:
+                                if (ComputerPlayer.Wallet >= new BusinessCenter().Cost)
+                                    cardChoice = CardType.BusinessCenter;
+                                else
+                                    Display.PlayerIsPoor();
+                                break;
+                            case 8:
+                                if (ComputerPlayer.Wallet >= new Stadium().Cost)
+                                    cardChoice = CardType.Stadium;
+                                else
+                                    Display.PlayerIsPoor();
+                                break;
+                            case 9:
+                                if (ComputerPlayer.Wallet >= new TelevisionChannel().Cost)
+                                    cardChoice = CardType.TelevisionChannel;
+                                else
+                                    Display.PlayerIsPoor();
+                                break;
+                            case 10:
+                                if (ComputerPlayer.Wallet >= new CheeseShop().Cost)
+                                    cardChoice = CardType.CheeseShop;
+                                else
+                                    Display.PlayerIsPoor();
+                                break;
+                            case 11:
+                                if (ComputerPlayer.Wallet >= new FurnitureShop().Cost)
+                                    cardChoice = CardType.FurnitureShop;
+                                else
+                                    Display.PlayerIsPoor();
+                                break;
+                            case 12:
+                                if (ComputerPlayer.Wallet >= new Mine().Cost)
+                                    cardChoice = CardType.Mine;
+                                else
+                                    Display.PlayerIsPoor();
+                                break;
+                            case 13:
+                                if (ComputerPlayer.Wallet >= new Restaurant().Cost)
+                                    cardChoice = CardType.Restaurant;
+                                else
+                                    Display.PlayerIsPoor();
+                                break;
+                            case 14:
+                                if (ComputerPlayer.Wallet >= new Orchard().Cost)
+                                    cardChoice = CardType.Orchard;
+                                else
+                                    Display.PlayerIsPoor();
+                                break;
+                            case 15:
+                                if (ComputerPlayer.Wallet >= new Market().Cost)
+                                    cardChoice = CardType.Market;
+                                break;
+                            default:
+                                proceed = true;
+                                break;
+                        }
+
+                        if (!proceed)
+                        {
+                            if (Stack.GetCardCount(cardChoice) > 0)
+                                proceed = true;
+                        }
                     }
                 }
 
