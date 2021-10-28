@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.Pipes;
 using System.Linq;
 
 namespace Core {
 	public class Player {
 		public string Name { get; }
 
-		private List<Card> _deck;
+		private readonly List<Card> _deck;
 		
 		public readonly List<Monument> Monuments;
 		
@@ -36,11 +35,15 @@ namespace Core {
 				if (card.ActivationValue.Contains(diceValue)) {
 					switch (card.CardColor) {
 						case CardColor.Blue:
+							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
+								gain++;
 							gain += card.Profit;
 							Wallet += gain;
 							break;
 						
 						case CardColor.Green:
+							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
+								gain++;
 							if (card.CardProfitCat != CardCategory.None)
 							{
 								gain += card.Profit;
@@ -57,20 +60,23 @@ namespace Core {
 							}
 
 						case CardColor.Purple:
-							Wallet += card.Profit;
-							opponent.Wallet -= card.Profit;
-							loss += card.Profit;
+							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
+							{
+								gain++;
+								loss++;
+							}
+								
 							gain += card.Profit;
+							loss += card.Profit;
+							Wallet += gain;
+							opponent.Wallet -= loss;
 							if (opponent.Wallet < 0)
 							{
 								Wallet += opponent.Wallet;
-								loss += opponent.Wallet;
 								gain += opponent.Wallet;
+								loss += opponent.Wallet;
 								opponent.Wallet = 0;
 							}
-							break;
-						
-						default:
 							break;
 					}
 				}
@@ -88,14 +94,22 @@ namespace Core {
 				if (card.ActivationValue.Contains(diceValue)) {
 					switch (card.CardColor) {
 						case CardColor.Blue:
-							opponent.Wallet += card.Profit;
+							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
+								gain++;
 							gain += card.Profit;
+							opponent.Wallet += gain;
 							break;
 						case CardColor.Red:
-							Wallet -= card.Profit;
-							opponent.Wallet += card.Profit;
-							loss += card.Profit;
+							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
+							{
+								gain++;
+								loss++;
+							}
 							gain += card.Profit;
+							loss += card.Profit;
+							Wallet -= loss;
+							opponent.Wallet += gain;
+							
 							if (Wallet < 0)
 							{
 								opponent.Wallet += Wallet;
