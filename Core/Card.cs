@@ -93,7 +93,7 @@ namespace Core {
 	{
 		public override string Name => "Business Center";
 		public override int[] ActivationValue => new int[]{6};
-		public override int Profit => 4;
+		public override int Profit => 3;
 		public override int Cost => 8;
 		public override CardType CardType => CardType.BusinessCenter;
 		public override CardColor CardColor => CardColor.Purple;

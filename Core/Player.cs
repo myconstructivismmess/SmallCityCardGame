@@ -65,9 +65,21 @@ namespace Core {
 								gain++;
 								loss++;
 							}
-								
-							gain += card.Profit;
-							loss += card.Profit;
+
+							if (card.CardType != CardType.BusinessCenter)
+							{
+								gain += card.Profit;
+								loss += card.Profit;
+							}
+							else
+							{
+								foreach (var mon in Monuments)
+									if (mon.Build)
+										gain += card.Profit;
+								Wallet += gain;
+								break;
+							}
+
 							Wallet += gain;
 							opponent.Wallet -= loss;
 							if (opponent.Wallet < 0)
