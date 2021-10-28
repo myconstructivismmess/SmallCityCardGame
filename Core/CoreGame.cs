@@ -33,6 +33,7 @@
 		{
 			//return ComputerPlayer.Monuments[0].Build == true && ComputerPlayer.Monuments[1].Build == true && ComputerPlayer.Monuments[2].Build == true && ComputerPlayer.Monuments[3].Build == true;
 			return ComputerPlayer.Wallet >= 20;
+			
 		}
     }
 }
