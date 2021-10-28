@@ -33,7 +33,6 @@ namespace Core {
 			int loss = 0;
 			foreach (var card in _deck)
 			{
-				Console.WriteLine(card.ActivationValue.Contains(diceValue));
 				if (card.ActivationValue.Contains(diceValue)) {
 					switch (card.CardColor) {
 						case CardColor.Blue:
