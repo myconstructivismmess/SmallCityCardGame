@@ -186,22 +186,31 @@ namespace MinivilleConsole
                                 Display.PlayerIsPoor();
                             break;
                         case "7":
-                            if (HumanPlayer.Wallet >= new BusinessCenter().Cost)
-                                cardChoice = CardType.BusinessCenter;
+                            if (HumanPlayer.HasCard(CardType.BusinessCenter))
+                                if (HumanPlayer.Wallet >= new BusinessCenter().Cost)
+                                    cardChoice = CardType.BusinessCenter;
+                                else
+                                    Display.PlayerIsPoor();
                             else
-                                Display.PlayerIsPoor();
+                                Display.PlayerIsRich();
                             break;
                         case "8":
-                            if (HumanPlayer.Wallet >= new Stadium().Cost)
-                                cardChoice = CardType.Stadium;
+                            if (HumanPlayer.HasCard(CardType.Stadium))
+                                if (HumanPlayer.Wallet >= new Stadium().Cost)
+                                    cardChoice = CardType.Stadium;
+                                else
+                                    Display.PlayerIsPoor();
                             else
-                                Display.PlayerIsPoor();
+                                Display.PlayerIsRich();
                             break;
                         case "9":
-                            if (HumanPlayer.Wallet >= new TelevisionChannel().Cost)
-                                cardChoice = CardType.TelevisionChannel;
+                            if (HumanPlayer.HasCard(CardType.TelevisionChannel))
+                                if (HumanPlayer.Wallet >= new TelevisionChannel().Cost)
+                                    cardChoice = CardType.TelevisionChannel;
+                                else
+                                    Display.PlayerIsPoor();
                             else
-                                Display.PlayerIsPoor();
+                                Display.PlayerIsRich();
                             break;
                         case "10":
                             if (HumanPlayer.Wallet >= new CheeseShop().Cost)
@@ -380,7 +389,7 @@ namespace MinivilleConsole
             // Display
             Display.DiceDisplay(GameDiceOne);
             
-            if (_random.Next(0, 2) == 1)
+            if (ComputerPlayer.Monuments[2].Build && _random.Next(0, 3) == 0)
             {
                 Console.WriteLine("L'IA decide de relancer son/ses des.");
                 Console.ReadLine();
