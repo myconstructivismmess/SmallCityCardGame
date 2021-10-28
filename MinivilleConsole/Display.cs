@@ -41,7 +41,7 @@ namespace MinivilleConsole
             Console.WriteLine("Quel carte voulez-vous achetez (un nombre est attendue). ");
         }
 
-        public static void CardStackDisplay(CardStack stack)
+        public static void CardStackDisplay(CardStack stack, Player player)
         {
             string toString = "(0) Économiser.\n";
             int count = 0;
@@ -104,8 +104,18 @@ namespace MinivilleConsole
             
             count = stack.GetCardCount(CardType.Market);
             if (count > 0)
-                toString += $"(15) Il reste {count} market, cela coute 2 pieces.\n";
+                toString += $"(15) Il reste {count} market, cela coute 2 pieces.\n\n";
             
+            if (!player.Monuments[0].Build)
+                toString += $"(16) Achetez la Gare !\n";
+            if (!player.Monuments[1].Build)
+                toString += $"(17) Achetez le Centre Commercial !\n";
+            if (!player.Monuments[2].Build)
+                toString += $"(18) Achetez la Tour Radio !\n";
+            if (!player.Monuments[3].Build)
+                toString += $"(19) Achetez le Parc d'Attraction !\n";
+                
+
             Console.WriteLine(toString);
         }
 

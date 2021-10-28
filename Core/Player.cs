@@ -31,7 +31,9 @@ namespace Core {
 			// To call when it's the actual object turn
 			int gain = 0;
 			int loss = 0;
-			foreach (var card in _deck) {
+			foreach (var card in _deck)
+			{
+				Console.WriteLine(card.ActivationValue.Contains(diceValue));
 				if (card.ActivationValue.Contains(diceValue)) {
 					switch (card.CardColor) {
 						case CardColor.Blue:
@@ -44,7 +46,7 @@ namespace Core {
 						case CardColor.Green:
 							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
 								gain++;
-							if (card.CardProfitCat != CardCategory.None)
+							if (card.CardProfitCat == CardCategory.None)
 							{
 								gain += card.Profit;
 								Wallet += gain;

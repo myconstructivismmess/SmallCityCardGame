@@ -149,7 +149,7 @@ namespace MinivilleConsole
                 while (!proceed)
                 {
                     // Display card remaining
-                    Display.CardStackDisplay(Stack);
+                    Display.CardStackDisplay(Stack, HumanPlayer);
 
                     // Display what card do you want to buy
                     Display.AskCardDisplay();
@@ -397,7 +397,8 @@ namespace MinivilleConsole
             gain += tuple.Item1;
             opponentLoss += tuple.Item2;
 
-
+            Display.CardStackDisplay(Stack, ComputerPlayer);
+            
             // Display win and loosing money
             Display.AllTransactionDisplay(gain, loss, opponentGain, opponentLoss, ComputerPlayer, HumanPlayer);
             ComputerPlayer.ListDeck();
