@@ -151,5 +151,10 @@ namespace MinivilleConsole
         {
             Console.WriteLine("Voulez-vous lancer 1 ou 2 dés ??(un nombre est attendue)");
         }
+
+        public static void RollAskDisplay()
+        {
+            Console.WriteLine("Voulez-vous relancer votre/vos dé(s) ??");
+        }
     }
 }

@@ -70,6 +70,7 @@ namespace MinivilleConsole
             var proceed = false;
             CardType cardChoice = CardType.Bakery;
 
+            // Station Effect
             if (HumanPlayer.Monuments[0].Build)
             {
                 Display.DiceAskDisplay();
@@ -95,6 +96,19 @@ namespace MinivilleConsole
             GameDiceOne.Roll();
             // Display of the Dice
             Display.DiceDisplay(GameDiceOne);
+            
+            //Radio Tower Effect
+            if (HumanPlayer.Monuments[2].Build)
+            {
+                Display.RollAskDisplay();
+                humanChoice = Console.ReadLine();
+                if (humanChoice == "1")
+                {
+                    GameDiceOne.Roll();
+                    if (GameDiceTwo.Value != 0)
+                        GameDiceTwo.Roll();
+                }
+            }
 
             // Card Activate Opponent Red and Blue
             tuple = HumanPlayer.OpponentTurn(ComputerPlayer, GameDiceOne.Value+GameDiceTwo.Value);
