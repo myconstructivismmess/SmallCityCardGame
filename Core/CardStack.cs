@@ -13,15 +13,19 @@ namespace Core {
 			_cards = new List<Card>();
 
 			for (int i = 0; i < 6; i++) {
-				if (i < 4) {
-					// Only 4 of these because of the start deck of each players
-					_cards.Add(new WheatField());
-					_cards.Add(new Bakery());
-					
-					// Only 4 of these because the rules say so
+				if (i < 2)
+				{
+					// Only 2 of these because the rules say so
+					// (Only one per player)
 					_cards.Add(new BusinessCenter());
 					_cards.Add(new Stadium());
 					_cards.Add(new TelevisionChannel());
+				}
+				if (i < 4)
+				{
+					// Only 4 of these because of the start deck of each players
+					_cards.Add(new WheatField());
+					_cards.Add(new Bakery());
 				}
 				_cards.Add(new Farm());
 				_cards.Add(new CoffeeShop());

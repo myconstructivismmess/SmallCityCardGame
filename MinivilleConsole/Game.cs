@@ -186,7 +186,7 @@ namespace MinivilleConsole
                                 Display.PlayerIsPoor();
                             break;
                         case "7":
-                            if (HumanPlayer.HasCard(CardType.BusinessCenter))
+                            if (!HumanPlayer.HasCard(CardType.BusinessCenter))
                                 if (HumanPlayer.Wallet >= new BusinessCenter().Cost)
                                     cardChoice = CardType.BusinessCenter;
                                 else
@@ -195,7 +195,7 @@ namespace MinivilleConsole
                                 Display.PlayerIsRich();
                             break;
                         case "8":
-                            if (HumanPlayer.HasCard(CardType.Stadium))
+                            if (!HumanPlayer.HasCard(CardType.Stadium))
                                 if (HumanPlayer.Wallet >= new Stadium().Cost)
                                     cardChoice = CardType.Stadium;
                                 else
@@ -204,7 +204,7 @@ namespace MinivilleConsole
                                 Display.PlayerIsRich();
                             break;
                         case "9":
-                            if (HumanPlayer.HasCard(CardType.TelevisionChannel))
+                            if (!HumanPlayer.HasCard(CardType.TelevisionChannel))
                                 if (HumanPlayer.Wallet >= new TelevisionChannel().Cost)
                                     cardChoice = CardType.TelevisionChannel;
                                 else
@@ -366,8 +366,7 @@ namespace MinivilleConsole
 
             if (ComputerPlayer.Monuments[0].Build)
             {
-                choice = _random.Next(0, 2);
-                if (choice == 1)
+                if (_random.Next(0, 3) == 0)
                 {
                     //Roll the Dice
                     GameDiceTwo.Roll();
@@ -389,9 +388,9 @@ namespace MinivilleConsole
             // Display
             Display.DiceDisplay(GameDiceOne);
             
-            if (ComputerPlayer.Monuments[2].Build && _random.Next(0, 3) == 0)
+            if (ComputerPlayer.Monuments[2].Build && _random.Next(0, 5) == 0)
             {
-                Console.WriteLine("L'IA decide de relancer son/ses des.");
+                Console.WriteLine("L'IA decide de relancer son/ses dés.");
                 Console.ReadLine();
                 GameDiceOne.Roll();
                 if (GameDiceTwo.Value != 0)
@@ -475,15 +474,15 @@ namespace MinivilleConsole
                                     cardChoice = CardType.Forest;
                                 break;
                             case 7:
-                                if (ComputerPlayer.Wallet >= new BusinessCenter().Cost)
+                                if (ComputerPlayer.Wallet >= new BusinessCenter().Cost && !ComputerPlayer.HasCard(CardType.BusinessCenter))
                                     cardChoice = CardType.BusinessCenter;
                                 break;
                             case 8:
-                                if (ComputerPlayer.Wallet >= new Stadium().Cost)
+                                if (ComputerPlayer.Wallet >= new Stadium().Cost && !ComputerPlayer.HasCard(CardType.Stadium))
                                     cardChoice = CardType.Stadium;
                                 break;
                             case 9:
-                                if (ComputerPlayer.Wallet >= new TelevisionChannel().Cost)
+                                if (ComputerPlayer.Wallet >= new TelevisionChannel().Cost && !ComputerPlayer.HasCard(CardType.TelevisionChannel))
                                     cardChoice = CardType.TelevisionChannel;
                                 break;
                             case 10:
@@ -522,10 +521,10 @@ namespace MinivilleConsole
                         }
                     }
                 }
-
-                if (choice == 0 || choice > 15)
+                
+                if (choice == -1) {}
+                else if (choice < 1 || choice > 15)
                     Display.EconomyDisplay(ComputerPlayer);
-                else if (choice == -1) {}
                 else
                 {
                     ComputerPlayer.BuyCard(Stack.PickCard(cardChoice));
