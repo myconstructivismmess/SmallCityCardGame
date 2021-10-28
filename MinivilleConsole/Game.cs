@@ -21,7 +21,7 @@ namespace MinivilleConsole
                 //Human Turn
                 Display.TurnDisplay(HumanPlayer);
                 HumanTurn();
-
+                
                 if (IsComputerWin() && IsPlayerWin())
                 {
                     Display.EqualityDisplay(HumanPlayer, ComputerPlayer);
@@ -35,6 +35,14 @@ namespace MinivilleConsole
                 {
                     Display.ComputerVictoryDisplay(ComputerPlayer);
                     break;
+                }
+
+                if (HumanPlayer.Monuments[3].Build)
+                {
+                    if (GameDiceOne.Value == GameDiceTwo.Value)
+                    {
+                        HumanTurn();
+                    }
                 }
 
                 //Computer Turn
@@ -54,6 +62,13 @@ namespace MinivilleConsole
                 {
                     Display.ComputerVictoryDisplay(ComputerPlayer);
                     break;
+                }
+                if (ComputerPlayer.Monuments[3].Build)
+                {
+                    if (GameDiceOne.Value == GameDiceTwo.Value)
+                    {
+                        ComputerTurn();
+                    }
                 }
             }
         }
