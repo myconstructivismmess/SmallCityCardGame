@@ -144,7 +144,7 @@ namespace MinivilleConsole
 
         public static void WalletDisplay(Player player)
         {
-            Console.WriteLine($"{player.Name} à {player.Wallet} piece dans votre porte monnaie.\n");
+            Console.WriteLine($"{player.Name} à {player.Wallet} piece dans son porte monnaie.\n");
         }
 
         public static void PlayerVictoryDisplay(Player player)

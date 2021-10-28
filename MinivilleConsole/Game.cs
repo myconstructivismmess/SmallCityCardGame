@@ -386,6 +386,7 @@ namespace MinivilleConsole
             GameDiceOne.Roll();
             // Display
             Display.DiceDisplay(GameDiceOne);
+            Console.ReadLine();
 
             // Card Activate Opponent Red and Blue
             tuple = ComputerPlayer.OpponentTurn(HumanPlayer, GameDiceOne.Value + GameDiceTwo.Value);
