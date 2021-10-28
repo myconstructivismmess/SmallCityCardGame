@@ -1,4 +1,6 @@
-﻿namespace Core
+﻿using System;
+
+namespace Core
 {
     public abstract class CoreGame
     {
@@ -22,6 +24,8 @@
 		public abstract void HumanTurn();
 		
 		public abstract void ComputerTurn();
+
+		public abstract bool IsEndGame();
 
 		protected bool IsPlayerWin()
 		{

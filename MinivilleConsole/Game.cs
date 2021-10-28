@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
+using System.Net.Configuration;
 using System.Runtime.ConstrainedExecution;
 using Core;
 
@@ -22,54 +24,50 @@ namespace MinivilleConsole
                 Display.TurnDisplay(HumanPlayer);
                 HumanTurn();
                 
-                if (IsComputerWin() && IsPlayerWin())
-                {
-                    Display.EqualityDisplay(HumanPlayer, ComputerPlayer);
-                }
-                else if (IsPlayerWin())
-                {
-                    Display.PlayerVictoryDisplay(HumanPlayer);
+                if (IsEndGame())
                     break;
-                }
-                else if (IsComputerWin())
-                {
-                    Display.ComputerVictoryDisplay(ComputerPlayer);
-                    break;
-                }
-
+                
                 if (HumanPlayer.Monuments[3].Build)
                 {
-                    if (GameDiceOne.Value == GameDiceTwo.Value)
+                    while (true)
                     {
-                        HumanTurn();
+                        if (GameDiceOne.Value == GameDiceTwo.Value)
+                        {
+                            HumanTurn();
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
 
+                if (IsEndGame())
+                    break;
+                
                 //Computer Turn
                 Display.TurnDisplay(ComputerPlayer);
                 ComputerTurn();
+                
+                if (IsEndGame())
+                    break;
 
-                if (IsComputerWin() && IsPlayerWin())
-                {
-                    Display.EqualityDisplay(HumanPlayer, ComputerPlayer);
-                }
-                else if (IsPlayerWin())
-                {
-                    Display.PlayerVictoryDisplay(HumanPlayer);
-                    break;
-                }
-                else if (IsComputerWin())
-                {
-                    Display.ComputerVictoryDisplay(ComputerPlayer);
-                    break;
-                }
                 if (ComputerPlayer.Monuments[3].Build)
                 {
-                    if (GameDiceOne.Value == GameDiceTwo.Value)
+                    while (true)
                     {
-                        ComputerTurn();
+                        if (GameDiceOne.Value == GameDiceTwo.Value)
+                        {
+                            ComputerTurn();
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
+                if (IsEndGame())
+                    break;
             }
         }
 
@@ -553,6 +551,26 @@ namespace MinivilleConsole
             Display.WalletDisplay(ComputerPlayer);
 
             Console.ReadLine();
+        }
+
+        public override bool IsEndGame()
+        {
+            if (IsComputerWin() && IsPlayerWin())
+            {
+                Display.EqualityDisplay(HumanPlayer, ComputerPlayer);
+                return true;
+            }
+            if (IsPlayerWin())
+            {
+                Display.PlayerVictoryDisplay(HumanPlayer);
+                return true;
+            }
+            if (IsComputerWin())
+            {
+                Display.ComputerVictoryDisplay(ComputerPlayer);
+                return true;
+            }
+            return false;
         }
     }
 }
