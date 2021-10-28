@@ -525,6 +525,7 @@ namespace MinivilleConsole
 
                 if (choice == 0 || choice > 15)
                     Display.EconomyDisplay(ComputerPlayer);
+                else if (choice == -1) {}
                 else
                 {
                     ComputerPlayer.BuyCard(Stack.PickCard(cardChoice));
