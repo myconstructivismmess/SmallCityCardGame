@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using Core;
 
@@ -41,83 +42,95 @@ namespace MinivilleConsole
             Console.WriteLine("Quel carte voulez-vous achetez (un nombre est attendue). ");
         }
 
-        public static void CardStackDisplay(CardStack stack, Player player)
+        public static void ShopDisplay(List<CardType> shop,CardStack stack )
         {
+            int i = 1;
             string toString = "(0) Économiser.\n";
-            int count = 0;
-
-            count = stack.GetCardCount(CardType.WheatField);
-            if (count > 0)
-                toString += $"(1) Il reste {count} champs de blé, cela coute 1 piece.\n";
-            
-            count = stack.GetCardCount(CardType.Farm);
-            if (count > 0)
-                toString += $"(2) Il reste {count} ferme, cela coute 1 piece.\n";
-            
-            count = stack.GetCardCount(CardType.Bakery);
-            if (count > 0)
-                toString += $"(3) Il reste {count} boulangerie, cela coute 1 piece.\n";
-            
-            count = stack.GetCardCount(CardType.CoffeeShop);
-            if (count > 0)
-                toString += $"(4) Il reste {count} café, cela coute 2 pieces.\n";
-            
-            count = stack.GetCardCount(CardType.GroceryStore);
-            if (count > 0)
-                toString += $"(5) Il reste {count} superette, cela coute 2 pieces.\n";
-            
-            count = stack.GetCardCount(CardType.Forest);
-            if (count > 0)
-                toString += $"(6) Il reste {count} foret, cela coute 3 pieces.\n";
-            
-            count = stack.GetCardCount(CardType.BusinessCenter);
-            if (count > 0)
-                toString += $"(7) Il reste {count} centre d'affaires, cela coute 8 pieces.\n";
-            
-            count = stack.GetCardCount(CardType.Stadium);
-            if (count > 0)
-                toString += $"(8) Il reste {count} stade, cela coute 6 pieces.\n";
-            
-            count = stack.GetCardCount(CardType.TelevisionChannel);
-            if (count > 0)
-                toString += $"(9) Il reste {count} chaines de télé, cela coute 7 pieces.\n";
-            
-            count = stack.GetCardCount(CardType.CheeseShop);
-            if (count > 0)
-                toString += $"(10) Il reste {count} fromagerie, cela coute 5 pieces.\n";
-            
-            count = stack.GetCardCount(CardType.FurnitureShop);
-            if (count > 0)
-                toString += $"(11) Il reste {count} fabrique de meubles, cela coute 3 pieces.\n";
-            
-            count = stack.GetCardCount(CardType.Mine);
-            if (count > 0)
-                toString += $"(12) Il reste {count} mine, cela coute 6 pieces.\n";
-            
-            count = stack.GetCardCount(CardType.Restaurant);
-            if (count > 0)
-                toString += $"(13) Il reste {count} restaurant, cela coute 3 pieces.\n";
-            
-            count = stack.GetCardCount(CardType.Orchard);
-            if (count > 0)
-                toString += $"(14) Il reste {count} verger, cela coute 3 pieces.\n";
-            
-            count = stack.GetCardCount(CardType.Market);
-            if (count > 0)
-                toString += $"(15) Il reste {count} market, cela coute 2 pieces.\n\n";
-            
-            if (!player.Monuments[0].Build)
-                toString += $"(16) Achetez la Gare ! Cela coute 4 pieces\n";
-            if (!player.Monuments[1].Build)
-                toString += $"(17) Achetez le Centre Commercial ! Cela coute 10 pieces\n";
-            if (!player.Monuments[2].Build)
-                toString += $"(18) Achetez la Tour Radio ! Cela coute 22 pieces\n";
-            if (!player.Monuments[3].Build)
-                toString += $"(19) Achetez le Parc d'Attraction ! Cela coute 16 pieces\n";
-                
-
+            foreach (var elem in shop)
+            {
+                toString += $"{i} Il reste {stack.GetCardCount(elem)} {elem}, cela coute {stack.GetCard(elem).Cost} piece.\n";
+                i++;
+            } 
             Console.WriteLine(toString);
         }
+        
+        // public static void CardStackDisplay(CardStack stack, Player player)
+        // {
+        //     string toString = "(0) Économiser.\n";
+        //     int count = 0;
+        //
+        //     count = stack.GetCardCount(CardType.WheatField);
+        //     if (count > 0)
+        //         toString += $"(1) Il reste {count} champs de blé, cela coute 1 piece.\n";
+        //     
+        //     count = stack.GetCardCount(CardType.Farm);
+        //     if (count > 0)
+        //         toString += $"(2) Il reste {count} ferme, cela coute 1 piece.\n";
+        //     
+        //     count = stack.GetCardCount(CardType.Bakery);
+        //     if (count > 0)
+        //         toString += $"(3) Il reste {count} boulangerie, cela coute 1 piece.\n";
+        //     
+        //     count = stack.GetCardCount(CardType.CoffeeShop);
+        //     if (count > 0)
+        //         toString += $"(4) Il reste {count} café, cela coute 2 pieces.\n";
+        //     
+        //     count = stack.GetCardCount(CardType.GroceryStore);
+        //     if (count > 0)
+        //         toString += $"(5) Il reste {count} superette, cela coute 2 pieces.\n";
+        //     
+        //     count = stack.GetCardCount(CardType.Forest);
+        //     if (count > 0)
+        //         toString += $"(6) Il reste {count} foret, cela coute 3 pieces.\n";
+        //     
+        //     count = stack.GetCardCount(CardType.BusinessCenter);
+        //     if (count > 0)
+        //         toString += $"(7) Il reste {count} centre d'affaires, cela coute 8 pieces.\n";
+        //     
+        //     count = stack.GetCardCount(CardType.Stadium);
+        //     if (count > 0)
+        //         toString += $"(8) Il reste {count} stade, cela coute 6 pieces.\n";
+        //     
+        //     count = stack.GetCardCount(CardType.TelevisionChannel);
+        //     if (count > 0)
+        //         toString += $"(9) Il reste {count} chaines de télé, cela coute 7 pieces.\n";
+        //     
+        //     count = stack.GetCardCount(CardType.CheeseShop);
+        //     if (count > 0)
+        //         toString += $"(10) Il reste {count} fromagerie, cela coute 5 pieces.\n";
+        //     
+        //     count = stack.GetCardCount(CardType.FurnitureShop);
+        //     if (count > 0)
+        //         toString += $"(11) Il reste {count} fabrique de meubles, cela coute 3 pieces.\n";
+        //     
+        //     count = stack.GetCardCount(CardType.Mine);
+        //     if (count > 0)
+        //         toString += $"(12) Il reste {count} mine, cela coute 6 pieces.\n";
+        //     
+        //     count = stack.GetCardCount(CardType.Restaurant);
+        //     if (count > 0)
+        //         toString += $"(13) Il reste {count} restaurant, cela coute 3 pieces.\n";
+        //     
+        //     count = stack.GetCardCount(CardType.Orchard);
+        //     if (count > 0)
+        //         toString += $"(14) Il reste {count} verger, cela coute 3 pieces.\n";
+        //     
+        //     count = stack.GetCardCount(CardType.Market);
+        //     if (count > 0)
+        //         toString += $"(15) Il reste {count} market, cela coute 2 pieces.\n\n";
+        //     
+        //     if (!player.Monuments[0].Build)
+        //         toString += $"(16) Achetez la Gare ! Cela coute 4 pieces\n";
+        //     if (!player.Monuments[1].Build)
+        //         toString += $"(17) Achetez le Centre Commercial ! Cela coute 10 pieces\n";
+        //     if (!player.Monuments[2].Build)
+        //         toString += $"(18) Achetez la Tour Radio ! Cela coute 22 pieces\n";
+        //     if (!player.Monuments[3].Build)
+        //         toString += $"(19) Achetez le Parc d'Attraction ! Cela coute 16 pieces\n";
+        //         
+        //
+        //     Console.WriteLine(toString);
+        // }
 
         public static void CardBuyDisplay(Player player,CardType card)
         {

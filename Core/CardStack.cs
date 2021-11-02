@@ -47,8 +47,10 @@ namespace Core {
 		public Card? GetCard(CardType type)
 		{
 			foreach (var card in _cards)
+			{
 				if (card.CardType == type)
 					return card;
+			}
 			return null;
 		}
 
