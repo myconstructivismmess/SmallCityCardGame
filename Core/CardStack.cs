@@ -12,7 +12,7 @@ namespace Core {
 			// Creating a new stack of card with 6 of each cards
 			_cards = new List<Card>();
 
-			for (int i = 0; i < 6; i++) {
+			for (var i = 0; i < 6; i++) {
 				if (i < 2)
 				{
 					// Only 2 of these because the rules say so

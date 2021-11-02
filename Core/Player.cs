@@ -76,9 +76,10 @@ namespace Core {
 							{
 								foreach (var mon in Monuments)
 									if (mon.Build)
+									{
 										gain += card.Profit;
-								Wallet += gain;
-								break;
+										loss += card.Profit;
+									}
 							}
 
 							Wallet += gain;
@@ -162,9 +163,57 @@ namespace Core {
 					return true;
 			return false;
 		}
+		
+		public List<CardType> ListBuyableCard (CardStack stack)
+		{
+			List<CardType> buyableCard = new List<CardType>();
+			if (Wallet >= 1)
+			{
+				if (stack.GetCardCount(CardType.WheatField) > 0)
+					buyableCard.Add(CardType.WheatField);
+				if (stack.GetCardCount(CardType.Farm) > 0)
+					buyableCard.Add(CardType.Farm);
+				if (stack.GetCardCount(CardType.Bakery) > 0)
+					buyableCard.Add(CardType.Bakery);
+			}
+			if (Wallet >= 2)
+			{
+				if (stack.GetCardCount(CardType.CoffeeShop) > 0)
+					buyableCard.Add(CardType.CoffeeShop);
+				if (stack.GetCardCount(CardType.GroceryStore) > 0)
+					buyableCard.Add(CardType.GroceryStore);
+				if (stack.GetCardCount(CardType.Market) > 0)
+					buyableCard.Add(CardType.Market);
+			}
+			if (Wallet >= 3)
+			{
+				if (stack.GetCardCount(CardType.Forest) > 0)
+					buyableCard.Add(CardType.Forest);
+				if (stack.GetCardCount(CardType.FurnitureShop) > 0)
+					buyableCard.Add(CardType.FurnitureShop);
+				if (stack.GetCardCount(CardType.Orchard) > 0)
+					buyableCard.Add(CardType.Orchard);
+				if (stack.GetCardCount(CardType.Restaurant) > 0)
+					buyableCard.Add(CardType.Restaurant);
+			}
+			if (Wallet >= 5)
+				if (stack.GetCardCount(CardType.CheeseShop) > 0)
+					buyableCard.Add(CardType.CheeseShop);
+			if (Wallet >= 6)
+			{
+				if (stack.GetCardCount(CardType.Stadium) > 0)
+					buyableCard.Add(CardType.Stadium);
+				if (stack.GetCardCount(CardType.Mine) > 0)
+					buyableCard.Add(CardType.Mine);
+			}
+			if (Wallet >= 7)
+				if (stack.GetCardCount(CardType.TelevisionChannel) > 0)
+					buyableCard.Add(CardType.TelevisionChannel);
+			if (Wallet >= 8)
+				if (stack.GetCardCount(CardType.BusinessCenter) > 0)
+					buyableCard.Add(CardType.BusinessCenter);
 
-		public int GetCardCount(CardType type) {
-			return _deck.Sum(x => x.CardType == type ? 1 : 0);
+			return buyableCard;
 		}
 	}
 }
