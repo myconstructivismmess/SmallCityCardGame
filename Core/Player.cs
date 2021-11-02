@@ -164,7 +164,7 @@ namespace Core {
 			return false;
 		}
 		
-		public List<CardType> ListBuyableCard (CardStack stack)
+		public List<CardType> ListBuyableCard(CardStack stack)
 		{
 			List<CardType> buyableCard = new List<CardType>();
 			if (Wallet >= 1)
@@ -201,17 +201,32 @@ namespace Core {
 					buyableCard.Add(CardType.CheeseShop);
 			if (Wallet >= 6)
 			{
-				if (stack.GetCardCount(CardType.Stadium) > 0)
-					buyableCard.Add(CardType.Stadium);
 				if (stack.GetCardCount(CardType.Mine) > 0)
 					buyableCard.Add(CardType.Mine);
+				if (stack.GetCardCount(CardType.Stadium) > 0 && !HasCard(CardType.Stadium))
+					buyableCard.Add(CardType.Stadium);
 			}
 			if (Wallet >= 7)
-				if (stack.GetCardCount(CardType.TelevisionChannel) > 0)
+				if (stack.GetCardCount(CardType.TelevisionChannel) > 0 && !HasCard(CardType.TelevisionChannel))
 					buyableCard.Add(CardType.TelevisionChannel);
 			if (Wallet >= 8)
-				if (stack.GetCardCount(CardType.BusinessCenter) > 0)
+				if (stack.GetCardCount(CardType.BusinessCenter) > 0 && !HasCard(CardType.BusinessCenter))
 					buyableCard.Add(CardType.BusinessCenter);
+
+			return buyableCard;
+		}
+
+		public List<CardType> ListBuyableMonuments()
+		{
+			List<CardType> buyableCard = new List<CardType>();
+			if (!Monuments[0].Build && Wallet >= new Station().Cost)
+				buyableCard.Add(CardType.Station);
+			if (!Monuments[1].Build && Wallet >= new ShoppingCenter().Cost)
+				buyableCard.Add(CardType.ShoppingCenter);
+			if (!Monuments[2].Build && Wallet >= new RadioTower().Cost)
+				buyableCard.Add(CardType.RadioTower);
+			if (!Monuments[3].Build && Wallet >= new ThemePark().Cost)
+				buyableCard.Add(CardType.ThemePark);
 
 			return buyableCard;
 		}
