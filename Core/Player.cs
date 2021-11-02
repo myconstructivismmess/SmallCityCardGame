@@ -216,17 +216,17 @@ namespace Core {
 			return buyableCard;
 		}
 
-		public List<CardType> ListBuyableMonuments()
+		public List<Monument> ListBuyableMonuments()
 		{
-			List<CardType> buyableCard = new List<CardType>();
-			if (!Monuments[0].Build && Wallet >= new Station().Cost)
-				buyableCard.Add(CardType.Station);
-			if (!Monuments[1].Build && Wallet >= new ShoppingCenter().Cost)
-				buyableCard.Add(CardType.ShoppingCenter);
-			if (!Monuments[2].Build && Wallet >= new RadioTower().Cost)
-				buyableCard.Add(CardType.RadioTower);
-			if (!Monuments[3].Build && Wallet >= new ThemePark().Cost)
-				buyableCard.Add(CardType.ThemePark);
+			List<Monument> buyableCard = new List<Monument>();
+			if (!Monuments[0].Build && Wallet >= Monuments[0].Cost)
+				buyableCard.Add(Monuments[0]);
+			if (!Monuments[1].Build && Wallet >= Monuments[1].Cost)
+				buyableCard.Add(Monuments[1]);
+			if (!Monuments[2].Build && Wallet >= Monuments[2].Cost)
+				buyableCard.Add(Monuments[2]);
+			if (!Monuments[3].Build && Wallet >= Monuments[3].Cost)
+				buyableCard.Add(Monuments[3]);
 
 			return buyableCard;
 		}
