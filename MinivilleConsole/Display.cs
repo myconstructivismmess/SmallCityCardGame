@@ -131,7 +131,8 @@ namespace MinivilleConsole
         //
         //     Console.WriteLine(toString);
         // }
-
+        //
+        
         public static void CardBuyDisplay(Player player,CardType card)
         {
             Console.WriteLine($"{player.Name} achete un(e) {card}.");

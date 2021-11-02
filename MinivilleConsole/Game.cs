@@ -381,6 +381,7 @@ namespace MinivilleConsole
                 // Display.WalletDisplay(HumanPlayer);
                 //
                 // Console.ReadLine();
+                //
             }
         }
 
