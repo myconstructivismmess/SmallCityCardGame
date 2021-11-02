@@ -39,7 +39,7 @@ namespace Core {
 							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
 								gain++;
 							gain += card.Profit;
-							Wallet += gain;
+							// Wallet += gain;
 							break;
 						
 						case CardColor.Green:
@@ -48,7 +48,7 @@ namespace Core {
 							if (card.CardProfitCat == CardCategory.None)
 							{
 								gain += card.Profit;
-								Wallet += gain;
+								// Wallet += gain;
 								break;
 							}
 							else
@@ -56,7 +56,7 @@ namespace Core {
 								foreach (var cardTheSecond in _deck)
 									if (card.CardProfitCat == cardTheSecond.CardCategory)
 										gain += card.Profit;
-								Wallet += gain;
+								// Wallet += gain;
 								break;
 							}
 
@@ -82,20 +82,32 @@ namespace Core {
 									}
 							}
 
-							Wallet += gain;
-							opponent.Wallet -= loss;
-							if (opponent.Wallet < 0)
-							{
-								Wallet += opponent.Wallet;
-								gain += opponent.Wallet;
-								loss += opponent.Wallet;
-								opponent.Wallet = 0;
-							}
+							// Wallet += gain;
+							// opponent.Wallet -= loss;
+							// if (opponent.Wallet < 0)
+							// {
+							// 	Wallet += opponent.Wallet;
+							// 	gain += opponent.Wallet;
+							// 	loss += opponent.Wallet;
+							// 	opponent.Wallet = 0;
+							// }
 							break;
 					}
 				}
 			}
-
+			Wallet -= loss;
+			if (Wallet < 0)
+			{
+				opponent.Wallet += Wallet;
+				loss += Wallet;
+				gain += Wallet;
+				Wallet = 0;
+			}
+			else
+			{
+				Wallet += gain;
+				opponent.Wallet += loss;
+			}
 			var num = new Tuple<int,int>(gain,loss);
 			return num;
 		}
@@ -111,7 +123,7 @@ namespace Core {
 							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
 								gain++;
 							gain += card.Profit;
-							opponent.Wallet += gain;
+							//opponent.Wallet += gain;
 							break;
 						case CardColor.Red:
 							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
@@ -121,20 +133,34 @@ namespace Core {
 							}
 							gain += card.Profit;
 							loss += card.Profit;
-							Wallet -= loss;
-							opponent.Wallet += gain;
+							//Wallet -= loss;
+							//opponent.Wallet += gain;
 							
-							if (Wallet < 0)
-							{
-								opponent.Wallet += Wallet;
-								loss += Wallet;
-								gain += Wallet;
-								Wallet = 0;
-							}
+							// if (Wallet < 0)
+							// {
+							// 	opponent.Wallet += Wallet;
+							// 	loss += Wallet;
+							// 	gain += Wallet;
+							// 	Wallet = 0;
+							// }
 							break;
 					}
 				}
 			}
+			Wallet -= loss;
+			if (Wallet < 0)
+			{
+				opponent.Wallet += Wallet;
+				loss += Wallet;
+				gain += Wallet;
+				Wallet = 0;
+			}
+			else
+			{
+				opponent.Wallet += gain;
+				opponent.Wallet += loss;
+			}
+			gain += loss;
 			var num = new Tuple<int,int>(gain,loss);
 			return num;
 		}
@@ -227,7 +253,6 @@ namespace Core {
 				buyableCard.Add(Monuments[2]);
 			if (!Monuments[3].Build && Wallet >= Monuments[3].Cost)
 				buyableCard.Add(Monuments[3]);
-
 			return buyableCard;
 		}
 	}

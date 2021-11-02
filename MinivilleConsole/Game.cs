@@ -8,7 +8,7 @@ namespace MinivilleConsole
     {
         private static Random _random = new Random();
         
-        public Game(string playerName = "Joueur") : base(playerName)
+        public Game(string playerName) : base("Chopper")
         {
 
         }
@@ -113,6 +113,7 @@ namespace MinivilleConsole
                     Display.DiceDisplay(GameDiceOne);
                 }
             }
+            Display.WalletDisplay(HumanPlayer);
 
             // Card Activate Opponent Red and Blue
             tuple = HumanPlayer.OpponentTurn(ComputerPlayer, GameDiceOne.Value+GameDiceTwo.Value);
@@ -136,6 +137,7 @@ namespace MinivilleConsole
             {
                 // Display Wallet
                 Display.WalletDisplay(HumanPlayer);
+                Display.WalletDisplay(ComputerPlayer);
                 // Display ask want to buy or saving money
                 HumanPlayer.ListDeck();
                 Console.ReadLine();
@@ -189,6 +191,7 @@ namespace MinivilleConsole
                     }
                 }
             }
+            Display.WalletDisplay(HumanPlayer);
         }
 
         public override void ComputerTurn()
@@ -241,6 +244,7 @@ namespace MinivilleConsole
                 }
                 Display.DiceDisplay(GameDiceOne);
             }
+            Display.WalletDisplay(ComputerPlayer);
 
             // Card Activate Opponent Red and Blue
             tuple = ComputerPlayer.OpponentTurn(HumanPlayer, GameDiceOne.Value + GameDiceTwo.Value);
@@ -258,6 +262,8 @@ namespace MinivilleConsole
             
             shop = ComputerPlayer.ListBuyableCard(Stack);
             monument = ComputerPlayer.ListBuyableMonuments();
+            Display.WalletDisplay(ComputerPlayer);
+            Display.WalletDisplay(HumanPlayer);
             
             //Choose randomly between buy and saving money
             if (ComputerPlayer.Wallet > 0)
