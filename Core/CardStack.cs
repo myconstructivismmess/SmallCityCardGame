@@ -44,6 +44,14 @@ namespace Core {
 			return _cards.Sum(x => x.CardType == type ? 1 : 0);
 		}
 
+		public Card? GetCard(CardType type)
+		{
+			foreach (var card in _cards)
+				if (card.CardType == type)
+					return card;
+			return null;
+		}
+
 		public Card? PickCard(CardType type) {
 			Card? result = null;
 			foreach (var card in _cards) {
