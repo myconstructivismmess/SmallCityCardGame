@@ -95,13 +95,11 @@ namespace Core {
 				Wallet += opponent.Wallet;
 				loss += opponent.Wallet;
 				gain += opponent.Wallet;
-				Wallet += gain;
 				opponent.Wallet = 0;
 			}
 			else
 			{
 				Wallet += gain;
-				opponent.Wallet += loss;
 			}
 			var num = new Tuple<int,int>(gain,loss);
 			return num;
@@ -153,9 +151,7 @@ namespace Core {
 			else
 			{
 				opponent.Wallet += gain;
-				opponent.Wallet += loss;
 			}
-			gain += loss;
 			var num = new Tuple<int,int>(gain,loss);
 			return num;
 		}
