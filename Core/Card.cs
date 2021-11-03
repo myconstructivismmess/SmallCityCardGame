@@ -55,7 +55,7 @@ namespace Core {
 	// 4
 	public class CoffeeShop : Card
 	{
-		public override string Name => "Coffee";
+		public override string Name => "Coffee Shop";
 		public override int[] ActivationValue => new int[]{3};
 		public override int Profit => 1;
 		public override int Cost => 2;
