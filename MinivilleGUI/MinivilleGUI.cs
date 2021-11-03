@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 
 using MinivilleGUI.Components;
-using MinivilleGUI.Components.CardComponentGUI;
 using MinivilleGUI.Components.IconComponentGUI;
 
 using Core;
@@ -123,18 +122,18 @@ namespace MinivilleGUI
 			_componentsManagerGUI.Components.Add(_iaGUICoinsHolder);
 
 			SideButtonComponentGUI bottomButton =
-				new SideButtonComponentGUI(SnapMode.Bottom, Vector2.Zero, "Bottom", SideButtonDirection.Top);
+				new SideButtonComponentGUI(SnapMode.Bottom, Vector2.Zero, "Bottom");
 			bottomButton.Pressed += TestFunc;
 			
-			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.Left, Vector2.Zero, "Left", SideButtonDirection.Right));
-			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.Right, Vector2.Zero, "Right", SideButtonDirection.Left));
-			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.Top, Vector2.Zero, "Top", SideButtonDirection.Bottom));
+			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.Left, Vector2.Zero, "Left"));
+			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.Right, Vector2.Zero, "Right"));
+			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.Top, Vector2.Zero, "Top"));
 			_componentsManagerGUI.Components.Add(bottomButton);
-			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.TopLeft, Vector2.Zero, "Top Left", SideButtonDirection.Right));
-			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.TopRight, Vector2.Zero, "Top Right", SideButtonDirection.Left));
-			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.BottomLeft, Vector2.Zero, "Bottom Left", SideButtonDirection.Bottom));
-			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.BottomRight, Vector2.Zero, "Bottom Right", SideButtonDirection.Top));
-			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.Free, Vector2.Zero, "Free", SideButtonDirection.Top));
+			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.TopLeft, Vector2.Zero, "Top Left"));
+			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.TopRight, Vector2.Zero, "Top Right"));
+			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.BottomLeft, Vector2.Zero, "Bottom Left"));
+			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.BottomRight, Vector2.Zero, "Bottom Right"));
+			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.Free, Vector2.Zero, "Free"));
 			
 			base.Initialize();
 		}
