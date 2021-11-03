@@ -39,7 +39,6 @@ namespace Core {
 							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
 								gain++;
 							gain += card.Profit;
-							// Wallet += gain;
 							break;
 						
 						case CardColor.Green:
@@ -48,15 +47,13 @@ namespace Core {
 							if (card.CardProfitCat == CardCategory.None)
 							{
 								gain += card.Profit;
-								// Wallet += gain;
 								break;
 							}
 							else
 							{
 								foreach (var cardTheSecond in _deck)
 									if (card.CardProfitCat == cardTheSecond.CardCategory)
-										gain += card.Profit;
-								// Wallet += gain;
+										gain += card.Profit; 
 								break;
 							}
 
@@ -75,16 +72,6 @@ namespace Core {
 										loss += card.Profit;
 									}
 							}
-
-							// Wallet += gain;
-							// opponent.Wallet -= loss;
-							// if (opponent.Wallet < 0)
-							// {
-							// 	Wallet += opponent.Wallet;
-							// 	gain += opponent.Wallet;
-							// 	loss += opponent.Wallet;
-							// 	opponent.Wallet = 0;
-							// }
 							break;
 					}
 				}
@@ -113,7 +100,6 @@ namespace Core {
 							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
 								gain++;
 							gain += card.Profit;
-							//opponent.Wallet += gain;
 							break;
 						case CardColor.Red:
 							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
@@ -123,16 +109,6 @@ namespace Core {
 							}
 							gain += card.Profit;
 							loss += card.Profit;
-							//Wallet -= loss;
-							//opponent.Wallet += gain;
-							
-							// if (Wallet < 0)
-							// {
-							// 	opponent.Wallet += Wallet;
-							// 	loss += Wallet;
-							// 	gain += Wallet;
-							// 	Wallet = 0;
-							// }
 							break;
 					}
 				}
