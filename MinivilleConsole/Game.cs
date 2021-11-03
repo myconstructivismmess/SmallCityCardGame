@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Core;
 
 namespace MinivilleConsole
@@ -268,13 +269,13 @@ namespace MinivilleConsole
                         ComputerPlayer.BuyMonument(monument[0]);
                         Display.MonumentBuyDisplay(ComputerPlayer, monument[0]);
                     }
-                    else if (choice == 0 || choice>=shop.Count)
+                    else if (choice == 0 || choice>shop.Count)
                     { 
                         Display.EconomyDisplay(ComputerPlayer);
                     }  
                     else
                     {
-                        var cardChoice = shop[choice]; 
+                        var cardChoice = shop[choice-1]; 
                         //Add Card
                         ComputerPlayer.BuyCard(Stack.PickCard(cardChoice));
                         // Display card buy
@@ -298,22 +299,11 @@ namespace MinivilleConsole
 
         public override bool IsEndGame()
         {
-            if (IsComputerWin() && IsPlayerWin())
-            {
-                Display.EqualityDisplay(HumanPlayer, ComputerPlayer);
-                return true;
-            }
             if (IsPlayerWin())
-            {
-                Display.PlayerVictoryDisplay(HumanPlayer);
-                return true;
-            }
-            if (IsComputerWin())
-            {
-                Display.ComputerVictoryDisplay(ComputerPlayer);
-                return true;
-            }
-            return false;
+                Display.VictoryDisplay(HumanPlayer);
+            else if (IsComputerWin())
+                Display.VictoryDisplay(ComputerPlayer);
+            return IsComputerWin() || IsPlayerWin();
         }
         
         

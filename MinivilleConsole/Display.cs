@@ -42,7 +42,8 @@ namespace MinivilleConsole
                 toString += $"({i}) Il reste {stack.GetCardCount(elem)} {elem}, cela coute {stack.GetCard(elem).Cost} piece.\n";
                 i++;
             }
-            toString += "====================== ";
+            if (monument.Count > 0)
+                toString += "======================\n";
             foreach (var elem in monument)
             {
                 toString += $"({i}) Achetez {elem.Name}, cela coute {elem.Cost} piece.\n";
@@ -61,20 +62,9 @@ namespace MinivilleConsole
             Console.WriteLine($"{player.Name} à {player.Wallet} piece dans son porte monnaie.\n");
         }
 
-        public static void PlayerVictoryDisplay(Player player)
+        public static void VictoryDisplay(Player player)
         {
-            Console.WriteLine($"{player.Name} à gagner il a réussit à amasser {player.Wallet} pieces.");
-        }
-        
-        public static void ComputerVictoryDisplay(Player player)
-        {
-            Console.WriteLine($"{player.Name}à gagner il a réussit à amasser {player.Wallet} pieces.");
-        }
-        
-        public static void EqualityDisplay(Player player, Player computer)
-        {
-            Console.WriteLine($"La partie s'arrête sur un match nul entre {player.Name} qui a amassé {player.Wallet}pieces. \n " +
-                              $"Et l'odinateur qui a amassé {computer.Wallet} pieces.");
+            Console.WriteLine($"{player.Name} a gagné ! Il lui restait {player.Wallet}$.");
         }
 
         public static void DiceAskDisplay()
@@ -94,15 +84,10 @@ namespace MinivilleConsole
         
         public static void MonumentBuildDisplay(Player player)
         {
-            string toString = $"{player.Name} à construit";
-            foreach (var elem in player.Monuments)
-            {
-                if (elem.Build)
-                {
-                    toString += elem.Name+" ";
-                }
-            }
-            Console.WriteLine(toString);
+            foreach (var card in player.Monuments)
+                if (card.Build)
+                    Console.Write("| " + card.Name + " ");
+            Console.Write("|\n");
         }
     }
 }
