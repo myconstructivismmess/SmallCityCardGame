@@ -3,11 +3,12 @@ using Microsoft.Xna.Framework;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Core;
+
 using MinivilleGUI.Components;
 using MinivilleGUI.Components.CardComponentGUI;
 using MinivilleGUI.Components.IconComponentGUI;
+
+using Core;
 
 namespace MinivilleGUI
 {
@@ -28,10 +29,14 @@ namespace MinivilleGUI
 
 		private ShopIconComponentGUI _guiShopComponent;
 
+		private GameGUI _game;
+
 		public MinivilleGUI()
 		{
-			_graphics = new GraphicsDeviceManager(this);
+			_game = new GameGUI();
 			
+			_graphics = new GraphicsDeviceManager(this);
+
 			// Set Mouse Visibility
 			IsMouseVisible = true;
 			
@@ -64,6 +69,16 @@ namespace MinivilleGUI
 			ComponentsManagerGUI.ResizeWindow(_windowSize[0], _windowSize[1]);
 
 			_graphics.ApplyChanges();
+		}
+
+		private void TestFunc()
+		{
+			BakeryCardGUI card = new BakeryCardGUI(SnapMode.Bottom, new Vector2(0, 500));
+			
+			_componentsManagerGUI.ComponentsToAdd.Push(card);
+			_playerGUICardsComponents.Add(card);
+			
+			SnapPlayerCards();
 		}
 
 		protected override void Initialize()
@@ -106,6 +121,20 @@ namespace MinivilleGUI
 			_iaGUICoinsHolder = new CoinsHolderComponentGUI(3, SnapMode.TopLeft, new Vector2(-500, -500));
 			_iaGUICoinsHolder.SnapTo(new Vector2(50, 50));
 			_componentsManagerGUI.Components.Add(_iaGUICoinsHolder);
+
+			SideButtonComponentGUI bottomButton =
+				new SideButtonComponentGUI(SnapMode.Bottom, Vector2.Zero, "Bottom", SideButtonDirection.Top);
+			bottomButton.Pressed += TestFunc;
+			
+			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.Left, Vector2.Zero, "Left", SideButtonDirection.Right));
+			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.Right, Vector2.Zero, "Right", SideButtonDirection.Left));
+			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.Top, Vector2.Zero, "Top", SideButtonDirection.Bottom));
+			_componentsManagerGUI.Components.Add(bottomButton);
+			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.TopLeft, Vector2.Zero, "Top Left", SideButtonDirection.Right));
+			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.TopRight, Vector2.Zero, "Top Right", SideButtonDirection.Left));
+			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.BottomLeft, Vector2.Zero, "Bottom Left", SideButtonDirection.Bottom));
+			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.BottomRight, Vector2.Zero, "Bottom Right", SideButtonDirection.Top));
+			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.Free, Vector2.Zero, "Free", SideButtonDirection.Top));
 			
 			base.Initialize();
 		}
@@ -140,6 +169,9 @@ namespace MinivilleGUI
 
 			// Set Shop Icon Texture
 			ShopIconComponentGUI.Texture = Content.Load<Texture2D>("Shop/Shop");
+
+			SideButtonComponentGUI.BackgroundTexture = Content.Load<Texture2D>("SideButtonBackgroundTexture");
+			SideButtonComponentGUI.Font = Content.Load<SpriteFont>("Fonts/Rajdhani-Medium");
 			
 			_guiShopComponent = new ShopIconComponentGUI(SnapMode.Left, new Vector2(-500, 0));
 			_guiShopComponent.SnapTo(new Vector2(100, 0));
@@ -232,7 +264,7 @@ namespace MinivilleGUI
 		{
 			_componentsManagerGUI.Update(gameTime.ElapsedGameTime.TotalSeconds);
 
-			Core.CardType type = CardType.Bakery;
+			CardType type = CardType.Bakery;
 
 			base.Update(gameTime);
 		}

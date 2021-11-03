@@ -50,9 +50,15 @@ namespace MinivilleGUI.Components
 		}
 		
 		public List<ComponentGUI> Components = new List<ComponentGUI>();
+		public Stack<ComponentGUI> ComponentsToAdd = new Stack<ComponentGUI>();
 
 		public void Update(double deltaTime)
 		{
+			while (ComponentsToAdd.Count > 0)
+			{
+				Components.Add(ComponentsToAdd.Pop());
+			}
+			
 			foreach (ComponentGUI component in Components)
 				component.Update(deltaTime);
 		}

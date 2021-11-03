@@ -4,8 +4,6 @@ using Microsoft.Xna.Framework;
 
 namespace MinivilleGUI.Components.IconComponentGUI
 {
-	public delegate void IconComponentGUIEvent();
-	
 	public class IconComponentGUI : ComponentGUI
 	{
 		private Texture2D _texture;
@@ -16,8 +14,8 @@ namespace MinivilleGUI.Components.IconComponentGUI
 
 		private bool _pressed;
 
-		public event IconComponentGUIEvent Pressed;
-		public event IconComponentGUIEvent PressedElseWhere;
+		public event ComponentGUIEvent Pressed;
+		public event ComponentGUIEvent PressedElseWhere;
 
 		public IconComponentGUI(Texture2D texture, SnapMode snapMode, Vector2 position, float defaultScale, float hoveredScale) : base(snapMode, position)
 		{
