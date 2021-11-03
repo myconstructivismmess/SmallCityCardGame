@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 
 using MinivilleGUI.Components;
-using MinivilleGUI.Components.IconComponentGUI;
 
 using Core;
 
@@ -18,15 +17,18 @@ namespace MinivilleGUI
 
 		private int[] _windowSize = { 1000, 800 };
 		
+		// ReSharper disable once InconsistentNaming
 		private ComponentsManagerGUI _componentsManagerGUI;
 		
-		private List<CardComponentGUI> _playerGUICardsComponents;
-		private List<CardComponentGUI> _iaGUICardsComponents;
+		// ReSharper disable once InconsistentNaming
+		private List<CardComponentGUI> _playerCardsComponentsGUI;
+		// ReSharper disable once InconsistentNaming
+		private List<CardComponentGUI> _iaCardsComponentsGUI;
 		
-		private CoinsHolderComponentGUI _playerGUICoinsHolder;
-		private CoinsHolderComponentGUI _iaGUICoinsHolder;
-
-		private ShopIconComponentGUI _guiShopComponent;
+		// ReSharper disable once InconsistentNaming
+		private CoinsHolderComponentGUI _playerCoinsHolderComponentGUI;
+		// ReSharper disable once InconsistentNaming
+		private CoinsHolderComponentGUI _iaCoinsHolderComponentGUI;
 
 		private GameGUI _game;
 
@@ -70,16 +72,6 @@ namespace MinivilleGUI
 			_graphics.ApplyChanges();
 		}
 
-		private void TestFunc()
-		{
-			BakeryCardGUI card = new BakeryCardGUI(SnapMode.Bottom, new Vector2(0, 500));
-			
-			_componentsManagerGUI.ComponentsToAdd.Push(card);
-			_playerGUICardsComponents.Add(card);
-			
-			SnapPlayerCards();
-		}
-
 		protected override void Initialize()
 		{
 			_spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -88,7 +80,7 @@ namespace MinivilleGUI
 			_componentsManagerGUI = new ComponentsManagerGUI();
 			
 			// Players Cards Initialization
-			_playerGUICardsComponents = new List<CardComponentGUI>
+			_playerCardsComponentsGUI = new List<CardComponentGUI>
 			{
 				new WheatFieldCardGUI(SnapMode.Bottom, new Vector2(0, 500)),
 				new BakeryCardGUI(SnapMode.Bottom, new Vector2(0, 500))
@@ -96,11 +88,11 @@ namespace MinivilleGUI
 			
 			SnapPlayerCards();
 
-			foreach (CardComponentGUI card in _playerGUICardsComponents)
+			foreach (CardComponentGUI card in _playerCardsComponentsGUI)
 				_componentsManagerGUI.Components.Add(card);
 
 			// IA Cards Initialization
-			_iaGUICardsComponents = new List<CardComponentGUI>
+			_iaCardsComponentsGUI = new List<CardComponentGUI>
 			{
 				new WheatFieldCardGUI(SnapMode.Top, new Vector2(0, -500)),
 				new BakeryCardGUI(SnapMode.Top, new Vector2(0, -500))
@@ -108,40 +100,54 @@ namespace MinivilleGUI
 			
 			SnapIaCards();
 
-			foreach (CardComponentGUI card in _iaGUICardsComponents)
+			foreach (CardComponentGUI card in _iaCardsComponentsGUI)
 				_componentsManagerGUI.Components.Add(card);
 			
 			// Player Coins Holder Initialization
-			_playerGUICoinsHolder = new CoinsHolderComponentGUI(3, SnapMode.BottomRight, new Vector2(500, 500));
-			_playerGUICoinsHolder.SnapTo(new Vector2(-50, -50));
-			_componentsManagerGUI.Components.Add(_playerGUICoinsHolder);
+			_playerCoinsHolderComponentGUI = new CoinsHolderComponentGUI(3, SnapMode.BottomRight, new Vector2(500, 500));
+			_playerCoinsHolderComponentGUI.SnapTo(new Vector2(-50, -50));
+			_componentsManagerGUI.Components.Add(_playerCoinsHolderComponentGUI);
 			
 			// IA Coins Holder Initialization
-			_iaGUICoinsHolder = new CoinsHolderComponentGUI(3, SnapMode.TopLeft, new Vector2(-500, -500));
-			_iaGUICoinsHolder.SnapTo(new Vector2(50, 50));
-			_componentsManagerGUI.Components.Add(_iaGUICoinsHolder);
+			_iaCoinsHolderComponentGUI = new CoinsHolderComponentGUI(3, SnapMode.TopLeft, new Vector2(-500, -500));
+			_iaCoinsHolderComponentGUI.SnapTo(new Vector2(50, 50));
+			_componentsManagerGUI.Components.Add(_iaCoinsHolderComponentGUI);
 
-			SideButtonComponentGUI bottomButton =
-				new SideButtonComponentGUI(SnapMode.Bottom, Vector2.Zero, "Bottom");
-			bottomButton.Pressed += TestFunc;
+			// Button to Pass the turn Initialization
+			SideButtonComponentGUI passTurnButton =
+				new SideButtonComponentGUI(
+					SnapMode.Left, 
+					new Vector2(0, -40), 
+					"Faire des economies  %", 
+					true, 
+					40
+				);
+			passTurnButton.Pressed += OnPassTurnButtonPressed;
+			_componentsManagerGUI.Components.Add(passTurnButton);
 			
-			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.Left, Vector2.Zero, "Left"));
-			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.Right, Vector2.Zero, "Right"));
-			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.Top, Vector2.Zero, "Top"));
-			_componentsManagerGUI.Components.Add(bottomButton);
-			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.TopLeft, Vector2.Zero, "Top Left"));
-			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.TopRight, Vector2.Zero, "Top Right"));
-			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.BottomLeft, Vector2.Zero, "Bottom Left"));
-			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.BottomRight, Vector2.Zero, "Bottom Right"));
-			_componentsManagerGUI.Components.Add(new SideButtonComponentGUI(SnapMode.Free, Vector2.Zero, "Free"));
-			
+			// Button to Buy Cards Initialization
+			SideButtonComponentGUI buyCardsButton =
+				new SideButtonComponentGUI(
+					SnapMode.Left, 
+					new Vector2(0, 40), 
+					"Acheter une carte  $", 
+					true, 
+					33
+				);
+			buyCardsButton.Pressed += OnBuyCardsButtonPressed;
+			_componentsManagerGUI.Components.Add(buyCardsButton);
+
 			base.Initialize();
 		}
 
 		protected override void LoadContent()
 		{
 			// Background Initialization
-			_componentsManagerGUI.Components.Add(new RepeatedBackgroundTextureGUI(Content.Load<Texture2D>("Background")));
+			_componentsManagerGUI.Components.Add(
+				new RepeatedBackgroundTextureGUI(
+					Content.Load<Texture2D>("Background")
+				)
+			);
 			
 			// Set Cards Textures
 			CardComponentGUI.Textures = new Dictionary<string, Texture2D>
@@ -167,14 +173,14 @@ namespace MinivilleGUI
 			};
 
 			// Set Shop Icon Texture
-			ShopIconComponentGUI.Texture = Content.Load<Texture2D>("Shop/Shop");
+			//ShopIconComponentGUI.Texture = Content.Load<Texture2D>("Shop/Shop");
 
 			SideButtonComponentGUI.BackgroundTexture = Content.Load<Texture2D>("SideButtonBackgroundTexture");
 			SideButtonComponentGUI.Font = Content.Load<SpriteFont>("Fonts/Rajdhani-Medium");
 			
-			_guiShopComponent = new ShopIconComponentGUI(SnapMode.Left, new Vector2(-500, 0));
-			_guiShopComponent.SnapTo(new Vector2(100, 0));
-			_componentsManagerGUI.Components.Add(_guiShopComponent);
+			//_guiShopComponent = new ShopIconComponentGUI(SnapMode.Left, new Vector2(-500, 0));
+			//_guiShopComponent.SnapTo(new Vector2(100, 0));
+			//_componentsManagerGUI.Components.Add(_guiShopComponent);
 			
 			//GUIShopComponent.MenuSelectorBackground = Content.Load<Texture2D>("Shop/MainMenuSelectorBackground");
 
@@ -188,9 +194,9 @@ namespace MinivilleGUI
 			Dictionary<string, List<int>> cardsNumbers = new Dictionary<string, List<int>>();
 			int cardsNumbersLength = 0;
 
-			for (int i = 0; i < _iaGUICardsComponents.Count; i++)
+			for (int i = 0; i < _iaCardsComponentsGUI.Count; i++)
 			{
-				string cardName = _iaGUICardsComponents[i].CardName;
+				string cardName = _iaCardsComponentsGUI[i].CardName;
 				
 				if (cardsNumbers.ContainsKey(cardName))
 					cardsNumbers[cardName].Add(i);
@@ -207,7 +213,7 @@ namespace MinivilleGUI
 			{
 				for (int i = 0; i < cardsNumber.Value.Count; i++)
 				{
-					_iaGUICardsComponents[cardsNumber.Value[i]].SnapTo(
+					_iaCardsComponentsGUI[cardsNumber.Value[i]].SnapTo(
 						SnapMode.Top,
 						new Vector2(
 							j * spacing - (cardsNumbersLength - 1) / 2f * spacing,
@@ -227,9 +233,9 @@ namespace MinivilleGUI
 			Dictionary<string, List<int>> cardsNumbers = new Dictionary<string, List<int>>();
 			int cardsNumbersLength = 0;
 
-			for (int i = 0; i < _playerGUICardsComponents.Count; i++)
+			for (int i = 0; i < _playerCardsComponentsGUI.Count; i++)
 			{
-				string cardName = _playerGUICardsComponents[i].CardName;
+				string cardName = _playerCardsComponentsGUI[i].CardName;
 				
 				if (cardsNumbers.ContainsKey(cardName))
 					cardsNumbers[cardName].Add(i);
@@ -246,7 +252,7 @@ namespace MinivilleGUI
 			{
 				for (int i = 0; i < cardsNumber.Value.Count; i++)
 				{
-					_playerGUICardsComponents[cardsNumber.Value[i]].SnapTo(
+					_playerCardsComponentsGUI[cardsNumber.Value[i]].SnapTo(
 						SnapMode.Bottom,
 						new Vector2(
 							j * spacing - (cardsNumbersLength - 1) / 2f * spacing,
@@ -258,12 +264,30 @@ namespace MinivilleGUI
 				++j;
 			}
 		}
+		
+		private void OnBuyCardsButtonPressed()
+		{
+			BakeryCardGUI card = new BakeryCardGUI(SnapMode.Bottom, new Vector2(0, 500));
+			
+			_componentsManagerGUI.ComponentsToAdd.Push(card);
+			_playerCardsComponentsGUI.Add(card);
+			
+			SnapPlayerCards();
+		}
+		
+		private void OnPassTurnButtonPressed()
+		{
+			WheatFieldCardGUI card = new WheatFieldCardGUI(SnapMode.Bottom, new Vector2(0, 500));
+			
+			_componentsManagerGUI.ComponentsToAdd.Push(card);
+			_playerCardsComponentsGUI.Add(card);
+			
+			SnapPlayerCards();
+		}
 
 		protected override void Update(GameTime gameTime)
 		{
 			_componentsManagerGUI.Update(gameTime.ElapsedGameTime.TotalSeconds);
-
-			CardType type = CardType.Bakery;
 
 			base.Update(gameTime);
 		}

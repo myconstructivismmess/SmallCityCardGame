@@ -9,9 +9,9 @@ namespace MinivilleGUI.Components
 		public static Texture2D BackgroundTexture;
 		public static SpriteFont Font;
 		public static float FontScale = 1f;
-		public static int BorderWidth = 6;
-		public static int StripWidth = 10;
-		
+		public static int BorderWidth = 10;
+
+		public int StripWidth;
 		public event ComponentGUIEvent Pressed;
 		public event ComponentGUIEvent PressedElseWhere;
 
@@ -24,13 +24,14 @@ namespace MinivilleGUI.Components
 		private float _tHighlight;
 		private float _tHighlightTarget;
 
-		public SideButtonComponentGUI(SnapMode snapMode, Vector2 startPosition, string buttonName, bool canRise = true) : base(snapMode, startPosition)
+		public SideButtonComponentGUI(SnapMode snapMode, Vector2 startPosition, string buttonName, bool canRise = true, int stripWidth = 40) : base(snapMode, startPosition)
 		{
 			_buttonName = buttonName;
 			_canRise = canRise;
 			_tRiseTarget = _tRise = canRise ? 0f : 1f;
 			_tHighlight = 0f;
 			_tHighlightTarget = 0f;
+			StripWidth = stripWidth;
 		}
 
 		public override void Update(double deltaTime)
