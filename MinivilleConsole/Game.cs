@@ -176,6 +176,7 @@ namespace MinivilleConsole
                             else
                             {
                                 HumanPlayer.BuyMonument(monument[int.Parse(humanChoice) - shop.Count - 1]);
+                                Display.MonumentBuyDisplay(HumanPlayer,monument[int.Parse(humanChoice) - shop.Count - 1]);
                                 proceed = true;
                             }
                         }
@@ -274,7 +275,7 @@ namespace MinivilleConsole
                     if (monument.Count > 0)
                     {
                         ComputerPlayer.BuyMonument(monument[0]);
-                        Display.CardBuyDisplay(ComputerPlayer,monument[0].CardType);
+                        Display.MonumentBuyDisplay(ComputerPlayer, monument[0]);
                     }
                     else if (choice == 0 || choice>=shop.Count)
                     { 
@@ -286,7 +287,7 @@ namespace MinivilleConsole
                         //Add Card
                         ComputerPlayer.BuyCard(Stack.PickCard(cardChoice));
                         // Display card buy
-                         Display.CardBuyDisplay(ComputerPlayer, cardChoice);
+                        Display.CardBuyDisplay(ComputerPlayer, cardChoice);
                     }
                 }
                 else

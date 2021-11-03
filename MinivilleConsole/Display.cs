@@ -112,5 +112,10 @@ namespace MinivilleConsole
         {
             Console.WriteLine("Voulez-vous relancer votre/vos dé(s) (1) Oui (2) Non??");
         }
+
+        public static void MonumentBuyDisplay(Player player,Monument monument)
+        {
+            Console.WriteLine($"{player} a acheté le/la {monument.Name}");
+        }
     }
 }
