@@ -30,6 +30,14 @@ namespace MinivilleGUI
 		// ReSharper disable once InconsistentNaming
 		private CoinsHolderComponentGUI _iaCoinsHolderComponentGUI;
 
+		// ReSharper disable once InconsistentNaming
+		private SideButtonComponentGUI _passTurnButtonComponentGUI;
+		// ReSharper disable once InconsistentNaming
+		private SideButtonComponentGUI _buyCardsButtonComponentGUI;
+
+		// ReSharper disable once InconsistentNaming
+		private WindowComponentGUI _shopWindowComponentGUI;
+
 		private GameGUI _game;
 
 		public MinivilleGUI()
@@ -114,7 +122,7 @@ namespace MinivilleGUI
 			_componentsManagerGUI.Components.Add(_iaCoinsHolderComponentGUI);
 
 			// Button to Pass the turn Initialization
-			SideButtonComponentGUI passTurnButton =
+			_passTurnButtonComponentGUI =
 				new SideButtonComponentGUI(
 					SnapMode.Left, 
 					new Vector2(0, -40), 
@@ -122,11 +130,11 @@ namespace MinivilleGUI
 					true, 
 					40
 				);
-			passTurnButton.Pressed += OnPassTurnButtonPressed;
-			_componentsManagerGUI.Components.Add(passTurnButton);
+			_passTurnButtonComponentGUI.Pressed += OnPassTurnButtonPressed;
+			_componentsManagerGUI.Components.Add(_passTurnButtonComponentGUI);
 			
 			// Button to Buy Cards Initialization
-			SideButtonComponentGUI buyCardsButton =
+			_buyCardsButtonComponentGUI =
 				new SideButtonComponentGUI(
 					SnapMode.Left, 
 					new Vector2(0, 40), 
@@ -134,9 +142,12 @@ namespace MinivilleGUI
 					true, 
 					33
 				);
-			buyCardsButton.Pressed += OnBuyCardsButtonPressed;
-			_componentsManagerGUI.Components.Add(buyCardsButton);
+			_buyCardsButtonComponentGUI.Pressed += OnBuyCardsButtonPressed;
+			_componentsManagerGUI.Components.Add(_buyCardsButtonComponentGUI);
 
+			_shopWindowComponentGUI = new WindowComponentGUI(SnapMode.Right, Vector2.Zero, 600, 400, "Test");
+			_componentsManagerGUI.Components.Add(_shopWindowComponentGUI);
+			
 			base.Initialize();
 		}
 
@@ -172,19 +183,11 @@ namespace MinivilleGUI
 				{"10", Content.Load<Texture2D>("Coins/10")}
 			};
 
-			// Set Shop Icon Texture
-			//ShopIconComponentGUI.Texture = Content.Load<Texture2D>("Shop/Shop");
-
-			SideButtonComponentGUI.BackgroundTexture = Content.Load<Texture2D>("SideButtonBackgroundTexture");
+			WindowComponentGUI.BackgroundTexture = Content.Load<Texture2D>("UI/BackgroundTexture");
+			WindowComponentGUI.Font = Content.Load<SpriteFont>("Fonts/Rajdhani-Medium");
+			
+			SideButtonComponentGUI.BackgroundTexture = Content.Load<Texture2D>("UI/BackgroundTexture");
 			SideButtonComponentGUI.Font = Content.Load<SpriteFont>("Fonts/Rajdhani-Medium");
-			
-			//_guiShopComponent = new ShopIconComponentGUI(SnapMode.Left, new Vector2(-500, 0));
-			//_guiShopComponent.SnapTo(new Vector2(100, 0));
-			//_componentsManagerGUI.Components.Add(_guiShopComponent);
-			
-			//GUIShopComponent.MenuSelectorBackground = Content.Load<Texture2D>("Shop/MainMenuSelectorBackground");
-
-			// GUICoinsHolderComponent.SpriteFont = Content.Load<SpriteFont>("Fonts/Roboto");
 		}
 
 		private void SnapIaCards()
@@ -273,6 +276,8 @@ namespace MinivilleGUI
 			_playerCardsComponentsGUI.Add(card);
 			
 			SnapPlayerCards();
+
+			_buyCardsButtonComponentGUI.Enabled = false;
 		}
 		
 		private void OnPassTurnButtonPressed()
