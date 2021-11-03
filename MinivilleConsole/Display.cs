@@ -53,7 +53,7 @@ namespace MinivilleConsole
             }
             foreach (var elem in monument)
             {
-                toString += $"{i} Achetez {elem.Name}, cela coute {elem.Cost} piece.\n";
+                toString += $"({i}) Achetez {elem.Name}, cela coute {elem.Cost} piece.\n";
                 i++;
             } 
             Console.WriteLine(toString);

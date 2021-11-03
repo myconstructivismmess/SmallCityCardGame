@@ -164,7 +164,7 @@ namespace MinivilleConsole
                                 Display.EconomyDisplay(HumanPlayer);
                                 proceed = true;
                             }  
-                            else if (int.Parse(humanChoice) < shop.Count)
+                            else if (int.Parse(humanChoice) <= shop.Count)
                             {
                                 cardChoice = shop[int.Parse(humanChoice)-1];
                                 //Add Card
@@ -204,7 +204,6 @@ namespace MinivilleConsole
             var opponentGain = 0;
             var opponentLoss = 0;
             var tuple = new Tuple<int, int>(0, 0);
-            var proceed = false;
             int choice = -1;
             CardType cardChoice = CardType.Bakery;
             var shop = new List<CardType>();
