@@ -11,16 +11,22 @@ namespace MinivilleGUI.Components
 		public static float FontScale = 1f;
 		public static int BorderWidth = 10;
 
-		public int StripWidth;
+		
 		public event ComponentGUIEvent Pressed;
 		public event ComponentGUIEvent PressedElseWhere;
 
+		public bool Enabled = true;
+		
+
 		private bool _pressed;
 		
-		private string _buttonName;
-		private bool _canRise;
+		private readonly int _stripWidth;
+		private readonly string _buttonName;
+		private readonly bool _canRise;
+		
 		private float _tRise;
 		private float _tRiseTarget;
+		
 		private float _tHighlight;
 		private float _tHighlightTarget;
 
@@ -31,7 +37,7 @@ namespace MinivilleGUI.Components
 			_tRiseTarget = _tRise = canRise ? 0f : 1f;
 			_tHighlight = 0f;
 			_tHighlightTarget = 0f;
-			StripWidth = stripWidth;
+			_stripWidth = stripWidth;
 		}
 
 		public override void Update(double deltaTime)
@@ -46,13 +52,13 @@ namespace MinivilleGUI.Components
 				
 				if (_pressed)
 					if (hovered)
-						Pressed?.Invoke();
+						if (Enabled) Pressed?.Invoke();
 					else
 						PressedElseWhere?.Invoke();
 			}
 			
 			_tRiseTarget = _canRise && !hovered ? 0f : 1f;
-			_tHighlightTarget = hovered ? 1f : 0f;
+			_tHighlightTarget = Enabled ? (hovered ? 1f : 0f) : 0.6f;
 			
 			_tRise = (_tRiseTarget - _tRise) * 0.1f + _tRise;
 			_tHighlight = (_tHighlightTarget - _tHighlight) * 0.1f + _tHighlight;
@@ -69,15 +75,15 @@ namespace MinivilleGUI.Components
 
 			Vector2 drawPosition = DisplayPosition + SnapMode switch
 			{
-				SnapMode.TopLeft => new Vector2(0, -((buttonSize.Y - StripWidth) * (1 - _tRise))),
-				SnapMode.Left => new Vector2(-((buttonSize.X - StripWidth) * (1 - _tRise)), -buttonSize.Y / 2f),
-				SnapMode.BottomLeft => new Vector2(0, -(buttonSize.Y - StripWidth) * _tRise - StripWidth),
-				SnapMode.Top => new Vector2(-buttonSize.X / 2f, -((buttonSize.Y - StripWidth) * (1 - _tRise))),
+				SnapMode.TopLeft => new Vector2(0, -((buttonSize.Y - _stripWidth) * (1 - _tRise))),
+				SnapMode.Left => new Vector2(-((buttonSize.X - _stripWidth) * (1 - _tRise)), -buttonSize.Y / 2f),
+				SnapMode.BottomLeft => new Vector2(0, -(buttonSize.Y - _stripWidth) * _tRise - _stripWidth),
+				SnapMode.Top => new Vector2(-buttonSize.X / 2f, -((buttonSize.Y - _stripWidth) * (1 - _tRise))),
 				SnapMode.Free => new Vector2(-buttonSize.X / 2f, -buttonSize.Y / 2f),
-				SnapMode.Bottom => new Vector2(-buttonSize.X / 2f, -(buttonSize.Y - StripWidth) * _tRise - StripWidth),
-				SnapMode.TopRight => new Vector2(-buttonSize.X, -((buttonSize.Y - StripWidth) * (1 - _tRise))),
-				SnapMode.Right => new Vector2(-StripWidth - (buttonSize.X - StripWidth) * _tRise, -buttonSize.Y / 2f),
-				SnapMode.BottomRight => new Vector2(-buttonSize.X, -(buttonSize.Y - StripWidth) * _tRise - StripWidth),
+				SnapMode.Bottom => new Vector2(-buttonSize.X / 2f, -(buttonSize.Y - _stripWidth) * _tRise - _stripWidth),
+				SnapMode.TopRight => new Vector2(-buttonSize.X, -((buttonSize.Y - _stripWidth) * (1 - _tRise))),
+				SnapMode.Right => new Vector2(-_stripWidth - (buttonSize.X - _stripWidth) * _tRise, -buttonSize.Y / 2f),
+				SnapMode.BottomRight => new Vector2(-buttonSize.X, -(buttonSize.Y - _stripWidth) * _tRise - _stripWidth),
 				_ => new Vector2(0, 0)
 			};
 
@@ -114,15 +120,15 @@ namespace MinivilleGUI.Components
 
 			Vector2 drawPosition = DisplayPosition + SnapMode switch
 			{
-				SnapMode.TopLeft => new Vector2(0, -((buttonSize.Y - StripWidth) * (1 - _tRise))),
-				SnapMode.Left => new Vector2(-((buttonSize.X - StripWidth) * (1 - _tRise)), -buttonSize.Y / 2f),
-				SnapMode.BottomLeft => new Vector2(0, -(buttonSize.Y - StripWidth) * _tRise - StripWidth),
-				SnapMode.Top => new Vector2(-buttonSize.X / 2f, -((buttonSize.Y - StripWidth) * (1 - _tRise))),
+				SnapMode.TopLeft => new Vector2(0, -((buttonSize.Y - _stripWidth) * (1 - _tRise))),
+				SnapMode.Left => new Vector2(-((buttonSize.X - _stripWidth) * (1 - _tRise)), -buttonSize.Y / 2f),
+				SnapMode.BottomLeft => new Vector2(0, -(buttonSize.Y - _stripWidth) * _tRise - _stripWidth),
+				SnapMode.Top => new Vector2(-buttonSize.X / 2f, -((buttonSize.Y - _stripWidth) * (1 - _tRise))),
 				SnapMode.Free => new Vector2(-buttonSize.X / 2f, -buttonSize.Y / 2f),
-				SnapMode.Bottom => new Vector2(-buttonSize.X / 2f, -(buttonSize.Y - StripWidth) * _tRise - StripWidth),
-				SnapMode.TopRight => new Vector2(-buttonSize.X, -((buttonSize.Y - StripWidth) * (1 - _tRise))),
-				SnapMode.Right => new Vector2(-StripWidth - (buttonSize.X - StripWidth) * _tRise, -buttonSize.Y / 2f),
-				SnapMode.BottomRight => new Vector2(-buttonSize.X, -(buttonSize.Y - StripWidth) * _tRise - StripWidth),
+				SnapMode.Bottom => new Vector2(-buttonSize.X / 2f, -(buttonSize.Y - _stripWidth) * _tRise - _stripWidth),
+				SnapMode.TopRight => new Vector2(-buttonSize.X, -((buttonSize.Y - _stripWidth) * (1 - _tRise))),
+				SnapMode.Right => new Vector2(-_stripWidth - (buttonSize.X - _stripWidth) * _tRise, -buttonSize.Y / 2f),
+				SnapMode.BottomRight => new Vector2(-buttonSize.X, -(buttonSize.Y - _stripWidth) * _tRise - _stripWidth),
 				_ => new Vector2(0, 0)
 			};
 
