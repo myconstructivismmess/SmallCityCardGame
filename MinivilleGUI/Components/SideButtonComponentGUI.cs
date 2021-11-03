@@ -4,20 +4,13 @@ using Microsoft.Xna.Framework;
 
 namespace MinivilleGUI.Components
 {
-	public enum SideButtonDirection
-	{
-		Left,
-		Right,
-		Top,
-		Bottom
-	}
-	
 	public class SideButtonComponentGUI : ComponentGUI
 	{
 		public static Texture2D BackgroundTexture;
 		public static SpriteFont Font;
 		public static float FontScale = 1f;
 		public static int BorderWidth = 6;
+		public static int StripWidth = 10;
 		
 		public event ComponentGUIEvent Pressed;
 		public event ComponentGUIEvent PressedElseWhere;
@@ -27,6 +20,7 @@ namespace MinivilleGUI.Components
 		private string _buttonName;
 		private bool _canRise;
 		private float _tRise;
+		private float _tRiseTarget;
 		private float _tHighlight;
 		private float _tHighlightTarget;
 
@@ -34,7 +28,7 @@ namespace MinivilleGUI.Components
 		{
 			_buttonName = buttonName;
 			_canRise = canRise;
-			_tRise = canRise ? 0f : 1f;
+			_tRiseTarget = _tRise = canRise ? 0f : 1f;
 			_tHighlight = 0f;
 			_tHighlightTarget = 0f;
 		}
@@ -56,7 +50,10 @@ namespace MinivilleGUI.Components
 						PressedElseWhere?.Invoke();
 			}
 			
+			_tRiseTarget = _canRise && !hovered ? 0f : 1f;
 			_tHighlightTarget = hovered ? 1f : 0f;
+			
+			_tRise = (_tRiseTarget - _tRise) * 0.1f + _tRise;
 			_tHighlight = (_tHighlightTarget - _tHighlight) * 0.1f + _tHighlight;
 			
 			base.Update(deltaTime);
@@ -69,26 +66,17 @@ namespace MinivilleGUI.Components
 			Vector2 buttonSize = Vector2.One * BorderWidth * 2
 			                     + textSize;
 
-			/*Vector2 buttonSize = new Vector2(BorderWidth * 2, BorderWidth * 2) + SnapMode switch
-			{
-				SnapMode.Top => new Vector2(textSize.Y, textSize.X),
-				SnapMode.Bottom => new Vector2(textSize.Y, textSize.X),
-				SnapMode.Left => new Vector2(textSize.X, textSize.Y),
-				SnapMode.Right => new Vector2(textSize.X, textSize.Y),
-				_ => new Vector2(textSize.Y, textSize.X)
-			};*/
-
 			Vector2 drawPosition = DisplayPosition + SnapMode switch
 			{
-				SnapMode.TopLeft => new Vector2(0, 0),
-				SnapMode.Left => new Vector2(0, -buttonSize.Y / 2f),
-				SnapMode.BottomLeft => new Vector2(0, -buttonSize.Y),
-				SnapMode.Top => new Vector2(-buttonSize.X / 2f, 0),
+				SnapMode.TopLeft => new Vector2(0, -((buttonSize.Y - StripWidth) * (1 - _tRise))),
+				SnapMode.Left => new Vector2(-((buttonSize.X - StripWidth) * (1 - _tRise)), -buttonSize.Y / 2f),
+				SnapMode.BottomLeft => new Vector2(0, -(buttonSize.Y - StripWidth) * _tRise - StripWidth),
+				SnapMode.Top => new Vector2(-buttonSize.X / 2f, -((buttonSize.Y - StripWidth) * (1 - _tRise))),
 				SnapMode.Free => new Vector2(-buttonSize.X / 2f, -buttonSize.Y / 2f),
-				SnapMode.Bottom => new Vector2(-buttonSize.X / 2f, -buttonSize.Y),
-				SnapMode.TopRight => new Vector2(-buttonSize.X, 0),
-				SnapMode.Right => new Vector2(-buttonSize.X, -buttonSize.Y / 2f),
-				SnapMode.BottomRight => new Vector2(-buttonSize.X, -buttonSize.Y),
+				SnapMode.Bottom => new Vector2(-buttonSize.X / 2f, -(buttonSize.Y - StripWidth) * _tRise - StripWidth),
+				SnapMode.TopRight => new Vector2(-buttonSize.X, -((buttonSize.Y - StripWidth) * (1 - _tRise))),
+				SnapMode.Right => new Vector2(-StripWidth - (buttonSize.X - StripWidth) * _tRise, -buttonSize.Y / 2f),
+				SnapMode.BottomRight => new Vector2(-buttonSize.X, -(buttonSize.Y - StripWidth) * _tRise - StripWidth),
 				_ => new Vector2(0, 0)
 			};
 
@@ -103,23 +91,17 @@ namespace MinivilleGUI.Components
 				new Color(c, c, c)
 			);
 			
-			spriteBatch.DrawString(Font, _buttonName, drawPosition + new Vector2(BorderWidth, BorderWidth), Color.White, 0f, Vector2.Zero, FontScale, SpriteEffects.None, 0f);
-
-			/*switch (_sideButtonDirection)
-			{
-				case SideButtonDirection.Left:
-					spriteBatch.DrawString(Font, _buttonName, drawPosition, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0);
-					break;
-				case SideButtonDirection.Right:
-					spriteBatch.DrawString(Font, _buttonName, drawPosition, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0);
-					break;
-				case SideButtonDirection.Top:
-					spriteBatch.DrawString(Font, _buttonName, drawPosition, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0);
-					break;
-				case SideButtonDirection.Bottom:
-					spriteBatch.DrawString(Font, _buttonName, drawPosition, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0);
-					break;
-			}*/
+			spriteBatch.DrawString(
+				Font,
+				_buttonName,
+				drawPosition + new Vector2(BorderWidth, BorderWidth),
+				Color.White,
+				0f,
+				Vector2.Zero,
+				FontScale,
+				SpriteEffects.None,
+				0f
+			);
 		}
 		
 		private bool IsHovered(MouseState mouseState)
@@ -129,26 +111,17 @@ namespace MinivilleGUI.Components
 			Vector2 buttonSize = Vector2.One * BorderWidth * 2
 			                     + textSize;
 
-			/*Vector2 buttonSize = new Vector2(BorderWidth * 2, BorderWidth * 2) + SnapMode switch
-			{
-				SnapMode.Top => new Vector2(textSize.Y, textSize.X),
-				SnapMode.Bottom => new Vector2(textSize.Y, textSize.X),
-				SnapMode.Left => new Vector2(textSize.X, textSize.Y),
-				SnapMode.Right => new Vector2(textSize.X, textSize.Y),
-				_ => new Vector2(textSize.Y, textSize.X)
-			};*/
-
 			Vector2 drawPosition = DisplayPosition + SnapMode switch
 			{
-				SnapMode.TopLeft => new Vector2(0, 0),
-				SnapMode.Left => new Vector2(0, -buttonSize.Y / 2f),
-				SnapMode.BottomLeft => new Vector2(0, -buttonSize.Y),
-				SnapMode.Top => new Vector2(-buttonSize.X / 2f, 0),
+				SnapMode.TopLeft => new Vector2(0, -((buttonSize.Y - StripWidth) * (1 - _tRise))),
+				SnapMode.Left => new Vector2(-((buttonSize.X - StripWidth) * (1 - _tRise)), -buttonSize.Y / 2f),
+				SnapMode.BottomLeft => new Vector2(0, -(buttonSize.Y - StripWidth) * _tRise - StripWidth),
+				SnapMode.Top => new Vector2(-buttonSize.X / 2f, -((buttonSize.Y - StripWidth) * (1 - _tRise))),
 				SnapMode.Free => new Vector2(-buttonSize.X / 2f, -buttonSize.Y / 2f),
-				SnapMode.Bottom => new Vector2(-buttonSize.X / 2f, -buttonSize.Y),
-				SnapMode.TopRight => new Vector2(-buttonSize.X, 0),
-				SnapMode.Right => new Vector2(-buttonSize.X, -buttonSize.Y / 2f),
-				SnapMode.BottomRight => new Vector2(-buttonSize.X, -buttonSize.Y),
+				SnapMode.Bottom => new Vector2(-buttonSize.X / 2f, -(buttonSize.Y - StripWidth) * _tRise - StripWidth),
+				SnapMode.TopRight => new Vector2(-buttonSize.X, -((buttonSize.Y - StripWidth) * (1 - _tRise))),
+				SnapMode.Right => new Vector2(-StripWidth - (buttonSize.X - StripWidth) * _tRise, -buttonSize.Y / 2f),
+				SnapMode.BottomRight => new Vector2(-buttonSize.X, -(buttonSize.Y - StripWidth) * _tRise - StripWidth),
 				_ => new Vector2(0, 0)
 			};
 
