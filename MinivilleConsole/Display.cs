@@ -48,7 +48,7 @@ namespace MinivilleConsole
             string toString = "(0) Économiser.\n";
             foreach (var elem in shop)
             {
-                toString += $"{i} Il reste {stack.GetCardCount(elem)} {elem}, cela coute {stack.GetCard(elem).Cost} piece.\n";
+                toString += $"({i}) Il reste {stack.GetCardCount(elem)} {elem}, cela coute {stack.GetCard(elem).Cost} piece.\n";
                 i++;
             }
             foreach (var elem in monument)
@@ -115,7 +115,20 @@ namespace MinivilleConsole
 
         public static void MonumentBuyDisplay(Player player,Monument monument)
         {
-            Console.WriteLine($"{player} a acheté le/la {monument.Name}");
+            Console.WriteLine($"{player.Name} a acheté le/la {monument.Name}");
+        }
+        
+        public static void MonumentBuildDisplay(Player player)
+        {
+            string toString = $"{player.Name} à construit";
+            foreach (var elem in player.Monuments)
+            {
+                if (elem.Build)
+                {
+                    toString += elem.Name+" ";
+                }
+            }
+            Console.WriteLine(toString);
         }
     }
 }
