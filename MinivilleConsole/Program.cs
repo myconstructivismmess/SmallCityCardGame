@@ -7,7 +7,7 @@ namespace MinivilleConsole
     {
         public static void Main(string[] args)
         {
-			Console.WriteLine("Quelle est votre nom ?");
+			Console.WriteLine("Quel est votre nom ?");
             var g = new Game(Console.ReadLine());
             g.Run();
         }
