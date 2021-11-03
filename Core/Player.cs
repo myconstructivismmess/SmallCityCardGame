@@ -97,12 +97,12 @@ namespace Core {
 				if (card.ActivationValue.Contains(diceValue)) {
 					switch (card.CardColor) {
 						case CardColor.Blue:
-							if ((card.CardCategory == CardCategory.Food || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
+							if ((card.CardCategory == CardCategory.Food || card.CardCategory == CardCategory.Shop) && opponent.Monuments[1].Build)
 								gain++;
 							gain += card.Profit;
 							break;
 						case CardColor.Red:
-							if ((card.CardCategory == CardCategory.Food || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
+							if ((card.CardCategory == CardCategory.Food || card.CardCategory == CardCategory.Shop) && opponent.Monuments[1].Build)
 							{
 								gain++;
 								loss++;

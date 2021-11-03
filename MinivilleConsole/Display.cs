@@ -42,6 +42,7 @@ namespace MinivilleConsole
                 toString += $"({i}) Il reste {stack.GetCardCount(elem)} {elem}, cela coute {stack.GetCard(elem).Cost} piece.\n";
                 i++;
             }
+            toString += "====================== ";
             foreach (var elem in monument)
             {
                 toString += $"({i}) Achetez {elem.Name}, cela coute {elem.Cost} piece.\n";
