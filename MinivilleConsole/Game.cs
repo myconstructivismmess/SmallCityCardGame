@@ -272,7 +272,7 @@ namespace MinivilleConsole
             {
                 if (Stack.GetStackSize() > 0)
                 { 
-                    choice = _random.Next(0,shop.Count+3);
+                    choice = _random.Next(0,shop.Count*2);
                     if (monument.Count > 0)
                     {
                         ComputerPlayer.BuyMonument(monument[0]);
