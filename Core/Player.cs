@@ -36,13 +36,13 @@ namespace Core {
 				if (card.ActivationValue.Contains(diceValue)) {
 					switch (card.CardColor) {
 						case CardColor.Blue:
-							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
+							if ((card.CardCategory == CardCategory.Food || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
 								gain++;
 							gain += card.Profit;
 							break;
 						
 						case CardColor.Green:
-							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
+							if ((card.CardCategory == CardCategory.Food || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
 								gain++;
 							if (card.CardProfitCat == CardCategory.None)
 							{
@@ -97,12 +97,12 @@ namespace Core {
 				if (card.ActivationValue.Contains(diceValue)) {
 					switch (card.CardColor) {
 						case CardColor.Blue:
-							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
+							if ((card.CardCategory == CardCategory.Food || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
 								gain++;
 							gain += card.Profit;
 							break;
 						case CardColor.Red:
-							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
+							if ((card.CardCategory == CardCategory.Food || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
 							{
 								gain++;
 								loss++;
