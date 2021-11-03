@@ -298,13 +298,10 @@ namespace MinivilleConsole
 
         public override bool IsEndGame()
         {
-            if (IsComputerWin() && IsPlayerWin())
-                Display.EqualityDisplay(HumanPlayer, ComputerPlayer);
-            else if (IsPlayerWin())
+            if (IsPlayerWin())
                 Display.VictoryDisplay(HumanPlayer);
             else if (IsComputerWin())
                 Display.VictoryDisplay(ComputerPlayer);
-
             return IsComputerWin() || IsPlayerWin();
         }
         

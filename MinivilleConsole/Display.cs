@@ -67,12 +67,6 @@ namespace MinivilleConsole
             Console.WriteLine($"{player.Name} a gagné ! Il lui restait {player.Wallet}$.");
         }
 
-        public static void EqualityDisplay(Player player, Player computer)
-        {
-            Console.WriteLine($"La partie s'arrête sur un match nul entre {player.Name} qui a amassé {player.Wallet}pieces. \n " +
-                              $"Et l'odinateur qui a amassé {computer.Wallet} pieces.");
-        }
-
         public static void DiceAskDisplay()
         {
             Console.WriteLine("Voulez-vous lancer 1 ou 2 dés ??(un nombre est attendue)");
