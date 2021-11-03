@@ -134,8 +134,9 @@ namespace MinivilleConsole
                 Display.WalletDisplay(HumanPlayer);
                 Display.WalletDisplay(ComputerPlayer);
                 // Display ask want to buy or saving money
-                HumanPlayer.ListDeck();
                 Display.MonumentBuildDisplay(HumanPlayer);
+                HumanPlayer.ListDeck();
+                
                 Console.ReadLine();
 
                 while (!proceed)
@@ -249,8 +250,8 @@ namespace MinivilleConsole
 
             // Display win and loosing money
             Display.AllTransactionDisplay(gain, loss, opponentGain, opponentLoss, ComputerPlayer, HumanPlayer);
-            ComputerPlayer.ListDeck();
             Display.MonumentBuildDisplay(ComputerPlayer);
+            ComputerPlayer.ListDeck();
             
             var shop = ComputerPlayer.ListBuyableCard(Stack);
             var monument = ComputerPlayer.ListBuyableMonuments();

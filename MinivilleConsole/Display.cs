@@ -90,18 +90,12 @@ namespace MinivilleConsole
         {
             Console.WriteLine($"{player.Name} a acheté le/la {monument.Name}");
         }
-        
+
         public static void MonumentBuildDisplay(Player player)
         {
-            string toString = $"{player.Name} à construit";
-            foreach (var elem in player.Monuments)
-            {
-                if (elem.Build)
-                {
-                    toString += elem.Name+" ";
-                }
-            }
-            Console.WriteLine(toString);
+            foreach (var card in player.Monuments)
+				Console.Write("| " + card.Name + " ");
+			Console.Write("|\n");
         }
     }
 }
