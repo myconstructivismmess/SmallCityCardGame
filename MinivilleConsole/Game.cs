@@ -271,7 +271,7 @@ namespace MinivilleConsole
             if (ComputerPlayer.Wallet > 0)
             {
                 if (Stack.GetStackSize() > 0)
-                { 
+                {
                     choice = _random.Next(0,shop.Count*2);
                     if (monument.Count > 0)
                     {
