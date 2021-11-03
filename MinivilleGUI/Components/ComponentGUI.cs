@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 
 namespace MinivilleGUI.Components
 {
+	public delegate void ComponentGUIEvent();
+	
 	public abstract class ComponentGUI
 	{
 		// Display
@@ -11,7 +13,7 @@ namespace MinivilleGUI.Components
 		public Vector2 TargetDisplayPosition;
 		
 		// Snapping
-		protected virtual float MovementSpeed => 0.99f;
+		protected virtual float? MovementSpeed => 0.99f;
 		public Vector2 SnappedPosition;
 		public SnapMode SnapMode;
 		
@@ -97,7 +99,9 @@ namespace MinivilleGUI.Components
 			};
 
 			TargetDisplayPosition = SnappedPosition + ComponentsManagerGUI.GetWindowCornerCoordinates(SnapMode) + offset;
-			DisplayPosition = Vector2.Lerp(DisplayPosition, TargetDisplayPosition, MovementSpeed * deltaTime);
+			DisplayPosition = MovementSpeed.HasValue ? 
+				Vector2.Lerp(DisplayPosition, TargetDisplayPosition, MovementSpeed.Value * deltaTime) : 
+				TargetDisplayPosition;
 		}
 		
 		// Drawing
