@@ -30,7 +30,7 @@ namespace MinivilleGUI.Components
 		private float _tHighlight;
 		private float _tHighlightTarget;
 
-		public SideButtonComponentGUI(SnapMode snapMode, Vector2 startPosition, string buttonName, SideButtonDirection sideButtonDirection, bool canRise = true) : base(snapMode, startPosition)
+		public SideButtonComponentGUI(SnapMode snapMode, Vector2 startPosition, string buttonName, bool canRise = true) : base(snapMode, startPosition)
 		{
 			_buttonName = buttonName;
 			_canRise = canRise;
