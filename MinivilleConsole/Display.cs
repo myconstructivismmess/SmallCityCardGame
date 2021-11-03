@@ -8,11 +8,7 @@ namespace MinivilleConsole
 {
     public class Display
     {
-        public Display ()
-        {
-        }
-
-        public static void TurnDisplay(Player player)
+		public static void TurnDisplay(Player player)
         {
             Console.WriteLine($"C'est à {player.Name} de jouer. \n");
         }
@@ -25,11 +21,6 @@ namespace MinivilleConsole
         public static void AllTransactionDisplay(int gain, int loss, int opponentGain, int opponentLoss, Player player, Player opponent)
         {
             Console.WriteLine($"{player.Name} gagne {gain}, {player.Name} perd {loss}, {opponent.Name} gagne {opponentGain}, {opponent.Name} perd {opponentLoss}.\n");
-        }
-
-        public static void AskDisplay()
-        {
-            Console.WriteLine("Voulez-vous acheter un batiment (\"Buy\") ou faire des economies () ?");
         }
 
         public static void EconomyDisplay(Player player)
@@ -62,24 +53,6 @@ namespace MinivilleConsole
         public static void CardBuyDisplay(Player player,CardType card)
         {
             Console.WriteLine($"{player.Name} achete un(e) {card}.");
-        }
-
-        public static void CardMissingDisplay(CardType card)
-        {
-            Console.WriteLine($"{card} n'est plus dans le paquet.");
-            Console.ReadLine();
-        }
-
-        public static void PlayerIsPoor()
-        {
-            Console.WriteLine($"Vous n'avez pas l'argent requis.");
-            Console.ReadLine();
-        }
-        
-        public static void PlayerIsRich()
-        {
-            Console.WriteLine($"Vous avez déjà cette carte.");
-            Console.ReadLine();
         }
 
         public static void WalletDisplay(Player player)

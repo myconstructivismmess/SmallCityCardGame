@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System;
+using Core;
 
 namespace MinivilleConsole
 {
@@ -6,7 +7,8 @@ namespace MinivilleConsole
     {
         public static void Main(string[] args)
         {
-            var g = new Game("y");
+			Console.WriteLine("Quelle est votre nom ?");
+            var g = new Game(Console.ReadLine());
             g.Run();
         }
     }

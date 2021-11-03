@@ -8,10 +8,10 @@ namespace MinivilleConsole
     {
         private static Random _random = new Random();
         
-        public Game(string playerName) : base("Chopper")
+        public Game(string playerName) : base(playerName)
         {
-
-        }
+			
+		}
 
         public override void Run()
         {
