@@ -299,21 +299,13 @@ namespace MinivilleConsole
         public override bool IsEndGame()
         {
             if (IsComputerWin() && IsPlayerWin())
-            {
                 Display.EqualityDisplay(HumanPlayer, ComputerPlayer);
-                return true;
-            }
-            if (IsPlayerWin())
-            {
-                Display.PlayerVictoryDisplay(HumanPlayer);
-                return true;
-            }
-            if (IsComputerWin())
-            {
-                Display.ComputerVictoryDisplay(ComputerPlayer);
-                return true;
-            }
-            return false;
+            else if (IsPlayerWin())
+                Display.VictoryDisplay(HumanPlayer);
+            else if (IsComputerWin())
+                Display.VictoryDisplay(ComputerPlayer);
+
+            return IsComputerWin() || IsPlayerWin();
         }
         
         
