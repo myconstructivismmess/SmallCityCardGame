@@ -39,7 +39,6 @@ namespace Core {
 							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
 								gain++;
 							gain += card.Profit;
-							Wallet += gain;
 							break;
 						
 						case CardColor.Green:
@@ -48,25 +47,17 @@ namespace Core {
 							if (card.CardProfitCat == CardCategory.None)
 							{
 								gain += card.Profit;
-								Wallet += gain;
 								break;
 							}
 							else
 							{
 								foreach (var cardTheSecond in _deck)
 									if (card.CardProfitCat == cardTheSecond.CardCategory)
-										gain += card.Profit;
-								Wallet += gain;
+										gain += card.Profit; 
 								break;
 							}
 
 						case CardColor.Purple:
-							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
-							{
-								gain++;
-								loss++;
-							}
-
 							if (card.CardType != CardType.BusinessCenter)
 							{
 								gain += card.Profit;
@@ -81,21 +72,19 @@ namespace Core {
 										loss += card.Profit;
 									}
 							}
-
-							Wallet += gain;
-							opponent.Wallet -= loss;
-							if (opponent.Wallet < 0)
-							{
-								Wallet += opponent.Wallet;
-								gain += opponent.Wallet;
-								loss += opponent.Wallet;
-								opponent.Wallet = 0;
-							}
 							break;
 					}
 				}
 			}
-
+			opponent.Wallet -= loss;
+			Wallet += gain;
+			if (opponent.Wallet < 0)
+			{
+				Wallet += opponent.Wallet;
+				loss += opponent.Wallet;
+				gain += opponent.Wallet;
+				opponent.Wallet = 0;
+			}
 			var num = new Tuple<int,int>(gain,loss);
 			return num;
 		}
@@ -111,7 +100,6 @@ namespace Core {
 							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
 								gain++;
 							gain += card.Profit;
-							opponent.Wallet += gain;
 							break;
 						case CardColor.Red:
 							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
@@ -121,19 +109,18 @@ namespace Core {
 							}
 							gain += card.Profit;
 							loss += card.Profit;
-							Wallet -= loss;
-							opponent.Wallet += gain;
-							
-							if (Wallet < 0)
-							{
-								opponent.Wallet += Wallet;
-								loss += Wallet;
-								gain += Wallet;
-								Wallet = 0;
-							}
 							break;
 					}
 				}
+			}
+			Wallet -= loss;
+			opponent.Wallet += gain;
+			if (Wallet < 0)
+			{
+				opponent.Wallet += Wallet;
+				loss += Wallet;
+				gain += Wallet;
+				Wallet = 0;
 			}
 			var num = new Tuple<int,int>(gain,loss);
 			return num;
@@ -164,7 +151,7 @@ namespace Core {
 			return false;
 		}
 		
-		public List<CardType> ListBuyableCard (CardStack stack)
+		public List<CardType> ListBuyableCard(CardStack stack)
 		{
 			List<CardType> buyableCard = new List<CardType>();
 			if (Wallet >= 1)
@@ -201,18 +188,32 @@ namespace Core {
 					buyableCard.Add(CardType.CheeseShop);
 			if (Wallet >= 6)
 			{
-				if (stack.GetCardCount(CardType.Stadium) > 0)
-					buyableCard.Add(CardType.Stadium);
 				if (stack.GetCardCount(CardType.Mine) > 0)
 					buyableCard.Add(CardType.Mine);
+				if (stack.GetCardCount(CardType.Stadium) > 0 && !HasCard(CardType.Stadium))
+					buyableCard.Add(CardType.Stadium);
 			}
 			if (Wallet >= 7)
-				if (stack.GetCardCount(CardType.TelevisionChannel) > 0)
+				if (stack.GetCardCount(CardType.TelevisionChannel) > 0 && !HasCard(CardType.TelevisionChannel))
 					buyableCard.Add(CardType.TelevisionChannel);
 			if (Wallet >= 8)
-				if (stack.GetCardCount(CardType.BusinessCenter) > 0)
+				if (stack.GetCardCount(CardType.BusinessCenter) > 0 && !HasCard(CardType.BusinessCenter))
 					buyableCard.Add(CardType.BusinessCenter);
 
+			return buyableCard;
+		}
+
+		public List<Monument> ListBuyableMonuments()
+		{
+			List<Monument> buyableCard = new List<Monument>();
+			if (!Monuments[0].Build && Wallet >= Monuments[0].Cost)
+				buyableCard.Add(Monuments[0]);
+			if (!Monuments[1].Build && Wallet >= Monuments[1].Cost)
+				buyableCard.Add(Monuments[1]);
+			if (!Monuments[2].Build && Wallet >= Monuments[2].Cost)
+				buyableCard.Add(Monuments[2]);
+			if (!Monuments[3].Build && Wallet >= Monuments[3].Cost)
+				buyableCard.Add(Monuments[3]);
 			return buyableCard;
 		}
 	}
