@@ -90,16 +90,13 @@ namespace Core {
 				}
 			}
 			opponent.Wallet -= loss;
+			Wallet += gain;
 			if (opponent.Wallet < 0)
 			{
 				Wallet += opponent.Wallet;
 				loss += opponent.Wallet;
 				gain += opponent.Wallet;
 				opponent.Wallet = 0;
-			}
-			else
-			{
-				Wallet += gain;
 			}
 			var num = new Tuple<int,int>(gain,loss);
 			return num;
@@ -141,16 +138,13 @@ namespace Core {
 				}
 			}
 			Wallet -= loss;
+			opponent.Wallet += gain;
 			if (Wallet < 0)
 			{
 				opponent.Wallet += Wallet;
 				loss += Wallet;
 				gain += Wallet;
 				Wallet = 0;
-			}
-			else
-			{
-				opponent.Wallet += gain;
 			}
 			var num = new Tuple<int,int>(gain,loss);
 			return num;
