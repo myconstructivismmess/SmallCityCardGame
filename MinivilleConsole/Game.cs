@@ -186,7 +186,7 @@ namespace MinivilleConsole
                             Console.WriteLine("\nVeuillez choisir une valeur correcte !!");
                         }
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         Console.WriteLine("\nVeuillez choisir une valeur correcte");
                         //Console.WriteLine(e);

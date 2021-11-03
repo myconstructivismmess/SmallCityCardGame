@@ -61,12 +61,6 @@ namespace Core {
 							}
 
 						case CardColor.Purple:
-							if ((card.CardCategory == CardCategory.Farm || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
-							{
-								gain++;
-								loss++;
-							}
-
 							if (card.CardType != CardType.BusinessCenter)
 							{
 								gain += card.Profit;
@@ -95,13 +89,14 @@ namespace Core {
 					}
 				}
 			}
-			Wallet -= loss;
-			if (Wallet < 0)
+			opponent.Wallet -= loss;
+			if (opponent.Wallet < 0)
 			{
-				opponent.Wallet += Wallet;
-				loss += Wallet;
-				gain += Wallet;
-				Wallet = 0;
+				Wallet += opponent.Wallet;
+				loss += opponent.Wallet;
+				gain += opponent.Wallet;
+				Wallet += gain;
+				opponent.Wallet = 0;
 			}
 			else
 			{
