@@ -42,6 +42,7 @@ namespace MinivilleConsole
                 toString += $"({i}) Il reste {stack.GetCardCount(elem)} {elem}, cela coute {stack.GetCard(elem).Cost} piece.\n";
                 i++;
             }
+            toString += "====================== ";
             foreach (var elem in monument)
             {
                 toString += $"({i}) Achetez {elem.Name}, cela coute {elem.Cost} piece.\n";
@@ -90,12 +91,18 @@ namespace MinivilleConsole
         {
             Console.WriteLine($"{player.Name} a acheté le/la {monument.Name}");
         }
-
+        
         public static void MonumentBuildDisplay(Player player)
         {
-            foreach (var card in player.Monuments)
-				Console.Write("| " + card.Name + " ");
-			Console.Write("|\n");
+            string toString = $"{player.Name} à construit";
+            foreach (var elem in player.Monuments)
+            {
+                if (elem.Build)
+                {
+                    toString += elem.Name+" ";
+                }
+            }
+            Console.WriteLine(toString);
         }
     }
 }
