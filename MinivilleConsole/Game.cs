@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Core;
 
 namespace MinivilleConsole
@@ -59,18 +58,14 @@ namespace MinivilleConsole
         public override void HumanTurn()
         {
             // Start the Human Turn
-            var humanChoice = "";
+            string humanChoice;
             var gain = 0;
             var loss = 0;
             var opponentGain = 0;
             var opponentLoss = 0;
-            var tuple = new Tuple<int, int>(0, 0);
-            var proceed = false;
-            var shop = new List<CardType>();
-            var monument = new List<Monument>();
-            CardType cardChoice = CardType.Bakery;
+			var proceed = false;
 
-            // Station Effect
+			// Station Effect
             if (HumanPlayer.Monuments[0].Build)
             {
                 Display.DiceAskDisplay();
@@ -116,7 +111,7 @@ namespace MinivilleConsole
             Display.WalletDisplay(HumanPlayer);
 
             // Card Activate Opponent Red and Blue
-            tuple = HumanPlayer.OpponentTurn(ComputerPlayer, GameDiceOne.Value+GameDiceTwo.Value);
+            var tuple = HumanPlayer.OpponentTurn(ComputerPlayer, GameDiceOne.Value+GameDiceTwo.Value);
             opponentGain += tuple.Item1;
             loss += tuple.Item2;
 
@@ -129,8 +124,8 @@ namespace MinivilleConsole
             // Display win and loosing money
             Display.AllTransactionDisplay(gain, loss, opponentGain, opponentLoss, HumanPlayer, ComputerPlayer);
 
-            shop = HumanPlayer.ListBuyableCard(Stack);
-            monument = HumanPlayer.ListBuyableMonuments();
+            var shop = HumanPlayer.ListBuyableCard(Stack);
+            var monument = HumanPlayer.ListBuyableMonuments();
 
             // If the stack isn't empty
             if (Stack.GetStackSize() > 0)
@@ -166,7 +161,7 @@ namespace MinivilleConsole
                             }  
                             else if (int.Parse(humanChoice) <= shop.Count)
                             {
-                                cardChoice = shop[int.Parse(humanChoice)-1];
+                                var cardChoice = shop[int.Parse(humanChoice)-1];
                                 //Add Card
                                 HumanPlayer.BuyCard(Stack.PickCard(cardChoice));
                                 
@@ -203,13 +198,8 @@ namespace MinivilleConsole
             var loss = 0;
             var opponentGain = 0;
             var opponentLoss = 0;
-            var tuple = new Tuple<int, int>(0, 0);
-            int choice = -1;
-            CardType cardChoice = CardType.Bakery;
-            var shop = new List<CardType>();
-            var monument = new List<Monument>();
 
-            if (ComputerPlayer.Monuments[0].Build)
+			if (ComputerPlayer.Monuments[0].Build)
             {
                 if (_random.Next(0, 3) == 0)
                 {
@@ -248,7 +238,7 @@ namespace MinivilleConsole
             Display.WalletDisplay(ComputerPlayer);
 
             // Card Activate Opponent Red and Blue
-            tuple = ComputerPlayer.OpponentTurn(HumanPlayer, GameDiceOne.Value + GameDiceTwo.Value);
+            var tuple = ComputerPlayer.OpponentTurn(HumanPlayer, GameDiceOne.Value + GameDiceTwo.Value);
             opponentGain += tuple.Item1;
             loss += tuple.Item2;
 
@@ -262,18 +252,17 @@ namespace MinivilleConsole
             ComputerPlayer.ListDeck();
             Display.MonumentBuildDisplay(ComputerPlayer);
             
-            shop = ComputerPlayer.ListBuyableCard(Stack);
-            monument = ComputerPlayer.ListBuyableMonuments();
+            var shop = ComputerPlayer.ListBuyableCard(Stack);
+            var monument = ComputerPlayer.ListBuyableMonuments();
             Display.WalletDisplay(ComputerPlayer);
             Display.WalletDisplay(HumanPlayer);
             
             //Choose randomly between buy and saving money
             if (ComputerPlayer.Wallet > 0)
             {
-                if (Stack.GetStackSize() > 0)
-                {
-                    choice = _random.Next(0,shop.Count*2);
-                    if (monument.Count > 0)
+                if (Stack.GetStackSize() > 0) {
+					var choice = _random.Next(0,shop.Count*2);
+					if (monument.Count > 0)
                     {
                         ComputerPlayer.BuyMonument(monument[0]);
                         Display.MonumentBuyDisplay(ComputerPlayer, monument[0]);
@@ -284,13 +273,13 @@ namespace MinivilleConsole
                     }  
                     else
                     {
-                        cardChoice = shop[choice]; 
+                        var cardChoice = shop[choice]; 
                         //Add Card
                         ComputerPlayer.BuyCard(Stack.PickCard(cardChoice));
                         // Display card buy
                         Display.CardBuyDisplay(ComputerPlayer, cardChoice);
                     }
-                }
+				}
                 else
                 {
                     Display.EconomyDisplay(ComputerPlayer);
