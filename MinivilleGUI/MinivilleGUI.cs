@@ -221,8 +221,8 @@ namespace MinivilleGUI
 					_iaCardsComponentsGUI[cardsNumber.Value[i]].SnapTo(
 						SnapMode.Top,
 						new Vector2(
-							j * spacing - (cardsNumbersLength - 1) / 2f * spacing,
-							150 + i * 30
+							j * spacing - (cardsNumbersLength - 1) / 2f * spacing - i * 25,
+							150 + i * 25
 						)
 					);
 				}
@@ -284,19 +284,36 @@ namespace MinivilleGUI
 		private void OnPassTurnButtonPressed()
 		{
 			Random random = new Random();
-			
-			CardComponentGUI card;
-			
-			if (random.NextDouble() > 0.5f)
-				card = new WheatFieldCardGUI(SnapMode.Bottom, new Vector2(0, 500));
-			else
-				card = new BakeryCardGUI(SnapMode.Bottom, new Vector2(0, 500));
 
-			_componentsManagerGUI.ComponentsToAdd.Push(card);
-			_playerCardsComponentsGUI.Add(card);
+			if (random.NextDouble() > 0.5f)
+			{
+				CardComponentGUI card;
 			
-			SnapPlayerCards();
+				if (random.NextDouble() > 0.5f)
+					card = new WheatFieldCardGUI(SnapMode.Bottom, new Vector2(0, 500));
+				else
+					card = new BakeryCardGUI(SnapMode.Bottom, new Vector2(0, 500));
+				
+				_componentsManagerGUI.ComponentsToAdd.Push(card);
+				_playerCardsComponentsGUI.Add(card);
+				
+				SnapPlayerCards();
+			}
+			else
+			{
+				CardComponentGUI card;
 			
+				if (random.NextDouble() > 0.5f)
+					card = new WheatFieldCardGUI(SnapMode.Top, new Vector2(0, -500));
+				else
+					card = new BakeryCardGUI(SnapMode.Top, new Vector2(0, -500));
+				
+				_componentsManagerGUI.ComponentsToAdd.Push(card);
+				_iaCardsComponentsGUI.Add(card);
+				
+				SnapIaCards();
+			}
+
 			//_passTurnButtonComponentGUI.Enabled = false;
 		}
 
