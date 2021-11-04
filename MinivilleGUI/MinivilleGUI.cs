@@ -148,7 +148,7 @@ namespace MinivilleGUI
 			_buyCardsButtonComponentGUI.PressedElseWhere += OnBuyCardsButtonPressedElsewhere;
 			_componentsManagerGUI.Components.Add(_buyCardsButtonComponentGUI);
 
-			_shopWindowComponentGUI = new WindowComponentGUI(SnapMode.Right, Vector2.Zero, (int)_windowSize.X - 350, 300, "Acheter une carte");
+			_shopWindowComponentGUI = new WindowComponentGUI(SnapMode.Right, Vector2.Zero, (int)_windowSize.X - 350, 400, "Acheter une carte");
 			_componentsManagerGUI.Components.Add(_shopWindowComponentGUI);
 
 			base.Initialize();
