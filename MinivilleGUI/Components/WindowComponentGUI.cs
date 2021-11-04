@@ -155,6 +155,29 @@ namespace MinivilleGUI.Components
 			
 			return p1.X < mouseState.X && mouseState.X < p2.X && p1.Y < mouseState.Y && mouseState.Y < p2.Y;
 		}
+		
+		public Vector2 GetContentPosition()
+		{
+			Vector2 windowNameSize = Font.MeasureString(_windowName) * FontScale;
+			
+			Vector2 windowSize = new Vector2(Width, Height + BorderWidth * 2 + windowNameSize.Y);
+
+			Vector2 drawPosition = DisplayPosition + new Vector2(_x, BorderWidth * 2 + windowNameSize.Y) + SnapMode switch
+			{
+				SnapMode.TopLeft => new Vector2(0, 0),
+				SnapMode.Left => new Vector2(0, -windowSize.Y / 2f),
+				SnapMode.BottomLeft => new Vector2(0, -windowSize.Y),
+				SnapMode.Top => new Vector2(-windowSize.X / 2f, 0),
+				SnapMode.Free => new Vector2(-windowSize.X / 2f, -windowSize.Y / 2f),
+				SnapMode.Bottom => new Vector2(-windowSize.X / 2f, -windowSize.Y),
+				SnapMode.TopRight => new Vector2(-windowSize.X, 0),
+				SnapMode.Right => new Vector2(-windowSize.X, -windowSize.Y / 2f),
+				SnapMode.BottomRight => new Vector2(-windowSize.X, -windowSize.Y),
+				_ => new Vector2(0, 0)
+			};
+
+			return drawPosition;
+		}
 
 		public override int ZIndex => 11;
 

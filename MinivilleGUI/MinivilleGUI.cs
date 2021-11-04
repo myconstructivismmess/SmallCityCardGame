@@ -36,6 +36,7 @@ namespace MinivilleGUI
 		private SideButtonComponentGUI _buyCardsButtonComponentGUI;
 		
 		private WindowComponentGUI _shopWindowComponentGUI;
+		private int[,] _shopContentCardsCoordsAndSizes = new int[0, 0];
 		private int _shopScrollValue;
 
 		private int _scrollWheelValue;
@@ -94,7 +95,12 @@ namespace MinivilleGUI
 
 			// Players Cards Initialization
 			_playerCardsComponentsGUI = _game.Player.Deck.Select(
-				x => CardComponentGUI.CreateCard(x.CardType, SnapMode.Bottom, new Vector2(0, 500))).ToList();
+				x => CardComponentGUI.CreateCard(
+					x.CardType, 
+					SnapMode.Bottom, 
+					new Vector2(0, 500)
+				)
+			).ToList();
 
 			SnapPlayerCards();
 
@@ -103,7 +109,12 @@ namespace MinivilleGUI
 
 			// IA Cards Initialization
 			_iaCardsComponentsGUI = _game.Computer.Deck.Select(
-				x => CardComponentGUI.CreateCard(x.CardType, SnapMode.Top, new Vector2(0, -500))).ToList();
+				x => CardComponentGUI.CreateCard(
+					x.CardType, 
+					SnapMode.Top, 
+					new Vector2(0, -500)
+				)
+			).ToList();
 			
 			SnapIaCards();
 
@@ -111,12 +122,26 @@ namespace MinivilleGUI
 				_componentsManagerGUI.Components.Add(card);
 			
 			// Player Coins Holder Initialization
-			_playerCoinsHolderComponentGUI = new CoinsHolderComponentGUI(_game.Player.Wallet, SnapMode.BottomRight, new Vector2(500, 500));
+			_playerCoinsHolderComponentGUI = new CoinsHolderComponentGUI(
+				_game.Player.Wallet,
+				SnapMode.BottomRight,
+				new Vector2(
+					500,
+					500
+				)
+			);
 			_playerCoinsHolderComponentGUI.SnapTo(new Vector2(-50, -50));
 			_componentsManagerGUI.Components.Add(_playerCoinsHolderComponentGUI);
 			
 			// IA Coins Holder Initialization
-			_iaCoinsHolderComponentGUI = new CoinsHolderComponentGUI(_game.Computer.Wallet, SnapMode.TopLeft, new Vector2(-500, -500));
+			_iaCoinsHolderComponentGUI = new CoinsHolderComponentGUI(
+				_game.Computer.Wallet, 
+				SnapMode.TopLeft, 
+				new Vector2(
+					-500,
+					-500
+				)
+			);
 			_iaCoinsHolderComponentGUI.SnapTo(new Vector2(50, 50));
 			_componentsManagerGUI.Components.Add(_iaCoinsHolderComponentGUI);
 
@@ -145,7 +170,13 @@ namespace MinivilleGUI
 			_buyCardsButtonComponentGUI.PressedElseWhere += OnBuyCardsButtonPressedElsewhere;
 			_componentsManagerGUI.Components.Add(_buyCardsButtonComponentGUI);
 
-			_shopWindowComponentGUI = new WindowComponentGUI(SnapMode.Right, Vector2.Zero, (int)_windowSize.X - 350, 400, "Acheter une carte");
+			_shopWindowComponentGUI = new WindowComponentGUI(
+				SnapMode.Right,
+				Vector2.Zero,
+				(int)_windowSize.X - 350, 
+				400, 
+				"Acheter une carte"
+			);
 			_componentsManagerGUI.Components.Add(_shopWindowComponentGUI);
 
 			base.Initialize();
@@ -274,7 +305,44 @@ namespace MinivilleGUI
 		
 		private void OnBuyCardsButtonPressedElsewhere()
 		{
-			if (!_shopWindowComponentGUI.IsHovered(Mouse.GetState()))
+			MouseState mouseState = Mouse.GetState();
+			
+			if (mouseState.X < 0 || 
+			    mouseState.Y < 0 || 
+			    mouseState.X > _windowSize.X || 
+			    mouseState.Y > _windowSize.Y) return;
+
+			if (_shopWindowComponentGUI.IsHovered(mouseState))
+			{
+				Vector2 mousePositionInShop = new Vector2(mouseState.X, mouseState.Y)
+				                              - _shopWindowComponentGUI.GetContentPosition();
+
+				if (mousePositionInShop.X > 0 && 
+				    mousePositionInShop.Y > 0 &&
+				    mousePositionInShop.X < _shopWindowComponentGUI.Width &&
+				    mousePositionInShop.Y < _shopWindowComponentGUI.Height)
+				{
+					int cardIndex = -1;
+
+					for (int i = 0; i < _shopContentCardsCoordsAndSizes.GetLength(0); i++)
+					{
+						if (mousePositionInShop.X > _shopContentCardsCoordsAndSizes[i, 0] &&
+						    mousePositionInShop.Y > _shopContentCardsCoordsAndSizes[i, 1] &&
+						    mousePositionInShop.X < _shopContentCardsCoordsAndSizes[i, 0] +
+						    _shopContentCardsCoordsAndSizes[i, 2] &&
+						    mousePositionInShop.Y < _shopContentCardsCoordsAndSizes[i, 1] +
+						    _shopContentCardsCoordsAndSizes[i, 3])
+						{
+							cardIndex = i;
+							break;
+						}
+					}
+					
+					if (cardIndex != -1)
+						Console.WriteLine(cardIndex);
+				}
+			}
+			else
 				_shopWindowComponentGUI.Open = false;
 		}
 		
@@ -381,7 +449,8 @@ namespace MinivilleGUI
 			int widthSpacing = Math.Max((_shopWindowComponentGUI.Width - width), 0);
 			if (widthSpacing != 0)
 				widthSpacing /= 2;
-			
+
+			_shopContentCardsCoordsAndSizes = new int[textures.GetLength(0), 4];
 			GraphicsDeviceManager.GraphicsDevice.SetRenderTarget(_shopWindowComponentGUI.Content);
 			GraphicsDeviceManager.GraphicsDevice.Clear(Color.Transparent);
 			_spriteBatch.Begin();
@@ -398,6 +467,11 @@ namespace MinivilleGUI
 					),
 					new Color(0.5f, 0.5f, 0.5f)
 				);
+				
+				_shopContentCardsCoordsAndSizes[i, 0] = -widthSpacing + _shopScrollValue + coords[i, 0] - sizes[i, 0] - cardSpacing;
+				_shopContentCardsCoordsAndSizes[i, 1] = coords[i, 1];
+				_shopContentCardsCoordsAndSizes[i, 2] = sizes[i, 0];
+				_shopContentCardsCoordsAndSizes[i, 3] = sizes[i, 1];
 				
 				_spriteBatch.Draw(
 					textures[i],
