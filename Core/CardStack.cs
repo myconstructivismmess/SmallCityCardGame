@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Core {
-	public class CardStack {
+	public class CardStack
+	{
 		private List<Card> _cards;
-
-		private static Random _random = new Random();
 		public CardStack() {
 			// Creating a new stack of card with 6 of each cards
 			_cards = new List<Card>();
