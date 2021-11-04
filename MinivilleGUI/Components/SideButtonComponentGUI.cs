@@ -49,12 +49,19 @@ namespace MinivilleGUI.Components
 			if (_pressed != (mouseState.LeftButton == ButtonState.Pressed))
 			{
 				_pressed = mouseState.LeftButton == ButtonState.Pressed;
-				
+
 				if (_pressed)
+				{
 					if (hovered)
-						if (Enabled) Pressed?.Invoke();
+					{
+						if (Enabled)
+							Pressed?.Invoke();
+					}
 					else
+					{
 						PressedElseWhere?.Invoke();
+					}
+				}
 			}
 			
 			_tRiseTarget = _canRise && !hovered ? 0f : 1f;
@@ -111,8 +118,11 @@ namespace MinivilleGUI.Components
 			);
 		}
 		
-		private bool IsHovered(MouseState mouseState)
+		public bool IsHovered(MouseState mouseState)
 		{
+			if (mouseState.X < 0 || mouseState.Y < 0 ||
+			    mouseState.X > ComponentsManagerGUI.Width || mouseState.Y > ComponentsManagerGUI.Height) return false;
+			
 			Vector2 textSize = Font.MeasureString(_buttonName) * FontScale;
 
 			Vector2 buttonSize = Vector2.One * BorderWidth * 2
