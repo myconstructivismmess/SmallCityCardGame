@@ -42,6 +42,8 @@ namespace MinivilleGUI.Components
 				value = Math.Max(0, value);
 				
 				if (_value == value) return;
+
+				_value = value;
 				
 				List<string> coins = new List<string>();
 

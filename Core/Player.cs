@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Core {
@@ -7,6 +8,7 @@ namespace Core {
 		public string Name { get; }
 
 		private readonly List<Card> _deck;
+		public ReadOnlyCollection<Card> Deck => _deck.AsReadOnly();
 		
 		public readonly List<Monument> Monuments;
 		

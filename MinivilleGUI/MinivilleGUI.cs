@@ -4,7 +4,8 @@ using Microsoft.Xna.Framework;
 
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
+using Core;
 using MinivilleGUI.Components;
 
 namespace MinivilleGUI
@@ -16,6 +17,8 @@ namespace MinivilleGUI
 		private static GameGUI _game;
 		private static SpriteBatch _spriteBatch;
 		public static SpriteFont DebugFont;
+		
+		
 
 		private Vector2 _windowSize = new Vector2(
 			1000, // Initial Window Width
@@ -90,23 +93,17 @@ namespace MinivilleGUI
 			// Components Manager Initialization
 
 			// Players Cards Initialization
-			_playerCardsComponentsGUI = new List<CardComponentGUI>
-			{
-				new WheatFieldCardGUI(SnapMode.Bottom, new Vector2(0, 500)),
-				new BakeryCardGUI(SnapMode.Bottom, new Vector2(0, 500))
-			};
-			
+			_playerCardsComponentsGUI = _game.Player.Deck.Select(
+				x => CardComponentGUI.CreateCard(x.CardType, SnapMode.Bottom, new Vector2(0, 500))).ToList();
+
 			SnapPlayerCards();
 
 			foreach (CardComponentGUI card in _playerCardsComponentsGUI)
 				_componentsManagerGUI.Components.Add(card);
 
 			// IA Cards Initialization
-			_iaCardsComponentsGUI = new List<CardComponentGUI>
-			{
-				new WheatFieldCardGUI(SnapMode.Top, new Vector2(0, -500)),
-				new BakeryCardGUI(SnapMode.Top, new Vector2(0, -500))
-			};
+			_iaCardsComponentsGUI = _game.Computer.Deck.Select(
+				x => CardComponentGUI.CreateCard(x.CardType, SnapMode.Top, new Vector2(0, -500))).ToList();
 			
 			SnapIaCards();
 
@@ -114,12 +111,12 @@ namespace MinivilleGUI
 				_componentsManagerGUI.Components.Add(card);
 			
 			// Player Coins Holder Initialization
-			_playerCoinsHolderComponentGUI = new CoinsHolderComponentGUI(3, SnapMode.BottomRight, new Vector2(500, 500));
+			_playerCoinsHolderComponentGUI = new CoinsHolderComponentGUI(_game.Player.Wallet, SnapMode.BottomRight, new Vector2(500, 500));
 			_playerCoinsHolderComponentGUI.SnapTo(new Vector2(-50, -50));
 			_componentsManagerGUI.Components.Add(_playerCoinsHolderComponentGUI);
 			
 			// IA Coins Holder Initialization
-			_iaCoinsHolderComponentGUI = new CoinsHolderComponentGUI(3, SnapMode.TopLeft, new Vector2(-500, -500));
+			_iaCoinsHolderComponentGUI = new CoinsHolderComponentGUI(_game.Computer.Wallet, SnapMode.TopLeft, new Vector2(-500, -500));
 			_iaCoinsHolderComponentGUI.SnapTo(new Vector2(50, 50));
 			_componentsManagerGUI.Components.Add(_iaCoinsHolderComponentGUI);
 
@@ -320,7 +317,15 @@ namespace MinivilleGUI
 		protected override void Update(GameTime gameTime)
 		{
 			_componentsManagerGUI.Update(gameTime.ElapsedGameTime.TotalSeconds);
-
+			/*
+			if (true) {
+				CardComponentGUI card = CardComponentGUI.CreateCard(CardType.Bakery, SnapMode.Top, new Vector2(0, -500));
+				_iaCardsComponentsGUI.Add(card);
+				_componentsManagerGUI.ComponentsToAdd.Push(card);
+			
+				SnapIaCards();
+			}
+			*/
 			MouseState mouseState = Mouse.GetState();
 
 			int scrollWheelValueDelta =
