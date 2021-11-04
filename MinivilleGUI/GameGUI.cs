@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+using System.Collections.Generic;
 using Core;
 
 namespace MinivilleGUI
 {
 	public class GameGUI
 	{
-		public Stack<Transaction> Transactions = new Stack<Transaction>();
 		public Dice GameDiceOne { get; }
 		public Dice GameDiceTwo { get; }
 
@@ -21,13 +21,17 @@ namespace MinivilleGUI
 			Player = new Player("Player");
 			Computer = new Player("Computer");
 		}
+		public Card? ComputerTurn() {
+			if (Computer.Monuments[0].Build) {
+				// 2 Dés
+			}
+			else {
+				// 1 Dés
+			}
 
-		public void Update()
-		{
-			if (!_asPlayed) return;
-			_asPlayed = false;
-			
-			//Player.Monuments[0].
+			return null;
 		}
+
+
 	}
 }
