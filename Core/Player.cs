@@ -102,10 +102,8 @@ namespace Core {
 							gain += card.Profit;
 							break;
 						case CardColor.Red:
-							Console.WriteLine("*"+opponent.Monuments[1].Build+" | "+card.CardCategory);
 							if ((card.CardCategory == CardCategory.Food || card.CardCategory == CardCategory.Shop) && opponent.Monuments[1].Build)
 							{
-								Console.WriteLine("**"+card.Name);
 								gain++;
 								loss++;
 							}
