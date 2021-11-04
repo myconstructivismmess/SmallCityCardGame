@@ -20,12 +20,8 @@ namespace Core {
 					_cards.Add(new Stadium());
 					_cards.Add(new TelevisionChannel());
 				}
-				if (i < 4)
-				{
-					// Only 4 of these because of the start deck of each players
-					_cards.Add(new WheatField());
-					_cards.Add(new Bakery());
-				}
+				_cards.Add(new WheatField());
+				_cards.Add(new Bakery());
 				_cards.Add(new Farm());
 				_cards.Add(new CoffeeShop());
 				_cards.Add(new GroceryStore());
