@@ -27,4 +27,10 @@
       <Folder Include="Content\Monuments\Blueprints" />
       <Folder Include="Content\Monuments\Built" />
     </ItemGroup>
+    <ItemGroup>
+      <None Remove="Content\Monuments\Built\Theme Park.png" />
+      <None Remove="Content\Monuments\Blueprints\Station.png" />
+      <None Remove="Content\Monuments\Built\Shopping Center.png" />
+      <None Remove="Content\Monuments\Built\Radio Tower.png" />
+    </ItemGroup>
 </Project>
