@@ -178,16 +178,16 @@ namespace Core {
 			{
 				if (stack.GetCardCount(CardType.Forest) > 0)
 					buyableCard.Add(CardType.Forest);
-				if (stack.GetCardCount(CardType.FurnitureShop) > 0)
-					buyableCard.Add(CardType.FurnitureShop);
+				if (stack.GetCardCount(CardType.FurnitureFactory) > 0)
+					buyableCard.Add(CardType.FurnitureFactory);
 				if (stack.GetCardCount(CardType.Orchard) > 0)
 					buyableCard.Add(CardType.Orchard);
 				if (stack.GetCardCount(CardType.Restaurant) > 0)
 					buyableCard.Add(CardType.Restaurant);
 			}
 			if (Wallet >= 5)
-				if (stack.GetCardCount(CardType.CheeseShop) > 0)
-					buyableCard.Add(CardType.CheeseShop);
+				if (stack.GetCardCount(CardType.CheeseFactory) > 0)
+					buyableCard.Add(CardType.CheeseFactory);
 			if (Wallet >= 6)
 			{
 				if (stack.GetCardCount(CardType.Mine) > 0)

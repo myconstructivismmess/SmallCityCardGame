@@ -4,10 +4,8 @@ using Core;
 
 namespace MinivilleGUI
 {
-	public class GameGUI
-	{
-		public Dice GameDiceOne { get; }
-		public Dice GameDiceTwo { get; }
+	public class GameGUI {
+		public int DiceValue;
 
 		private bool _asPlayed = false;
 
@@ -16,8 +14,6 @@ namespace MinivilleGUI
 		
 		public GameGUI()
 		{
-			GameDiceOne = new Dice();
-			GameDiceTwo = new Dice();
 			Player = new Player("Player");
 			Computer = new Player("Computer");
 		}

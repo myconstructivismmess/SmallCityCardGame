@@ -31,23 +31,23 @@ namespace MinivilleGUI.Components
 				case CardType.Forest:
 					return new ForestCardGUI(snapMode, snappedPosition);
 				case CardType.BusinessCenter:
-					break;
+					return new BusinessCenterCardGUI(snapMode, snappedPosition);
 				case CardType.Stadium:
-					break;
+					return new StadiumCardGUI(snapMode, snappedPosition);
 				case CardType.TelevisionChannel:
-					break;
-				case CardType.CheeseShop:
-					break;
-				case CardType.FurnitureShop:
-					break;
+					return new TelevisionChannelCardGUI(snapMode, snappedPosition);
+				case CardType.CheeseFactory:
+					return new CheeseFactoryCardGUI(snapMode, snappedPosition);
+				case CardType.FurnitureFactory:
+					return new FurnitureFactoryCardGUI(snapMode, snappedPosition);
 				case CardType.Mine:
-					break;
+					return new MineCardGUI(snapMode, snappedPosition);
 				case CardType.Restaurant:
-					break;
+					return new RestaurantCardGUI(snapMode, snappedPosition);
 				case CardType.Orchard:
-					break;
+					return new OrchardCardGUI(snapMode, snappedPosition);
 				case CardType.Market:
-					break;
+					return new VegetablesMarketCardGUI(snapMode, snappedPosition);
 				case CardType.Station:
 					break;
 				case CardType.ShoppingCenter:
@@ -124,5 +124,68 @@ namespace MinivilleGUI.Components
 		public override string CardName => "Wheat Field";
 
 		public WheatFieldCardGUI(SnapMode corner, Vector2 startPosition) : base(corner, startPosition) { }
+	}
+
+	public class BusinessCenterCardGUI : CardComponentGUI
+	{
+		public override string CardName => "Business Center";
+
+		public BusinessCenterCardGUI(SnapMode corner, Vector2 startPosition) : base(corner, startPosition) { }
+	}
+	
+	public class CheeseFactoryCardGUI : CardComponentGUI
+	{
+		public override string CardName => "Cheese Factory";
+
+		public CheeseFactoryCardGUI(SnapMode corner, Vector2 startPosition) : base(corner, startPosition) { }
+	}
+	
+	public class FurnitureFactoryCardGUI : CardComponentGUI
+	{
+		public override string CardName => "Furniture Factory";
+
+		public FurnitureFactoryCardGUI(SnapMode corner, Vector2 startPosition) : base(corner, startPosition) { }
+	}
+	
+	public class MineCardGUI : CardComponentGUI
+	{
+		public override string CardName => "Mine";
+
+		public MineCardGUI(SnapMode corner, Vector2 startPosition) : base(corner, startPosition) { }
+	}
+	
+	public class OrchardCardGUI : CardComponentGUI
+	{
+		public override string CardName => "Orchard";
+
+		public OrchardCardGUI(SnapMode corner, Vector2 startPosition) : base(corner, startPosition) { }
+	}
+	
+	public class RestaurantCardGUI : CardComponentGUI
+	{
+		public override string CardName => "Restaurant";
+
+		public RestaurantCardGUI(SnapMode corner, Vector2 startPosition) : base(corner, startPosition) { }
+	}
+	
+	public class StadiumCardGUI : CardComponentGUI
+	{
+		public override string CardName => "Stadium";
+
+		public StadiumCardGUI(SnapMode corner, Vector2 startPosition) : base(corner, startPosition) { }
+	}
+	
+	public class TelevisionChannelCardGUI : CardComponentGUI
+	{
+		public override string CardName => "Television Channel";
+
+		public TelevisionChannelCardGUI(SnapMode corner, Vector2 startPosition) : base(corner, startPosition) { }
+	}
+	
+	public class VegetablesMarketCardGUI : CardComponentGUI
+	{
+		public override string CardName => "Vegetables Market";
+
+		public VegetablesMarketCardGUI(SnapMode corner, Vector2 startPosition) : base(corner, startPosition) { }
 	}
 }

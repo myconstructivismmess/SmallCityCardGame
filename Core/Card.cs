@@ -131,7 +131,7 @@ namespace Core {
 		public override int[] ActivationValue => new int[]{7};
 		public override int Profit => 3;
 		public override int Cost => 5;
-		public override CardType CardType => CardType.CheeseShop;
+		public override CardType CardType => CardType.CheeseFactory;
 		public override CardColor CardColor => CardColor.Green;
 		public override CardCategory CardCategory => CardCategory.Factory;
 		public override CardCategory CardProfitCat => CardCategory.Farm;
@@ -143,7 +143,7 @@ namespace Core {
 		public override int[] ActivationValue => new int[]{8};
 		public override int Profit => 3;
 		public override int Cost => 3;
-		public override CardType CardType => CardType.FurnitureShop;
+		public override CardType CardType => CardType.FurnitureFactory;
 		public override CardColor CardColor => CardColor.Green;
 		public override CardCategory CardCategory => CardCategory.Factory;
 		public override CardCategory CardProfitCat => CardCategory.Natural;
