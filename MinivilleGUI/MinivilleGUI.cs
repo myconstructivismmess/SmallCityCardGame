@@ -396,6 +396,9 @@ namespace MinivilleGUI
 			
 								SnapPlayerCards();
 								_shopWindowComponentGUI.Open = false;
+								_game.PlayerTurn = false;
+								// TODO: Make it random
+								_diceComponentGUI.Roll(_game.Computer.Monuments[0].Build);
 								return;
 							}
 							g++;
@@ -409,8 +412,8 @@ namespace MinivilleGUI
 		
 		private void OnPassTurnButtonPressed()
 		{
-			// TODO: Opponent turn here, launch dice and apply card effects.
-			// _diceComponentGUI.Roll(true);
+			_game.PlayerTurn = false;
+			_diceComponentGUI.Roll(_game.Player.Monuments[0].Build);
 			/*Random random = new Random();
 
 			if (random.NextDouble() > 0.5f)
@@ -445,9 +448,16 @@ namespace MinivilleGUI
 			//_passTurnButtonComponentGUI.Enabled = false;
 		}
 
-		private void OnDiceRolled(int value)
-		{
-			Console.WriteLine(value);
+		private void OnDiceRolled(int value) {
+			bool playerTurn = _game.PlayerTurn;
+			if (playerTurn) {
+				_game.Player.OpponentTurn(_game.Computer, value);
+				_game.Player.PlayerTurn(_game.Computer, value);
+			}
+			else {
+				// Temporary
+				_game.PlayerTurn = true;
+			}
 		}
 
 		protected override void Update(GameTime gameTime)
@@ -462,6 +472,10 @@ namespace MinivilleGUI
 				SnapIaCards();
 			}
 			*/
+			
+			_buyCardsButtonComponentGUI.Enabled = _game.PlayerTurn;
+			_passTurnButtonComponentGUI.Enabled = _game.PlayerTurn;
+			
 			MouseState mouseState = Mouse.GetState();
 
 			int scrollWheelValueDelta =

@@ -38,24 +38,21 @@ namespace Core {
 				if (card.ActivationValue.Contains(diceValue)) {
 					switch (card.CardColor) {
 						case CardColor.Blue:
-							if ((card.CardCategory == CardCategory.Food || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
+							if (card.CardCategory is CardCategory.Food or CardCategory.Shop && Monuments[1].Build)
 								gain++;
 							gain += card.Profit;
 							break;
 						
 						case CardColor.Green:
-							if ((card.CardCategory == CardCategory.Food || card.CardCategory == CardCategory.Shop) && Monuments[1].Build)
+							if (card.CardCategory is CardCategory.Food or CardCategory.Shop && Monuments[1].Build)
 								gain++;
 							if (card.CardProfitCat == CardCategory.None)
 							{
 								gain += card.Profit;
 								break;
 							}
-							else
-							{
-								foreach (var cardTheSecond in _deck)
-									if (card.CardProfitCat == cardTheSecond.CardCategory)
-										gain += card.Profit; 
+							else {
+								gain += _deck.Where(cardTheSecond => card.CardProfitCat == cardTheSecond.CardCategory).Sum(x => card.Profit);
 								break;
 							}
 
