@@ -200,12 +200,21 @@ namespace MinivilleGUI
 			// Set Cards Textures
 			CardComponentGUI.Textures = new Dictionary<string, Texture2D>
 			{
-				{ "Wheat Field", Content.Load<Texture2D>("Cards/Wheat Field") },
-				{ "Grocery Store", Content.Load<Texture2D>("Cards/Grocery Store") },
 				{ "Bakery", Content.Load<Texture2D>("Cards/Bakery") },
+				{ "Business Center", Content.Load<Texture2D>("Cards/Business Center") },
+				{ "Cheese Factory", Content.Load<Texture2D>("Cards/Cheese Factory") },
 				{ "Coffee", Content.Load<Texture2D>("Cards/Coffee") },
+				{ "Farm", Content.Load<Texture2D>("Cards/Farm") },
 				{ "Forest", Content.Load<Texture2D>("Cards/Forest") },
-				{ "Farm", Content.Load<Texture2D>("Cards/Farm") }
+				{ "Furniture Factory", Content.Load<Texture2D>("Cards/Furniture Factory") },
+				{ "Grocery Store", Content.Load<Texture2D>("Cards/Grocery Store") },
+				{ "Mine", Content.Load<Texture2D>("Cards/Mine") },
+				{ "Orchard", Content.Load<Texture2D>("Cards/Orchard") },
+				{ "Restaurant", Content.Load<Texture2D>("Cards/Restaurant") },
+				{ "Stadium", Content.Load<Texture2D>("Cards/Stadium") },
+				{ "Television Channel", Content.Load<Texture2D>("Cards/Television Channel") },
+				{ "Vegetables Market", Content.Load<Texture2D>("Cards/Vegetables Market") },
+				{ "Wheat Field", Content.Load<Texture2D>("Cards/Wheat Field") }
 			};
 			
 			// Set Dice Textures
