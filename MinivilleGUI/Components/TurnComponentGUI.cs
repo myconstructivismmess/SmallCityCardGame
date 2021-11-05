@@ -9,7 +9,7 @@ namespace MinivilleGUI.Components
 	public class TurnComponentGUI : ComponentGUI
 	{
 		public static Texture2D PlayerBackgroundTexture;
-		public static Texture2D EnnemyBackgroundTexture;
+		public static Texture2D EnemyBackgroundTexture;
 		
 		public static SpriteFont Font;
 		public static float FontScale = 1f;
@@ -102,7 +102,7 @@ namespace MinivilleGUI.Components
 			};
 			
 			spriteBatch.Draw(
-				PlayerTurn ? PlayerBackgroundTexture : EnnemyBackgroundTexture,
+				PlayerTurn ? PlayerBackgroundTexture : EnemyBackgroundTexture,
 				new Rectangle(
 					drawPosition.ToPoint(),
 					size.ToPoint()

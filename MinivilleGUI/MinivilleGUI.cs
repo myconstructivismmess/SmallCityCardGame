@@ -251,7 +251,7 @@ namespace MinivilleGUI
 			SideButtonComponentGUI.Font = Content.Load<SpriteFont>("Fonts/Rajdhani-Medium");
 			
 			TurnComponentGUI.PlayerBackgroundTexture = Content.Load<Texture2D>("UI/BackgroundTexture");
-			TurnComponentGUI.EnnemyBackgroundTexture = Content.Load<Texture2D>("UI/RedBackgroundTexture");
+			TurnComponentGUI.EnemyBackgroundTexture = Content.Load<Texture2D>("UI/RedBackgroundTexture");
 			TurnComponentGUI.Font = Content.Load<SpriteFont>("Fonts/Rajdhani-Medium");
 			
 			DebugFont = Content.Load<SpriteFont>("Fonts/Rajdhani-Medium");
