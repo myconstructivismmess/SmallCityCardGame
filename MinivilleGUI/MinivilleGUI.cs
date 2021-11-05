@@ -5,8 +5,10 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core;
+
 using MinivilleGUI.Components;
+
+using Core;
 
 namespace MinivilleGUI
 {
@@ -35,6 +37,8 @@ namespace MinivilleGUI
 		private SideButtonComponentGUI _passTurnButtonComponentGUI;
 		private SideButtonComponentGUI _buyCardsButtonComponentGUI;
 		
+		private DiceComponentGUI _diceComponentGUI;
+		
 		private WindowComponentGUI _shopWindowComponentGUI;
 		private int[,] _shopContentCardsCoordsAndSizes = new int[0, 0];
 		private int _shopScrollValue;
@@ -45,7 +49,10 @@ namespace MinivilleGUI
 		{
 			_game = new GameGUI();
 			
+			// Components Manager Initialization
 			_componentsManagerGUI = new ComponentsManagerGUI();
+			
+			// Graphics Device Manager Initialization
 			GraphicsDeviceManager = new GraphicsDeviceManager(this);
 
 			// Set Mouse Visibility
@@ -90,8 +97,6 @@ namespace MinivilleGUI
 		protected override void Initialize()
 		{
 			_spriteBatch = new SpriteBatch(GraphicsDevice);
-			
-			// Components Manager Initialization
 
 			// Players Cards Initialization
 			_playerCardsComponentsGUI = _game.Player.Deck.Select(
@@ -178,6 +183,9 @@ namespace MinivilleGUI
 				"Acheter une carte"
 			);
 			_componentsManagerGUI.Components.Add(_shopWindowComponentGUI);
+			
+			_diceComponentGUI = new DiceComponentGUI(SnapMode.TopRight, new Vector2(0, 0));
+			_componentsManagerGUI.Components.Add(_diceComponentGUI);
 
 			base.Initialize();
 		}
@@ -198,8 +206,21 @@ namespace MinivilleGUI
 				{ "Forest", Content.Load<Texture2D>("Cards/Forest") },
 				{ "Farm", Content.Load<Texture2D>("Cards/Farm") }
 			};
+			
+			// Set Dice Textures
+			DiceComponentGUI.DiceTextures = new []
+            {
+	            Content.Load<Texture2D>("Dice/1"),
+	            Content.Load<Texture2D>("Dice/2"),
+	            Content.Load<Texture2D>("Dice/3"),
+	            Content.Load<Texture2D>("Dice/4"),
+	            Content.Load<Texture2D>("Dice/5"),
+	            Content.Load<Texture2D>("Dice/6")
+            };
+			
+			DiceComponentGUI.BackgroundTexture = Content.Load<Texture2D>("UI/BackgroundTexture");
 
-			// Set Cards Fonts
+				// Set Cards Fonts
 			CardComponentGUI.TypeFont = Content.Load<SpriteFont>("Fonts/Rajdhani-SemiBold");
 			CardComponentGUI.DescriptionFont = Content.Load<SpriteFont>("Fonts/Rajdhani-Medium");
 
@@ -348,7 +369,8 @@ namespace MinivilleGUI
 		
 		private void OnPassTurnButtonPressed()
 		{
-			Random random = new Random();
+			_diceComponentGUI.Roll();
+			/*Random random = new Random();
 
 			if (random.NextDouble() > 0.5f)
 			{
@@ -377,7 +399,7 @@ namespace MinivilleGUI
 				_iaCardsComponentsGUI.Add(card);
 				
 				SnapIaCards();
-			}
+			}*/
 
 			//_passTurnButtonComponentGUI.Enabled = false;
 		}
