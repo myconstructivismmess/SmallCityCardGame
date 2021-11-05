@@ -39,6 +39,8 @@ namespace MinivilleGUI
 		
 		private DiceComponentGUI _diceComponentGUI;
 		
+		private TurnComponentGUI _turnComponentGUI;
+		
 		private WindowComponentGUI _shopWindowComponentGUI;
 		private int[,] _shopContentCardsCoordsAndSizes = new int[0, 0];
 		private int _shopScrollValue;
@@ -188,6 +190,9 @@ namespace MinivilleGUI
 			_diceComponentGUI.Rolled += OnDiceRolled;
 			_componentsManagerGUI.Components.Add(_diceComponentGUI);
 
+			_turnComponentGUI = new TurnComponentGUI(SnapMode.Top, Vector2.Zero);
+			_componentsManagerGUI.Components.Add(_turnComponentGUI);
+
 			base.Initialize();
 		}
 
@@ -228,6 +233,7 @@ namespace MinivilleGUI
 	            Content.Load<Texture2D>("Dice/6")
             };
 			
+			// Set Dice Background Texture
 			DiceComponentGUI.BackgroundTexture = Content.Load<Texture2D>("UI/BackgroundTexture");
 
 			// Set Coins Textures
@@ -243,6 +249,10 @@ namespace MinivilleGUI
 			
 			SideButtonComponentGUI.BackgroundTexture = Content.Load<Texture2D>("UI/BackgroundTexture");
 			SideButtonComponentGUI.Font = Content.Load<SpriteFont>("Fonts/Rajdhani-Medium");
+			
+			TurnComponentGUI.PlayerBackgroundTexture = Content.Load<Texture2D>("UI/BackgroundTexture");
+			TurnComponentGUI.EnnemyBackgroundTexture = Content.Load<Texture2D>("UI/RedBackgroundTexture");
+			TurnComponentGUI.Font = Content.Load<SpriteFont>("Fonts/Rajdhani-Medium");
 			
 			DebugFont = Content.Load<SpriteFont>("Fonts/Rajdhani-Medium");
 		}
@@ -487,6 +497,9 @@ namespace MinivilleGUI
 				_shopScrollValue += scrollWheelValueDelta / 2;
 			
 			_playerCoinsHolderComponentGUI.Value = _game.Player.Wallet;
+			_iaCoinsHolderComponentGUI.Value = _game.Computer.Wallet;
+
+			_turnComponentGUI.PlayerTurn = _game.PlayerTurn;
 
 			base.Update(gameTime);
 		}
