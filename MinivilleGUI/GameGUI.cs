@@ -1,10 +1,11 @@
 ﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using Core;
 
 namespace MinivilleGUI
 {
-	public class GameGUI  {
+	public class GameGUI {
 		public int DiceValue;
 
 		public bool PlayerTurn = true;

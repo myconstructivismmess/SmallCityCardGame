@@ -19,6 +19,7 @@ namespace MinivilleGUI
 		private static GameGUI _game;
 		private static SpriteBatch _spriteBatch;
 		public static SpriteFont DebugFont;
+		private Random _random = new Random();
 		
 		
 
@@ -475,7 +476,36 @@ namespace MinivilleGUI
 			}
 			else {
 				// Temporary
+				_game.Computer.OpponentTurn(_game.Player, value);
+				_game.Computer.PlayerTurn(_game.Player, value);
+
+				var shop = _game.Computer.ListBuyableCard(_game.CardStack);
+				var monument = _game.Computer.ListBuyableMonuments();
+				if (_game.Computer.Wallet > 0)
+				{
+					if (_game.CardStack.GetStackSize() > 0) {
+						var choice = _random.Next(0,shop.Count*2);
+						if (monument.Count > 0)
+						{
+							_game.Computer.BuyMonument(monument[0]);
+						}
+						else if (choice == 0 || choice>shop.Count) {}  
+						else
+						{
+							CardType type = shop[choice-1]; 
+							//Add Card
+							_game.Computer.BuyCard(_game.CardStack.PickCard(type));
+							CardComponentGUI card = CardComponentGUI.CreateCard(type, SnapMode.Top, new Vector2(0, -500));
+							_iaCardsComponentsGUI.Add(card);
+							_componentsManagerGUI.ComponentsToAdd.Push(card);
+							
+							SnapIaCards();
+							
+						}
+					}
+				}
 				_game.PlayerTurn = true;
+				_diceComponentGUI.Roll();
 			}
 		}
 
@@ -494,7 +524,7 @@ namespace MinivilleGUI
 			
 			_buyCardsButtonComponentGUI.Enabled = _game.PlayerTurn;
 			_passTurnButtonComponentGUI.Enabled = _game.PlayerTurn;
-			
+			 
 			MouseState mouseState = Mouse.GetState();
 
 			int scrollWheelValueDelta =
