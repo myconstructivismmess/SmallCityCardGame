@@ -4,28 +4,26 @@ using Core;
 
 namespace MinivilleGUI
 {
-	public class GameGUI {
+	public class GameGUI  {
 		public int DiceValue;
 
-		private bool _asPlayed = false;
+		public bool PlayerTurn = true;
 
 		public Player Player;
 		public Player Computer;
+
+		public CardStack CardStack;
 		
 		public GameGUI()
 		{
 			Player = new Player("Player");
 			Computer = new Player("Computer");
+			CardStack = new CardStack();
 		}
-		public Card? ComputerTurn() {
-			if (Computer.Monuments[0].Build) {
-				// 2 Dés
-			}
-			else {
-				// 1 Dés
-			}
 
-			return null;
+
+		public void IsEndgame() {
+		//	if()
 		}
 
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Core
 {
@@ -29,13 +30,13 @@ namespace Core
 
 		protected bool IsPlayerWin()
 		{
-			return HumanPlayer.Monuments[0].Build && HumanPlayer.Monuments[1].Build && HumanPlayer.Monuments[2].Build && HumanPlayer.Monuments[3].Build;
+			return HumanPlayer.Monuments.All(x => x.Build);
 			//return HumanPlayer.Wallet >= 20;
 		}
 
 		protected bool IsComputerWin()
 		{
-			return ComputerPlayer.Monuments[0].Build && ComputerPlayer.Monuments[1].Build && ComputerPlayer.Monuments[2].Build && ComputerPlayer.Monuments[3].Build;
+			return ComputerPlayer.Monuments.All(x => x.Build);
 			//return ComputerPlayer.Wallet >= 20;
 		}
     }

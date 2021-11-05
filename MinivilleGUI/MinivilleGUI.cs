@@ -369,8 +369,40 @@ namespace MinivilleGUI
 						}
 					}
 					
-					if (cardIndex != -1)
-						Console.WriteLine(cardIndex);
+					if (cardIndex != -1) {
+						int g = 0;
+						foreach (var texture in CardComponentGUI.Textures) {
+							if (g == cardIndex) {
+								CardType type = texture.Key switch {
+									"Bakery" => CardType.Bakery,
+									"Business Center" => CardType.BusinessCenter,
+									"Cheese Factory" => CardType.CheeseFactory, 
+									"Coffee" => CardType.CoffeeShop,
+									"Farm" => CardType.Farm, 
+									"Forest" => CardType.Forest, 
+									"Furniture Factory" => CardType.FurnitureFactory,
+									"Grocery Store" => CardType.GroceryStore,
+									"Mine" => CardType.Mine, 
+									"Orchard" => CardType.Orchard,
+									"Restaurant" => CardType.Restaurant,
+									"Stadium" => CardType.Stadium,
+									"Television Channel" => CardType.TelevisionChannel,
+									"Vegetables Market" => CardType.Market,
+									"Wheat Field" => CardType.WheatField,
+									_ => CardType.Bakery,
+								};
+								_game.Player.BuyCard(_game.CardStack.PickCard(type));
+								CardComponentGUI card = CardComponentGUI.CreateCard(type, SnapMode.Bottom, new Vector2(0, 500));
+								_playerCardsComponentsGUI.Add(card);
+								_componentsManagerGUI.ComponentsToAdd.Push(card);
+			
+								SnapPlayerCards();
+								_shopWindowComponentGUI.Open = false;
+								return;
+							}
+							g++;
+						}
+					}
 				}
 			}
 			else
@@ -379,7 +411,8 @@ namespace MinivilleGUI
 		
 		private void OnPassTurnButtonPressed()
 		{
-			_diceComponentGUI.Roll(true);
+			// TODO: Opponent turn here, launch dice and apply card effects.
+			// _diceComponentGUI.Roll(true);
 			/*Random random = new Random();
 
 			if (random.NextDouble() > 0.5f)
@@ -440,6 +473,8 @@ namespace MinivilleGUI
 
 			if (_shopWindowComponentGUI.IsHovered(mouseState))
 				_shopScrollValue += scrollWheelValueDelta / 2;
+			
+			_playerCoinsHolderComponentGUI.Value = _game.Player.Wallet;
 
 			base.Update(gameTime);
 		}
