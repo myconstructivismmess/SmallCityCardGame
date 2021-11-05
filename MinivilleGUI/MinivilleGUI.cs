@@ -230,10 +230,6 @@ namespace MinivilleGUI
 			
 			DiceComponentGUI.BackgroundTexture = Content.Load<Texture2D>("UI/BackgroundTexture");
 
-				// Set Cards Fonts
-			CardComponentGUI.TypeFont = Content.Load<SpriteFont>("Fonts/Rajdhani-SemiBold");
-			CardComponentGUI.DescriptionFont = Content.Load<SpriteFont>("Fonts/Rajdhani-Medium");
-
 			// Set Coins Textures
 			CoinsHolderComponentGUI.Textures = new Dictionary<string, Texture2D>
 			{
@@ -253,7 +249,8 @@ namespace MinivilleGUI
 
 		private void SnapIaCards()
 		{
-			int spacing = 210;
+			int spacing = 150;
+			int verticalSpacing = 120;
 
 			Dictionary<string, List<int>> cardsNumbers = new Dictionary<string, List<int>>();
 			int cardsNumbersLength = 0;
@@ -281,7 +278,7 @@ namespace MinivilleGUI
 						SnapMode.Top,
 						new Vector2(
 							j * spacing - (cardsNumbersLength - 1) / 2f * spacing - i * 25,
-							150 + i * 25
+							verticalSpacing + i * 25
 						)
 					);
 				}
@@ -292,7 +289,8 @@ namespace MinivilleGUI
 		
 		private void SnapPlayerCards()
 		{
-			int spacing = 210;
+			int spacing = 150;
+			int verticalSpacing = 120;
 
 			Dictionary<string, List<int>> cardsNumbers = new Dictionary<string, List<int>>();
 			int cardsNumbersLength = 0;
@@ -320,7 +318,7 @@ namespace MinivilleGUI
 						SnapMode.Bottom,
 						new Vector2(
 							j * spacing - (cardsNumbersLength - 1) / 2f * spacing + i * 25,
-							-150 - i * 25
+							-verticalSpacing - i * 25
 						)
 					);
 				}

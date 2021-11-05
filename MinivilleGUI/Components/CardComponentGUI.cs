@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Core;
@@ -9,10 +8,8 @@ namespace MinivilleGUI.Components
 	public abstract class CardComponentGUI : ComponentGUI
 	{
 		public static Dictionary<string, Texture2D> Textures;
-		public static float TextureScale = 0.30f;
-		public static SpriteFont TypeFont;
-		public static SpriteFont DescriptionFont;
-		
+		public static float TextureScale = 0.1f;
+
 		public abstract string CardName { get; }
 		
 		
