@@ -14,14 +14,21 @@ namespace MinivilleGUI.Components
 		public static int BorderWidth = 40;
 
 		public int Value => _rollValue;
-		public event DiceRolledEvent OnRolled;
+		public event DiceRolledEvent Rolled;
 		
 		private bool _open;
+
+		private bool _twoDice;
 
 		private bool _roll;
 		private float _rollDuration;
 		private float _rollTimer;
 		private int _rollValue = 1;
+		private int _rollValue2 = 1;
+
+		private bool _show;
+		private float _showTimer = 0;
+		private float _showDuration = 2f;
 
 		private Vector2 _position;
 		private Vector2 _targetPosition;
@@ -76,14 +83,29 @@ namespace MinivilleGUI.Components
 				if (_rollTimer >= _rollDuration)
                 {
 	                _rollValue = new Random().Next(1, 7);
+	                if (_twoDice) _rollValue2 = new Random().Next(1, 7);
+	                
 	                _rollTimer = 0;
+	                
+	                if (_rollDuration >= 0.9f)
+	                {
+		                _roll = false;
+		                _show = true;
+	                }
                 }
+			}
 
-				if (_rollDuration >= 0.9f)
+			if (_show)
+			{
+				_showTimer += (float)deltaTime;
+
+				if (_showTimer >= _showDuration)
 				{
-					_roll = false;
+					_show = false;
+					_showTimer = 0;
 					_open = false;
-					OnRolled?.Invoke(_rollValue);
+					
+					Rolled?.Invoke(_rollValue + (_twoDice ? _rollValue2 : 0));
 				}
 			}
 
@@ -115,18 +137,43 @@ namespace MinivilleGUI.Components
 				Color.White
 			);
 
-			spriteBatch.Draw(
-				DiceTextures[_rollValue - 1],
-				new Rectangle(
-					(drawPosition + new Vector2(BorderWidth, BorderWidth)).ToPoint(),
-					new Point(DiceSize, DiceSize)
-				),
-				Color.White
-			);
+			if (_twoDice)
+			{
+				spriteBatch.Draw(
+					DiceTextures[_rollValue - 1],
+					new Rectangle(
+						(drawPosition + new Vector2(BorderWidth, BorderWidth)).ToPoint(),
+						new Point(DiceSize / 2, DiceSize / 2)
+					),
+					Color.White
+				);
+				
+				spriteBatch.Draw(
+					DiceTextures[_rollValue2 - 1],
+					new Rectangle(
+						(drawPosition + new Vector2(BorderWidth + DiceSize / 2, BorderWidth + DiceSize / 2)).ToPoint(),
+						new Point(DiceSize / 2, DiceSize / 2)
+					),
+					Color.White
+				);
+			}
+			else
+			{
+				spriteBatch.Draw(
+					DiceTextures[_rollValue - 1],
+					new Rectangle(
+						(drawPosition + new Vector2(BorderWidth, BorderWidth)).ToPoint(),
+						new Point(DiceSize, DiceSize)
+					),
+					Color.White
+				);
+			}
 		}
 
-		public void Roll()
+		public void Roll(bool twoDice = false)
 		{
+			_twoDice = twoDice;
+			
 			_open = true;
 			_roll = true;
 			_rollDuration = 0.1f;

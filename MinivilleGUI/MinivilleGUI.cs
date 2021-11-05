@@ -167,7 +167,7 @@ namespace MinivilleGUI
 				new SideButtonComponentGUI(
 					SnapMode.Left, 
 					new Vector2(0, 40), 
-					"Acheter une carte  $", 
+					"Acheter une carte  $",
 					true, 
 					33
 				);
@@ -179,12 +179,13 @@ namespace MinivilleGUI
 				SnapMode.Right,
 				Vector2.Zero,
 				(int)_windowSize.X - 350, 
-				400, 
+				500, 
 				"Acheter une carte"
 			);
 			_componentsManagerGUI.Components.Add(_shopWindowComponentGUI);
 			
 			_diceComponentGUI = new DiceComponentGUI(SnapMode.TopRight, new Vector2(0, 0));
+			_diceComponentGUI.Rolled += OnDiceRolled;
 			_componentsManagerGUI.Components.Add(_diceComponentGUI);
 
 			base.Initialize();
@@ -369,7 +370,7 @@ namespace MinivilleGUI
 		
 		private void OnPassTurnButtonPressed()
 		{
-			_diceComponentGUI.Roll();
+			_diceComponentGUI.Roll(true);
 			/*Random random = new Random();
 
 			if (random.NextDouble() > 0.5f)
@@ -402,6 +403,11 @@ namespace MinivilleGUI
 			}*/
 
 			//_passTurnButtonComponentGUI.Enabled = false;
+		}
+
+		private void OnDiceRolled(int value)
+		{
+			Console.WriteLine(value);
 		}
 
 		protected override void Update(GameTime gameTime)
