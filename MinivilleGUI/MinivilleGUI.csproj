@@ -23,4 +23,8 @@
     <ItemGroup>
       <ProjectReference Include="..\Core\Core.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Content\Monuments\Blueprints" />
+      <Folder Include="Content\Monuments\Built" />
+    </ItemGroup>
 </Project>
