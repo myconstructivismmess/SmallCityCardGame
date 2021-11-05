@@ -41,6 +41,8 @@ namespace MinivilleGUI
 		
 		private TurnComponentGUI _turnComponentGUI;
 		
+		private SideDiceSelectorComponentGUI _diceSelectorComponentGUI;
+		
 		private WindowComponentGUI _shopWindowComponentGUI;
 		private int[,] _shopContentCardsCoordsAndSizes = new int[0, 0];
 		private int _shopScrollValue;
@@ -193,6 +195,9 @@ namespace MinivilleGUI
 			_turnComponentGUI = new TurnComponentGUI(SnapMode.Top, Vector2.Zero);
 			_componentsManagerGUI.Components.Add(_turnComponentGUI);
 
+			_diceSelectorComponentGUI = new SideDiceSelectorComponentGUI(SnapMode.BottomLeft, new Vector2(0, -20));
+			_componentsManagerGUI.Components.Add(_diceSelectorComponentGUI);
+
 			base.Initialize();
 		}
 
@@ -253,6 +258,9 @@ namespace MinivilleGUI
 			TurnComponentGUI.PlayerBackgroundTexture = Content.Load<Texture2D>("UI/BackgroundTexture");
 			TurnComponentGUI.EnemyBackgroundTexture = Content.Load<Texture2D>("UI/RedBackgroundTexture");
 			TurnComponentGUI.Font = Content.Load<SpriteFont>("Fonts/Rajdhani-Medium");
+			
+			SideDiceSelectorComponentGUI.BackgroundTexture = Content.Load<Texture2D>("UI/BackgroundTexture");
+			SideDiceSelectorComponentGUI.Font = Content.Load<SpriteFont>("Fonts/Rajdhani-Medium");
 			
 			DebugFont = Content.Load<SpriteFont>("Fonts/Rajdhani-Medium");
 		}
@@ -460,6 +468,7 @@ namespace MinivilleGUI
 
 		private void OnDiceRolled(int value) {
 			bool playerTurn = _game.PlayerTurn;
+			
 			if (playerTurn) {
 				_game.Player.OpponentTurn(_game.Computer, value);
 				_game.Player.PlayerTurn(_game.Computer, value);

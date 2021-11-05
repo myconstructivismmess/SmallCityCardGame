@@ -2,8 +2,6 @@
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 
-using System;
-
 namespace MinivilleGUI.Components
 {
 	public class TurnComponentGUI : ComponentGUI
@@ -20,7 +18,7 @@ namespace MinivilleGUI.Components
 
 		private bool _change;
 		private float _timerChange;
-		private float _timerChangeDuration = 2f;
+		private float _timerChangeDuration = 3.5f;
 
 		public bool PlayerTurn
 		{
@@ -48,12 +46,9 @@ namespace MinivilleGUI.Components
 
 		public override void Update(double deltaTime)
 		{
-			MouseState mouseState = Mouse.GetState();
 			Vector2 textSize = Font.MeasureString(PlayerTurn ? "Tour du joueur" : "Tour de l'ordinateur") * FontScale;
 
-			bool hovered = IsHovered(mouseState);
-			
-			_targetPosition = (hovered || _change) ? Vector2.Zero : SnapMode switch
+			_targetPosition = _change ? Vector2.Zero : SnapMode switch
 			{
 				SnapMode.TopLeft => new Vector2(-(textSize.X + 2 * BorderWidth + 10), 0),
 				SnapMode.Left => new Vector2(-(textSize.X + 2 * BorderWidth + 10), 0),
