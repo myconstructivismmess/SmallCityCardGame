@@ -210,6 +210,8 @@ namespace MinivilleGUI
 
 			_diceSelectorComponentGUI = new SideDiceSelectorComponentGUI(SnapMode.BottomLeft, new Vector2(0, -20));
 			_componentsManagerGUI.Components.Add(_diceSelectorComponentGUI);
+			
+			_diceComponentGUI.Roll();
 
 			base.Initialize();
 		}
@@ -446,8 +448,7 @@ namespace MinivilleGUI
 								SnapPlayerCards();
 								_shopWindowComponentGUI.Open = false;
 								_game.PlayerTurn = false;
-								// TODO: Make it random
-								_diceComponentGUI.Roll(_game.Computer.Monuments[0].Build);
+								_diceComponentGUI.Roll(_game.Player.Monuments[0].Build && _random.Next(0, 3) == 0);
 								return;
 							}
 							g++;
@@ -462,7 +463,7 @@ namespace MinivilleGUI
 		private void OnPassTurnButtonPressed()
 		{
 			_game.PlayerTurn = false;
-			_diceComponentGUI.Roll(_game.Player.Monuments[0].Build);
+			_diceComponentGUI.Roll(_game.Player.Monuments[0].Build && _random.Next(0, 3) == 0);
 			/*Random random = new Random();
 
 			if (random.NextDouble() > 0.5f)
@@ -535,7 +536,7 @@ namespace MinivilleGUI
 					}
 				}
 				_game.PlayerTurn = true;
-				_diceComponentGUI.Roll();
+				_diceComponentGUI.Roll(_diceSelectorComponentGUI.TwoDice);
 			}
 		}
 
@@ -554,7 +555,13 @@ namespace MinivilleGUI
 			
 			_buyCardsButtonComponentGUI.Enabled = _game.PlayerTurn;
 			_passTurnButtonComponentGUI.Enabled = _game.PlayerTurn;
-			 
+			_diceSelectorComponentGUI.Enabled = _game.PlayerTurn && _game.Player.Monuments[0].Build;
+
+			_iaMonumentsHolderComponentGUI.TrainStationBuilt = _game.Computer.Monuments[0].Build;
+			_iaMonumentsHolderComponentGUI.ShoppingCenterBuilt = _game.Computer.Monuments[1].Build;
+			_iaMonumentsHolderComponentGUI.RadioTowerBuilt = _game.Computer.Monuments[2].Build;
+			_iaMonumentsHolderComponentGUI.ThemeParkBuilt = _game.Computer.Monuments[3].Build;
+			
 			MouseState mouseState = Mouse.GetState();
 
 			int scrollWheelValueDelta =
