@@ -49,6 +49,7 @@ namespace MinivilleGUI
 		
 		private WindowComponentGUI _shopWindowComponentGUI;
 		private int[,] _shopContentCardsCoordsAndSizes = new int[0, 0];
+		private CardType[] _shopContentCardsTypes = Array.Empty<CardType>();
 		private int _shopScrollValue;
 
 		private int _scrollWheelValue;
@@ -418,41 +419,18 @@ namespace MinivilleGUI
 						}
 					}
 					
-					if (cardIndex != -1) {
-						int g = 0;
-						foreach (var texture in CardComponentGUI.Textures) {
-							if (g == cardIndex) {
-								CardType type = texture.Key switch {
-									"Bakery" => CardType.Bakery,
-									"Business Center" => CardType.BusinessCenter,
-									"Cheese Factory" => CardType.CheeseFactory, 
-									"Coffee" => CardType.CoffeeShop,
-									"Farm" => CardType.Farm, 
-									"Forest" => CardType.Forest, 
-									"Furniture Factory" => CardType.FurnitureFactory,
-									"Grocery Store" => CardType.GroceryStore,
-									"Mine" => CardType.Mine, 
-									"Orchard" => CardType.Orchard,
-									"Restaurant" => CardType.Restaurant,
-									"Stadium" => CardType.Stadium,
-									"Television Channel" => CardType.TelevisionChannel,
-									"Vegetables Market" => CardType.Market,
-									"Wheat Field" => CardType.WheatField,
-									_ => CardType.Bakery,
-								};
-								_game.Player.BuyCard(_game.CardStack.PickCard(type));
-								CardComponentGUI card = CardComponentGUI.CreateCard(type, SnapMode.Bottom, new Vector2(0, 500));
-								_playerCardsComponentsGUI.Add(card);
-								_componentsManagerGUI.ComponentsToAdd.Push(card);
+					if (cardIndex != -1 && cardIndex >= 0 && cardIndex < _shopContentCardsTypes.Length)
+					{
+						_game.Player.BuyCard(_game.CardStack.PickCard(_shopContentCardsTypes[cardIndex]));
+						CardComponentGUI card = CardComponentGUI.CreateCard(_shopContentCardsTypes[cardIndex], SnapMode.Bottom, new Vector2(0, 500));
+						_playerCardsComponentsGUI.Add(card);
+						_componentsManagerGUI.ComponentsToAdd.Push(card);
 			
-								SnapPlayerCards();
-								_shopWindowComponentGUI.Open = false;
-								_game.PlayerTurn = false;
-								_diceComponentGUI.Roll(_game.Player.Monuments[0].Build && _random.Next(0, 3) == 0);
-								return;
-							}
-							g++;
-						}
+						SnapPlayerCards();
+						
+						_shopWindowComponentGUI.Open = false;
+						_game.PlayerTurn = false;
+						_diceComponentGUI.Roll(_game.Player.Monuments[0].Build && _random.Next(0, 3) == 0);
 					}
 				}
 			}
@@ -595,27 +573,70 @@ namespace MinivilleGUI
 		{
 			int cardSpacing = 20;
 
-			int[,] coords = new int[CardComponentGUI.Textures.Values.Count, 2];
-			int[,] sizes = new int[CardComponentGUI.Textures.Values.Count, 2];
-			Texture2D[] textures = new Texture2D[CardComponentGUI.Textures.Values.Count];
+			List<Vector2> cardCoordinates = new List<Vector2>();
+			List<Vector2> cardSizes = new List<Vector2>();
+			List<Texture2D> cardTextures = new List<Texture2D>();
+			List<CardType> cardTypes = new List<CardType>();
 
 			int width = 0;
-			int index = 0;
-			foreach (Texture2D texture in CardComponentGUI.Textures.Values)
+			foreach (CardType cardType in _game.Player.ListBuyableCard(_game.CardStack))
 			{
-				textures[index] = texture;
-				
-				sizes[index, 1] = _shopWindowComponentGUI.Height - 2 * cardSpacing;
-				sizes[index, 0] = (int)(texture.Width * (sizes[index, 1] / (float)texture.Height));
+				Texture2D texture = CardComponentGUI.GetTexture(cardType);
 
-				width += sizes[index, 0] + cardSpacing;
+				if (!ReferenceEquals(texture, null))
+				{
+					cardTextures.Add(texture);
+					cardTypes.Add(cardType);
+					
+					int cardHeight = _shopWindowComponentGUI.Height - 2 * cardSpacing;
+					int cardWidth = (int)(cardHeight / (float)texture.Height * texture.Width);
+					
+					cardSizes.Add(new Vector2(cardWidth, cardHeight));
 
-				coords[index, 0] = cardSpacing + width;
-				coords[index, 1] = cardSpacing;
-
-				++index;
+					width += cardWidth + cardSpacing;
+					
+					cardCoordinates.Add(
+						new Vector2(
+							cardSpacing + width,
+							cardSpacing
+						)
+					);
+				}
+				else
+				{
+					width += 200;
+				}
 			}
 			
+			foreach (Monument monument in _game.Player.ListBuyableMonuments())
+			{
+				Texture2D texture = MonumentsHolderComponentGUI.GetTexture(monument.CardType);
+
+				if (!ReferenceEquals(texture, null))
+				{
+					cardTextures.Add(texture);
+					cardTypes.Add(monument.CardType);
+					
+					int cardHeight = _shopWindowComponentGUI.Height - 2 * cardSpacing;
+					int cardWidth = (int)(cardHeight / (float)texture.Height * texture.Width);
+					
+					cardSizes.Add(new Vector2(cardWidth, cardHeight));
+
+					width += cardWidth + cardSpacing;
+					
+					cardCoordinates.Add(
+						new Vector2(
+							cardSpacing + width,
+							cardSpacing
+						)
+					);
+				}
+				else
+				{
+					width += 200;
+				}
+			}
+
 			_shopScrollValue = Math.Min(0, _shopScrollValue);
 			_shopScrollValue = Math.Max(-width + _shopWindowComponentGUI.Width - cardSpacing, _shopScrollValue);
 
@@ -623,40 +644,44 @@ namespace MinivilleGUI
 			if (widthSpacing != 0)
 				widthSpacing /= 2;
 
-			_shopContentCardsCoordsAndSizes = new int[textures.GetLength(0), 4];
+			_shopContentCardsCoordsAndSizes = new int[cardTextures.Count, 4];
+			_shopContentCardsTypes = new CardType[cardTextures.Count];
+			
 			GraphicsDeviceManager.GraphicsDevice.SetRenderTarget(_shopWindowComponentGUI.Content);
 			GraphicsDeviceManager.GraphicsDevice.Clear(Color.Transparent);
 			_spriteBatch.Begin();
 
-			for (int i = 0; i < textures.GetLength(0); i++)
+			for (int i = 0; i < cardTextures.Count; i++)
 			{
 				_spriteBatch.Draw(
-					textures[i],
+					cardTextures[i],
 					new Rectangle(
-						-widthSpacing + _shopScrollValue + coords[i, 0] - sizes[i, 0] - cardSpacing,
-						coords[i, 1],
-						sizes[i, 0] + 6,
-						sizes[i, 1] + 4
+						(int)(-widthSpacing + _shopScrollValue + cardCoordinates[i].X - cardSizes[i].X - cardSpacing),
+						(int)cardCoordinates[i].Y,
+						(int)(cardSizes[i].X + 6),
+						(int)(cardSizes[i].Y + 4)
 					),
 					new Color(0.5f, 0.5f, 0.5f)
 				);
 				
-				_shopContentCardsCoordsAndSizes[i, 0] = -widthSpacing + _shopScrollValue + coords[i, 0] - sizes[i, 0] - cardSpacing;
-				_shopContentCardsCoordsAndSizes[i, 1] = coords[i, 1];
-				_shopContentCardsCoordsAndSizes[i, 2] = sizes[i, 0];
-				_shopContentCardsCoordsAndSizes[i, 3] = sizes[i, 1];
+				_shopContentCardsCoordsAndSizes[i, 0] = (int)(-widthSpacing + _shopScrollValue + cardCoordinates[i].X - cardSizes[i].X - cardSpacing);
+				_shopContentCardsCoordsAndSizes[i, 1] = (int)cardCoordinates[i].Y;
+				_shopContentCardsCoordsAndSizes[i, 2] = (int)cardSizes[i].X;
+				_shopContentCardsCoordsAndSizes[i, 3] = (int)cardSizes[i].Y;
 				
 				_spriteBatch.Draw(
-					textures[i],
+					cardTextures[i],
 					new Rectangle(
-						-widthSpacing + _shopScrollValue + coords[i, 0] - sizes[i, 0] - cardSpacing,
-						coords[i, 1],
-						sizes[i, 0],
-						sizes[i, 1]
+						(int)(-widthSpacing + _shopScrollValue + cardCoordinates[i].X - cardSizes[i].X - cardSpacing),
+						(int)cardCoordinates[i].Y,
+						(int)cardSizes[i].X,
+						(int)cardSizes[i].Y
 					),
 					Color.White
 				);
 			}
+
+			_shopContentCardsTypes = cardTypes.ToArray();
 
 			_spriteBatch.End();
 			GraphicsDeviceManager.GraphicsDevice.SetRenderTarget(null);

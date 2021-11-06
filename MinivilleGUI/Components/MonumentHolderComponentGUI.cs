@@ -1,7 +1,11 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿#nullable enable
+
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 using System.Collections.Generic;
+
+using Core;
 
 namespace MinivilleGUI.Components
 {
@@ -92,6 +96,26 @@ namespace MinivilleGUI.Components
 				),
 				Color.White
 			);
+		}
+		
+		public static Texture2D? GetTexture(CardType cardType)
+		{
+			string? textureName = cardType switch
+			{
+				CardType.Station => "Train Station",
+				CardType.ShoppingCenter => "Shopping Center",
+				CardType.RadioTower => "Radio Tower",
+				CardType.ThemePark => "Theme Park",
+				_ => null
+			};
+			
+			if (textureName == null)
+				return null;
+			
+			if (BuildingTextures.ContainsKey(textureName))
+				return BuildingTextures[textureName];
+			
+			return null;
 		}
 
 		public override int ZIndex => 1;

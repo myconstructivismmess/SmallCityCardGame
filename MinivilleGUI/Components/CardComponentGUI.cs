@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿#nullable enable
+
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 using System.Collections.Generic;
@@ -47,17 +49,40 @@ namespace MinivilleGUI.Components
 					return new OrchardCardGUI(snapMode, snappedPosition);
 				case CardType.Market:
 					return new VegetablesMarketCardGUI(snapMode, snappedPosition);
-				case CardType.Station:
-					break;
-				case CardType.ShoppingCenter:
-					break;
-				case CardType.RadioTower:
-					break;
-				case CardType.ThemePark:
-					break;
 			}
 			// Very temporary
 			return new BakeryCardGUI(snapMode, snappedPosition);
+		}
+
+		public static Texture2D? GetTexture(CardType cardType)
+		{
+			string? textureName = cardType switch
+			{
+				CardType.WheatField => "Wheat Field",
+				CardType.Farm => "Farm",
+				CardType.Bakery => "Bakery",
+				CardType.CoffeeShop => "Coffee",
+				CardType.GroceryStore => "Grocery Store",
+				CardType.Forest => "Forest",
+				CardType.BusinessCenter => "Business Center",
+				CardType.Stadium => "Stadium",
+				CardType.TelevisionChannel => "Television Channel",
+				CardType.CheeseFactory => "Cheese Factory",
+				CardType.FurnitureFactory => "Furniture Factory",
+				CardType.Mine => "Mine",
+				CardType.Restaurant => "Restaurant",
+				CardType.Orchard => "Orchard",
+				CardType.Market => "Vegetables Market",
+				_ => null
+			};
+			
+			if (textureName == null)
+                return null;
+			
+			if (Textures.ContainsKey(textureName))
+                return Textures[textureName];
+			
+			return null;
 		}
 		
 		protected CardComponentGUI(SnapMode snapMode, Vector2 snappedPosition) : base(snapMode, snappedPosition) {}
