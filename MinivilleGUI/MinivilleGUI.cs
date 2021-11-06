@@ -35,6 +35,9 @@ namespace MinivilleGUI
 		private CoinsHolderComponentGUI _playerCoinsHolderComponentGUI;
 		private CoinsHolderComponentGUI _iaCoinsHolderComponentGUI;
 		
+		private MonumentsHolderComponentGUI _playerMonumentsHolderComponentGUI;
+		private MonumentsHolderComponentGUI _iaMonumentsHolderComponentGUI;
+		
 		private SideButtonComponentGUI _passTurnButtonComponentGUI;
 		private SideButtonComponentGUI _buyCardsButtonComponentGUI;
 		
@@ -155,6 +158,15 @@ namespace MinivilleGUI
 			_iaCoinsHolderComponentGUI.SnapTo(new Vector2(50, 50));
 			_componentsManagerGUI.Components.Add(_iaCoinsHolderComponentGUI);
 
+
+			_playerMonumentsHolderComponentGUI =
+				new MonumentsHolderComponentGUI(SnapMode.BottomLeft, Vector2.Zero, 200);
+			_componentsManagerGUI.Components.Add(_playerMonumentsHolderComponentGUI);
+			
+			_iaMonumentsHolderComponentGUI =
+				new MonumentsHolderComponentGUI(SnapMode.TopRight, Vector2.Zero, 200);
+			_componentsManagerGUI.Components.Add(_iaMonumentsHolderComponentGUI);
+
 			// Button to Pass the turn Initialization
 			_passTurnButtonComponentGUI =
 				new SideButtonComponentGUI(
@@ -228,6 +240,24 @@ namespace MinivilleGUI
 				{ "Wheat Field", Content.Load<Texture2D>("Cards/Wheat Field") }
 			};
 			
+			// Set Monuments Blueprint Textures
+			MonumentsHolderComponentGUI.BlueprintTextures = new Dictionary<string, Texture2D>
+			{
+				{ "Radio Tower", Content.Load<Texture2D>("Monuments/Blueprint/Radio Tower") },
+				{ "Shopping Center", Content.Load<Texture2D>("Monuments/Blueprint/Shopping Center") },
+				{ "Theme Park", Content.Load<Texture2D>("Monuments/Blueprint/Theme Park") },
+				{ "Train Station", Content.Load<Texture2D>("Monuments/Blueprint/Train Station") }
+			};
+			
+			// Set Monuments Building Textures
+			MonumentsHolderComponentGUI.BuildingTextures = new Dictionary<string, Texture2D>
+            {
+                { "Radio Tower", Content.Load<Texture2D>("Monuments/Building/Radio Tower") },
+                { "Shopping Center", Content.Load<Texture2D>("Monuments/Building/Shopping Center") },
+                { "Theme Park", Content.Load<Texture2D>("Monuments/Building/Theme Park") },
+                { "Train Station", Content.Load<Texture2D>("Monuments/Building/Train Station") }
+            };
+
 			// Set Dice Textures
 			DiceComponentGUI.DiceTextures = new []
             {
@@ -238,7 +268,7 @@ namespace MinivilleGUI
 	            Content.Load<Texture2D>("Dice/5"),
 	            Content.Load<Texture2D>("Dice/6")
             };
-			
+
 			// Set Dice Background Texture
 			DiceComponentGUI.BackgroundTexture = Content.Load<Texture2D>("UI/BackgroundTexture");
 

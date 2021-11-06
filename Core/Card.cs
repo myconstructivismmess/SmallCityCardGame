@@ -1,7 +1,4 @@
-﻿using System;
-using System.Net.Configuration;
-
-namespace Core {
+﻿namespace Core {
 	
 	// Card
 	public abstract class Card
@@ -20,7 +17,7 @@ namespace Core {
 	public class WheatField : Card
 	{
 		public override string Name => "Wheat Field";
-		public override int[] ActivationValue => new int[]{1};
+		public override int[] ActivationValue => new []{1};
 		public override int Profit => 1;
 		public override int Cost => 1;
 		public override CardType CardType => CardType.WheatField;
@@ -32,7 +29,7 @@ namespace Core {
 	public class Farm : Card
 	{
 		public override string Name => "Farm";
-		public override int[] ActivationValue => new int[]{2};
+		public override int[] ActivationValue => new []{2};
 		public override int Profit => 1;
 		public override int Cost => 1;
 		public override CardType CardType => CardType.Farm;
@@ -44,7 +41,7 @@ namespace Core {
 	public class Bakery : Card
 	{
 		public override string Name => "Bakery";
-		public override int[] ActivationValue => new int[]{2, 3};
+		public override int[] ActivationValue => new []{2, 3};
 		public override int Profit => 1;
 		public override int Cost => 1;
 		public override CardType CardType => CardType.Bakery;
@@ -56,7 +53,7 @@ namespace Core {
 	public class CoffeeShop : Card
 	{
 		public override string Name => "Coffee Shop";
-		public override int[] ActivationValue => new int[]{3};
+		public override int[] ActivationValue => new []{3};
 		public override int Profit => 1;
 		public override int Cost => 2;
 		public override CardType CardType => CardType.CoffeeShop;
@@ -68,7 +65,7 @@ namespace Core {
 	public class GroceryStore : Card
 	{
 		public override string Name => "Grocery Store";
-		public override int[] ActivationValue => new int[]{4};
+		public override int[] ActivationValue => new []{4};
 		public override int Profit => 3;
 		public override int Cost => 2;
 		public override CardType CardType => CardType.GroceryStore;
@@ -80,7 +77,7 @@ namespace Core {
 	public class Forest : Card
 	{
 		public override string Name => "Forest";
-		public override int[] ActivationValue => new int[]{5};
+		public override int[] ActivationValue => new []{5};
 		public override int Profit => 1;
 		public override int Cost => 3;
 		public override CardType CardType => CardType.Forest;
@@ -92,7 +89,7 @@ namespace Core {
 	public class BusinessCenter : Card
 	{
 		public override string Name => "Business Center";
-		public override int[] ActivationValue => new int[]{6};
+		public override int[] ActivationValue => new []{6};
 		public override int Profit => 3;
 		public override int Cost => 8;
 		public override CardType CardType => CardType.BusinessCenter;
@@ -104,7 +101,7 @@ namespace Core {
 	public class Stadium : Card
 	{
 		public override string Name => "Stadium";
-		public override int[] ActivationValue => new int[]{6};
+		public override int[] ActivationValue => new []{6};
 		public override int Profit => 3;
 		public override int Cost => 6;
 		public override CardType CardType => CardType.Stadium;
@@ -116,7 +113,7 @@ namespace Core {
 	public class TelevisionChannel : Card
 	{
 		public override string Name => "Television Channel";
-		public override int[] ActivationValue => new int[]{6};
+		public override int[] ActivationValue => new []{6};
 		public override int Profit => 5;
 		public override int Cost => 7;
 		public override CardType CardType => CardType.TelevisionChannel;
@@ -128,7 +125,7 @@ namespace Core {
 	public class CheeseShop : Card
 	{
 		public override string Name => "Cheese Shop";
-		public override int[] ActivationValue => new int[]{7};
+		public override int[] ActivationValue => new []{7};
 		public override int Profit => 3;
 		public override int Cost => 5;
 		public override CardType CardType => CardType.CheeseFactory;
@@ -140,7 +137,7 @@ namespace Core {
 	public class FurnitureShop : Card
 	{
 		public override string Name => "Furniture Shop";
-		public override int[] ActivationValue => new int[]{8};
+		public override int[] ActivationValue => new []{8};
 		public override int Profit => 3;
 		public override int Cost => 3;
 		public override CardType CardType => CardType.FurnitureFactory;
@@ -152,7 +149,7 @@ namespace Core {
 	public class Mine : Card
 	{
 		public override string Name => "Mine";
-		public override int[] ActivationValue => new int[]{9};
+		public override int[] ActivationValue => new []{9};
 		public override int Profit => 5;
 		public override int Cost => 6;
 		public override CardType CardType => CardType.Mine;
@@ -164,7 +161,7 @@ namespace Core {
 	public class Restaurant : Card
 	{
 		public override string Name => "Restaurant";
-		public override int[] ActivationValue => new int[]{9, 10};
+		public override int[] ActivationValue => new []{9, 10};
 		public override int Profit => 2;
 		public override int Cost => 3;
 		public override CardType CardType => CardType.Restaurant;
@@ -176,7 +173,7 @@ namespace Core {
 	public class Orchard : Card
 	{
 		public override string Name => "Orchard";
-		public override int[] ActivationValue => new int[]{10};
+		public override int[] ActivationValue => new []{10};
 		public override int Profit => 3;
 		public override int Cost => 3;
 		public override CardType CardType => CardType.Orchard;
@@ -188,7 +185,7 @@ namespace Core {
 	public class Market : Card
 	{
 		public override string Name => "Market";
-		public override int[] ActivationValue => new int[]{11, 12};
+		public override int[] ActivationValue => new []{11, 12};
 		public override int Profit => 2;
 		public override int Cost => 2;
 		public override CardType CardType => CardType.Market;
@@ -203,9 +200,10 @@ namespace Core {
 	{
 		public abstract string Name { get; }
 		public abstract int Cost { get; }
-		public abstract bool Build { get; set; }
 		public abstract CardType CardType { get; }
 		public abstract CardCategory CardCategory { get; }
+		
+		public bool Build = false;
 	}
 	
 	// 16
@@ -213,34 +211,30 @@ namespace Core {
 	{
 		public override string Name => "Station";
 		public override int Cost => 4;
-		public override bool Build { get; set; }
 		public override CardType CardType => CardType.Station;
 		public override CardCategory CardCategory => CardCategory.Building;
 	}
 	// 17
-	public class ShoppingCenter: Monument
+	public class ShoppingCenter : Monument
 	{
 		public override string Name => "ShoppingCenter";
 		public override int Cost => 10;
-		public override bool Build { get; set; }
 		public override CardType CardType => CardType.ShoppingCenter;
 		public override CardCategory CardCategory => CardCategory.Building;
 	}
 	// 18
-	public class RadioTower: Monument
+	public class RadioTower : Monument
 	{
 		public override string Name => "RadioTower";
 		public override int Cost => 22;
-		public override bool Build { get; set; }
 		public override CardType CardType => CardType.RadioTower;
 		public override CardCategory CardCategory => CardCategory.Building;
 	}
 	// 19
-	public class ThemePark: Monument
+	public class ThemePark : Monument
 	{
 		public override string Name => "ThemePark";
 		public override int Cost => 16;
-		public override bool Build { get; set; }
 		public override CardType CardType => CardType.ThemePark;
 		public override CardCategory CardCategory => CardCategory.Building;
 	}

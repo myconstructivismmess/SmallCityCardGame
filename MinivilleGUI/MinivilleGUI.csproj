@@ -19,18 +19,26 @@
     </ItemGroup>
     <ItemGroup>
         <MonoGameContentReference Include="Content\Content.mgcb" />
+        <MonoGameContentReference Remove="Content\Monuments\Blueprints\**" />
+        <MonoGameContentReference Remove="Content\Monuments\Built\**" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\Core\Core.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Content\Monuments\Blueprints" />
-      <Folder Include="Content\Monuments\Built" />
     </ItemGroup>
     <ItemGroup>
       <None Remove="Content\Monuments\Built\Theme Park.png" />
       <None Remove="Content\Monuments\Blueprints\Station.png" />
       <None Remove="Content\Monuments\Built\Shopping Center.png" />
       <None Remove="Content\Monuments\Built\Radio Tower.png" />
+      <None Remove="Content\Monuments\Blueprints\**" />
+      <None Remove="Content\Monuments\Built\**" />
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Remove="Content\Monuments\Blueprints\**" />
+      <Compile Remove="Content\Monuments\Built\**" />
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Remove="Content\Monuments\Blueprints\**" />
+      <EmbeddedResource Remove="Content\Monuments\Built\**" />
     </ItemGroup>
 </Project>
