@@ -419,14 +419,31 @@ namespace MinivilleGUI
 						}
 					}
 					
-					if (cardIndex != -1 && cardIndex >= 0 && cardIndex < _shopContentCardsTypes.Length)
-					{
-						_game.Player.BuyCard(_game.CardStack.PickCard(_shopContentCardsTypes[cardIndex]));
-						CardComponentGUI card = CardComponentGUI.CreateCard(_shopContentCardsTypes[cardIndex], SnapMode.Bottom, new Vector2(0, 500));
-						_playerCardsComponentsGUI.Add(card);
-						_componentsManagerGUI.ComponentsToAdd.Push(card);
+					if (cardIndex != -1 && cardIndex >= 0 && cardIndex < _shopContentCardsTypes.Length) {
+						CardType type = _shopContentCardsTypes[cardIndex];
+						switch (type) {
+							case CardType.Station:
+								_game.Player.BuyMonument(_game.Player.Monuments[0]);
+								break;
+							case CardType.ShoppingCenter:
+								_game.Player.BuyMonument(_game.Player.Monuments[1]);
+								break;
+							case CardType.RadioTower:
+								_game.Player.BuyMonument(_game.Player.Monuments[2]);
+								break;
+							case CardType.ThemePark:
+								_game.Player.BuyMonument(_game.Player.Monuments[3]);
+								break;
+							default:
+								_game.Player.BuyCard(_game.CardStack.PickCard(type));
+								CardComponentGUI card = CardComponentGUI.CreateCard(_shopContentCardsTypes[cardIndex], SnapMode.Bottom, new Vector2(0, 500));
+								_playerCardsComponentsGUI.Add(card);
+								_componentsManagerGUI.ComponentsToAdd.Push(card);
 			
-						SnapPlayerCards();
+								SnapPlayerCards();
+								break;
+								
+						}
 						
 						_shopWindowComponentGUI.Open = false;
 						_game.PlayerTurn = false;
@@ -533,12 +550,23 @@ namespace MinivilleGUI
 			
 			_buyCardsButtonComponentGUI.Enabled = _game.PlayerTurn;
 			_passTurnButtonComponentGUI.Enabled = _game.PlayerTurn;
-			_diceSelectorComponentGUI.Enabled = _game.PlayerTurn && _game.Player.Monuments[0].Build;
+			_diceSelectorComponentGUI.Enabled = _game.Player.Monuments[0].Build;
 
 			_iaMonumentsHolderComponentGUI.TrainStationBuilt = _game.Computer.Monuments[0].Build;
 			_iaMonumentsHolderComponentGUI.ShoppingCenterBuilt = _game.Computer.Monuments[1].Build;
 			_iaMonumentsHolderComponentGUI.RadioTowerBuilt = _game.Computer.Monuments[2].Build;
 			_iaMonumentsHolderComponentGUI.ThemeParkBuilt = _game.Computer.Monuments[3].Build;
+			
+			_playerMonumentsHolderComponentGUI.TrainStationBuilt = _game.Player.Monuments[0].Build;
+			_playerMonumentsHolderComponentGUI.ShoppingCenterBuilt = _game.Player.Monuments[1].Build;
+			_playerMonumentsHolderComponentGUI.RadioTowerBuilt = _game.Player.Monuments[2].Build;
+			_playerMonumentsHolderComponentGUI.ThemeParkBuilt = _game.Player.Monuments[3].Build;
+			
+			// TODO: End Screen 
+			if(_game.IsPlayerWin())
+				Exit();
+			if(_game.IsComputerWin())
+				Exit();
 			
 			MouseState mouseState = Mouse.GetState();
 

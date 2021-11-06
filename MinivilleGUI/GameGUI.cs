@@ -1,6 +1,7 @@
 ﻿#nullable enable
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core;
 
 namespace MinivilleGUI
@@ -23,8 +24,16 @@ namespace MinivilleGUI
 		}
 
 
-		public void IsEndgame() {
-		//	if()
+		public bool IsPlayerWin()
+		{
+			return Player.Monuments.All(x => x.Build);
+			//return HumanPlayer.Wallet >= 20;
+		}
+		
+		public bool IsComputerWin()
+		{
+			return Computer.Monuments.All(x => x.Build);
+			//return HumanPlayer.Wallet >= 20;
 		}
 
 
