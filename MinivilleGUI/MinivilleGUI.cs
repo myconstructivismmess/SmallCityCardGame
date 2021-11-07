@@ -564,6 +564,9 @@ namespace MinivilleGUI
 				SnapIaCards();
 			}
 			*/
+
+			_endComponentGUI.Visible = _game.IsComputerWin() || _game.IsPlayerWin();
+			_endComponentGUI.Success = _game.IsPlayerWin();
 			
 			_buyCardsButtonComponentGUI.Enabled = _game.PlayerTurn;
 			_passTurnButtonComponentGUI.Enabled = _game.PlayerTurn;
