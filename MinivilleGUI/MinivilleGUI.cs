@@ -458,7 +458,7 @@ namespace MinivilleGUI
 		private void OnPassTurnButtonPressed()
 		{
 			_game.PlayerTurn = false;
-			_diceComponentGUI.Roll(_game.Player.Monuments[0].Build && _random.Next(0, 3) == 0);
+			_diceComponentGUI.Roll(_game.Computer.Monuments[0].Build && _random.Next(0, 3) == 0);
 			/*Random random = new Random();
 
 			if (random.NextDouble() > 0.5f)
@@ -493,17 +493,26 @@ namespace MinivilleGUI
 			//_passTurnButtonComponentGUI.Enabled = false;
 		}
 
-		private void OnDiceRolled(int value) {
+		private void OnDiceRolled(int value1, int value2) {
 			bool playerTurn = _game.PlayerTurn;
+			int value = value1 + value2;
 			
 			if (playerTurn) {
 				_game.Player.OpponentTurn(_game.Computer, value);
 				_game.Player.PlayerTurn(_game.Computer, value);
+				if (_game.Player.Monuments[3].Build && value1 == value2) {
+					_diceComponentGUI.Roll(_diceSelectorComponentGUI.TwoDice);
+				}
 			}
 			else {
 				// Temporary
 				_game.Computer.OpponentTurn(_game.Player, value);
 				_game.Computer.PlayerTurn(_game.Player, value);
+				
+				if (_game.Computer.Monuments[3].Build && value1 == value2) {
+					_diceComponentGUI.Roll(_game.Computer.Monuments[0].Build && _random.Next(0, 3) == 0);
+					return;
+				}
 
 				var shop = _game.Computer.ListBuyableCard(_game.CardStack);
 				var monument = _game.Computer.ListBuyableMonuments();

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace MinivilleGUI.Components
 {
-	public delegate void DiceRolledEvent(int value);
+	public delegate void DiceRolledEvent(int value1, int value2);
 	
 	public class DiceComponentGUI : ComponentGUI
 	{
@@ -105,7 +105,7 @@ namespace MinivilleGUI.Components
 					_showTimer = 0;
 					_open = false;
 					
-					Rolled?.Invoke(_rollValue + (_twoDice ? _rollValue2 : 0));
+					Rolled?.Invoke(_rollValue , (_twoDice ? _rollValue2 : 0));
 				}
 			}
 
