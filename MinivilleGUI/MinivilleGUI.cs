@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 using MinivilleGUI.Components;
 
@@ -46,6 +46,8 @@ namespace MinivilleGUI
 		private TurnComponentGUI _turnComponentGUI;
 		
 		private SideDiceSelectorComponentGUI _diceSelectorComponentGUI;
+		
+		private EndComponentGUI _endComponentGUI;
 		
 		private WindowComponentGUI _shopWindowComponentGUI;
 		private int[,] _shopContentCardsCoordsAndSizes = new int[0, 0];
@@ -212,6 +214,9 @@ namespace MinivilleGUI
 			_diceSelectorComponentGUI = new SideDiceSelectorComponentGUI(SnapMode.BottomLeft, new Vector2(0, -20));
 			_componentsManagerGUI.Components.Add(_diceSelectorComponentGUI);
 			
+			_endComponentGUI = new EndComponentGUI(SnapMode.Free, Vector2.Zero);
+			_componentsManagerGUI.Components.Add(_endComponentGUI);
+			
 			_diceComponentGUI.Roll();
 
 			base.Initialize();
@@ -282,6 +287,9 @@ namespace MinivilleGUI
 				{"5", Content.Load<Texture2D>("Coins/5")},
 				{"10", Content.Load<Texture2D>("Coins/10")}
 			};
+			
+			EndComponentGUI.FailTexture = Content.Load<Texture2D>("UI/Fail");
+			EndComponentGUI.SuccessTexture = Content.Load<Texture2D>("UI/Success");
 
 			WindowComponentGUI.BackgroundTexture = Content.Load<Texture2D>("UI/BackgroundTexture");
 			WindowComponentGUI.Font = Content.Load<SpriteFont>("Fonts/Rajdhani-Medium");
