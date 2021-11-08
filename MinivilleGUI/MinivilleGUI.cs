@@ -582,12 +582,6 @@ namespace MinivilleGUI
 			_playerMonumentsHolderComponentGUI.RadioTowerBuilt = _game.Player.Monuments[2].Build;
 			_playerMonumentsHolderComponentGUI.ThemeParkBuilt = _game.Player.Monuments[3].Build;
 			
-			// TODO: End Screen 
-			if(_game.IsPlayerWin())
-				Exit();
-			if(_game.IsComputerWin())
-				Exit();
-			
 			MouseState mouseState = Mouse.GetState();
 
 			int scrollWheelValueDelta =
