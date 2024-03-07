@@ -1,7 +1,7 @@
 # Miniville
 
 Produit par : 
-- Tom Rouet
+- Aubrey Rouet
 - Eliot Blondeel
 - Yohann Courtand
 - Stanis Kapusta
